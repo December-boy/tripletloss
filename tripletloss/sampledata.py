@@ -31,7 +31,7 @@ class sampledata():
                 self._sample_person[personname] = []
                 self._sample_person[personname].append(picname)
             self._sample_label[personname] = int(line.split(' ')[1])
-        print len(self._sample_person)
+        print 'len of samples:',len(self._sample_person)
 
 if __name__ == '__main__':
 

@@ -64,7 +64,7 @@ class DataLayer(caffe.Layer):
         im_blob = []
         labels_blob = []
         for i in range(self._batch_size):
-            im = cv2.imread(config.IMAGEPATH+sample[i])
+            im = cv2.imread(config.IMAGEPATH+sample[i].split('@')[1])
             personname = sample[i].split('@')[0]
             #print str(i)+':'+personname+','+str(len(sample))
             labels_blob.append(self.data_container._sample_label[personname])
@@ -79,7 +79,7 @@ class DataLayer(caffe.Layer):
     def setup(self, bottom, top):
         """Setup the RoIDataLayer."""
         # parse the layer parameter string, which must be valid YAML
-        layer_params = yaml.load(self.param_str_)    
+        layer_params = yaml.load(self.param_str)# lmq delete str_  2 str    
         self._batch_size = config.BATCH_SIZE
         self._triplet = self._batch_size/3
         assert self._batch_size % 3 == 0

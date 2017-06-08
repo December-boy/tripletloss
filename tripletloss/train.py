@@ -15,6 +15,7 @@ import google.protobuf as pb2
 import sys
 import config
 import _init_paths
+import pdb
 
 class SolverWrapper(object):
     """A simple wrapper around Caffe's solver.
@@ -81,14 +82,15 @@ class SolverWrapper(object):
 if __name__ == '__main__':
     """Train network."""
     solver_prototxt = '../solver.prototxt'
-    output_dir = '../models/vgg_face_tripletloss/'
-    pretrained_model = '../models/_iter_40000.caffemodel'
-    #pretrained_model = None
+    output_dir = '../models/'
+    #pretrained_model = '../models/vggnet_pretrained.caffemodel'
+    pretrained_model = None
     #pretrained_model = '/home/seal/dataset/fast-rcnn/data/vgg_face_caffe/VGG_FACE.caffemodel'
     max_iters = config.MAX_ITERS
     sw = SolverWrapper(solver_prototxt, output_dir,pretrained_model)
     
     print 'Solving...'
+#    pdb.set_trace()
     sw.train_model(max_iters)
     print 'done solving'
 

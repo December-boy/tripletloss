@@ -1,0 +1,5841 @@
+WARNING: Logging before InitGoogleLogging() is written to STDERR
+I0608 11:29:44.199920 19748 solver.cpp:44] Initializing solver from parameters: 
+test_iter: 1000
+test_interval: 1000
+base_lr: 0.01
+display: 20
+max_iter: 400000
+lr_policy: "step"
+gamma: 0.1
+momentum: 0.9
+weight_decay: 0.0005
+stepsize: 20000
+snapshot: 10000
+snapshot_prefix: "../models/vggnet_softmax"
+solver_mode: GPU
+net: "../train.prototxt"
+I0608 11:29:44.200028 19748 solver.cpp:87] Creating training net from net file: ../train.prototxt
+I0608 11:29:44.200850 19748 net.cpp:51] Initializing net from parameters: 
+name: "VGG_FACE_16_layers"
+state {
+  phase: TRAIN
+}
+layer {
+  name: "data"
+  type: "Python"
+  top: "data"
+  top: "labels"
+  python_param {
+    module: "datalayer"
+    layer: "DataLayer"
+  }
+}
+layer {
+  name: "conv1_1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1_1"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 64
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu1_1"
+  type: "ReLU"
+  bottom: "conv1_1"
+  top: "conv1_1"
+}
+layer {
+  name: "conv1_2"
+  type: "Convolution"
+  bottom: "conv1_1"
+  top: "conv1_2"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 64
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu1_2"
+  type: "ReLU"
+  bottom: "conv1_2"
+  top: "conv1_2"
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1_2"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "conv2_1"
+  type: "Convolution"
+  bottom: "pool1"
+  top: "conv2_1"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 128
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu2_1"
+  type: "ReLU"
+  bottom: "conv2_1"
+  top: "conv2_1"
+}
+layer {
+  name: "conv2_2"
+  type: "Convolution"
+  bottom: "conv2_1"
+  top: "conv2_2"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 128
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu2_2"
+  type: "ReLU"
+  bottom: "conv2_2"
+  top: "conv2_2"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2_2"
+  top: "pool2"
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "conv3_1"
+  type: "Convolution"
+  bottom: "pool2"
+  top: "conv3_1"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 256
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu3_1"
+  type: "ReLU"
+  bottom: "conv3_1"
+  top: "conv3_1"
+}
+layer {
+  name: "conv3_2"
+  type: "Convolution"
+  bottom: "conv3_1"
+  top: "conv3_2"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 256
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu3_2"
+  type: "ReLU"
+  bottom: "conv3_2"
+  top: "conv3_2"
+}
+layer {
+  name: "conv3_3"
+  type: "Convolution"
+  bottom: "conv3_2"
+  top: "conv3_3"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 256
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu3_3"
+  type: "ReLU"
+  bottom: "conv3_3"
+  top: "conv3_3"
+}
+layer {
+  name: "pool3"
+  type: "Pooling"
+  bottom: "conv3_3"
+  top: "pool3"
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "conv4_1"
+  type: "Convolution"
+  bottom: "pool3"
+  top: "conv4_1"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu4_1"
+  type: "ReLU"
+  bottom: "conv4_1"
+  top: "conv4_1"
+}
+layer {
+  name: "conv4_2"
+  type: "Convolution"
+  bottom: "conv4_1"
+  top: "conv4_2"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu4_2"
+  type: "ReLU"
+  bottom: "conv4_2"
+  top: "conv4_2"
+}
+layer {
+  name: "conv4_3"
+  type: "Convolution"
+  bottom: "conv4_2"
+  top: "conv4_3"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu4_3"
+  type: "ReLU"
+  bottom: "conv4_3"
+  top: "conv4_3"
+}
+layer {
+  name: "pool4"
+  type: "Pooling"
+  bottom: "conv4_3"
+  top: "pool4"
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "conv5_1"
+  type: "Convolution"
+  bottom: "pool4"
+  top: "conv5_1"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu5_1"
+  type: "ReLU"
+  bottom: "conv5_1"
+  top: "conv5_1"
+}
+layer {
+  name: "conv5_2"
+  type: "Convolution"
+  bottom: "conv5_1"
+  top: "conv5_2"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu5_2"
+  type: "ReLU"
+  bottom: "conv5_2"
+  top: "conv5_2"
+}
+layer {
+  name: "conv5_3"
+  type: "Convolution"
+  bottom: "conv5_2"
+  top: "conv5_3"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu5_3"
+  type: "ReLU"
+  bottom: "conv5_3"
+  top: "conv5_3"
+}
+layer {
+  name: "pool5"
+  type: "Pooling"
+  bottom: "conv5_3"
+  top: "pool5"
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "fc6"
+  type: "InnerProduct"
+  bottom: "pool5"
+  top: "fc6"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: 4096
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu6"
+  type: "ReLU"
+  bottom: "fc6"
+  top: "fc6"
+}
+layer {
+  name: "drop6"
+  type: "Dropout"
+  bottom: "fc6"
+  top: "fc6"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "fc7"
+  type: "InnerProduct"
+  bottom: "fc6"
+  top: "fc7"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: 4096
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu7"
+  type: "ReLU"
+  bottom: "fc7"
+  top: "fc7"
+}
+layer {
+  name: "drop7"
+  type: "Dropout"
+  bottom: "fc7"
+  top: "fc7"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "norm2"
+  type: "Python"
+  bottom: "fc7"
+  top: "norm2"
+  python_param {
+    module: "norm2layer"
+    layer: "Norm2Layer"
+  }
+}
+layer {
+  name: "fc9_1"
+  type: "InnerProduct"
+  bottom: "norm2"
+  top: "fc9_1"
+  param {
+    lr_mult: 1
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: 34
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "triplet_select"
+  type: "Python"
+  bottom: "fc9_1"
+  bottom: "labels"
+  top: "archor"
+  top: "positive"
+  top: "negative"
+  python_param {
+    module: "tripletselectlayer"
+    layer: "TripletSelectLayer"
+  }
+}
+layer {
+  name: "tripletloss"
+  type: "Python"
+  bottom: "archor"
+  bottom: "positive"
+  bottom: "negative"
+  top: "loss"
+  loss_weight: 1
+  python_param {
+    module: "tripletlosslayer"
+    layer: "TripletLayer"
+    param_str: "\'margin\': 0.2"
+  }
+}
+I0608 11:29:44.200958 19748 layer_factory.hpp:77] Creating layer data
+I0608 11:29:44.245370 19748 net.cpp:84] Creating Layer data
+I0608 11:29:44.245398 19748 net.cpp:380] data -> data
+I0608 11:29:44.245409 19748 net.cpp:380] data -> labels
+I0608 11:29:56.155128 19748 net.cpp:122] Setting up data
+I0608 11:29:56.155174 19748 net.cpp:129] Top shape: 30 3 224 224 (4515840)
+I0608 11:29:56.155179 19748 net.cpp:129] Top shape: 30 (30)
+I0608 11:29:56.155181 19748 net.cpp:137] Memory required for data: 18063480
+I0608 11:29:56.155190 19748 layer_factory.hpp:77] Creating layer conv1_1
+I0608 11:29:56.155238 19748 net.cpp:84] Creating Layer conv1_1
+I0608 11:29:56.155243 19748 net.cpp:406] conv1_1 <- data
+I0608 11:29:56.155251 19748 net.cpp:380] conv1_1 -> conv1_1
+I0608 11:29:56.895267 19748 net.cpp:122] Setting up conv1_1
+I0608 11:29:56.895304 19748 net.cpp:129] Top shape: 30 64 224 224 (96337920)
+I0608 11:29:56.895308 19748 net.cpp:137] Memory required for data: 403415160
+I0608 11:29:56.895325 19748 layer_factory.hpp:77] Creating layer relu1_1
+I0608 11:29:56.895342 19748 net.cpp:84] Creating Layer relu1_1
+I0608 11:29:56.895346 19748 net.cpp:406] relu1_1 <- conv1_1
+I0608 11:29:56.895351 19748 net.cpp:367] relu1_1 -> conv1_1 (in-place)
+I0608 11:29:56.895531 19748 net.cpp:122] Setting up relu1_1
+I0608 11:29:56.895542 19748 net.cpp:129] Top shape: 30 64 224 224 (96337920)
+I0608 11:29:56.895546 19748 net.cpp:137] Memory required for data: 788766840
+I0608 11:29:56.895550 19748 layer_factory.hpp:77] Creating layer conv1_2
+I0608 11:29:56.895563 19748 net.cpp:84] Creating Layer conv1_2
+I0608 11:29:56.895567 19748 net.cpp:406] conv1_2 <- conv1_1
+I0608 11:29:56.895572 19748 net.cpp:380] conv1_2 -> conv1_2
+I0608 11:29:56.898442 19748 net.cpp:122] Setting up conv1_2
+I0608 11:29:56.898457 19748 net.cpp:129] Top shape: 30 64 224 224 (96337920)
+I0608 11:29:56.898459 19748 net.cpp:137] Memory required for data: 1174118520
+I0608 11:29:56.898468 19748 layer_factory.hpp:77] Creating layer relu1_2
+I0608 11:29:56.898475 19748 net.cpp:84] Creating Layer relu1_2
+I0608 11:29:56.898478 19748 net.cpp:406] relu1_2 <- conv1_2
+I0608 11:29:56.898483 19748 net.cpp:367] relu1_2 -> conv1_2 (in-place)
+I0608 11:29:56.899348 19748 net.cpp:122] Setting up relu1_2
+I0608 11:29:56.899360 19748 net.cpp:129] Top shape: 30 64 224 224 (96337920)
+I0608 11:29:56.899363 19748 net.cpp:137] Memory required for data: 1559470200
+I0608 11:29:56.899368 19748 layer_factory.hpp:77] Creating layer pool1
+I0608 11:29:56.899375 19748 net.cpp:84] Creating Layer pool1
+I0608 11:29:56.899379 19748 net.cpp:406] pool1 <- conv1_2
+I0608 11:29:56.899384 19748 net.cpp:380] pool1 -> pool1
+I0608 11:29:56.899433 19748 net.cpp:122] Setting up pool1
+I0608 11:29:56.899440 19748 net.cpp:129] Top shape: 30 64 112 112 (24084480)
+I0608 11:29:56.899442 19748 net.cpp:137] Memory required for data: 1655808120
+I0608 11:29:56.899446 19748 layer_factory.hpp:77] Creating layer conv2_1
+I0608 11:29:56.899453 19748 net.cpp:84] Creating Layer conv2_1
+I0608 11:29:56.899456 19748 net.cpp:406] conv2_1 <- pool1
+I0608 11:29:56.899461 19748 net.cpp:380] conv2_1 -> conv2_1
+I0608 11:29:56.902629 19748 net.cpp:122] Setting up conv2_1
+I0608 11:29:56.902644 19748 net.cpp:129] Top shape: 30 128 112 112 (48168960)
+I0608 11:29:56.902647 19748 net.cpp:137] Memory required for data: 1848483960
+I0608 11:29:56.902657 19748 layer_factory.hpp:77] Creating layer relu2_1
+I0608 11:29:56.902662 19748 net.cpp:84] Creating Layer relu2_1
+I0608 11:29:56.902664 19748 net.cpp:406] relu2_1 <- conv2_1
+I0608 11:29:56.902669 19748 net.cpp:367] relu2_1 -> conv2_1 (in-place)
+I0608 11:29:56.903545 19748 net.cpp:122] Setting up relu2_1
+I0608 11:29:56.903558 19748 net.cpp:129] Top shape: 30 128 112 112 (48168960)
+I0608 11:29:56.903561 19748 net.cpp:137] Memory required for data: 2041159800
+I0608 11:29:56.903565 19748 layer_factory.hpp:77] Creating layer conv2_2
+I0608 11:29:56.903578 19748 net.cpp:84] Creating Layer conv2_2
+I0608 11:29:56.903580 19748 net.cpp:406] conv2_2 <- conv2_1
+I0608 11:29:56.903585 19748 net.cpp:380] conv2_2 -> conv2_2
+I0608 11:29:56.906956 19748 net.cpp:122] Setting up conv2_2
+I0608 11:29:56.906971 19748 net.cpp:129] Top shape: 30 128 112 112 (48168960)
+I0608 11:29:56.906975 19748 net.cpp:137] Memory required for data: 2233835640
+I0608 11:29:56.906980 19748 layer_factory.hpp:77] Creating layer relu2_2
+I0608 11:29:56.906988 19748 net.cpp:84] Creating Layer relu2_2
+I0608 11:29:56.906992 19748 net.cpp:406] relu2_2 <- conv2_2
+I0608 11:29:56.906996 19748 net.cpp:367] relu2_2 -> conv2_2 (in-place)
+I0608 11:29:56.907193 19748 net.cpp:122] Setting up relu2_2
+I0608 11:29:56.907204 19748 net.cpp:129] Top shape: 30 128 112 112 (48168960)
+I0608 11:29:56.907208 19748 net.cpp:137] Memory required for data: 2426511480
+I0608 11:29:56.907212 19748 layer_factory.hpp:77] Creating layer pool2
+I0608 11:29:56.907218 19748 net.cpp:84] Creating Layer pool2
+I0608 11:29:56.907223 19748 net.cpp:406] pool2 <- conv2_2
+I0608 11:29:56.907228 19748 net.cpp:380] pool2 -> pool2
+I0608 11:29:56.907269 19748 net.cpp:122] Setting up pool2
+I0608 11:29:56.907281 19748 net.cpp:129] Top shape: 30 128 56 56 (12042240)
+I0608 11:29:56.907284 19748 net.cpp:137] Memory required for data: 2474680440
+I0608 11:29:56.907287 19748 layer_factory.hpp:77] Creating layer conv3_1
+I0608 11:29:56.907297 19748 net.cpp:84] Creating Layer conv3_1
+I0608 11:29:56.907300 19748 net.cpp:406] conv3_1 <- pool2
+I0608 11:29:56.907306 19748 net.cpp:380] conv3_1 -> conv3_1
+I0608 11:29:56.911631 19748 net.cpp:122] Setting up conv3_1
+I0608 11:29:56.911648 19748 net.cpp:129] Top shape: 30 256 56 56 (24084480)
+I0608 11:29:56.911650 19748 net.cpp:137] Memory required for data: 2571018360
+I0608 11:29:56.911659 19748 layer_factory.hpp:77] Creating layer relu3_1
+I0608 11:29:56.911664 19748 net.cpp:84] Creating Layer relu3_1
+I0608 11:29:56.911667 19748 net.cpp:406] relu3_1 <- conv3_1
+I0608 11:29:56.911674 19748 net.cpp:367] relu3_1 -> conv3_1 (in-place)
+I0608 11:29:56.912562 19748 net.cpp:122] Setting up relu3_1
+I0608 11:29:56.912576 19748 net.cpp:129] Top shape: 30 256 56 56 (24084480)
+I0608 11:29:56.912580 19748 net.cpp:137] Memory required for data: 2667356280
+I0608 11:29:56.912582 19748 layer_factory.hpp:77] Creating layer conv3_2
+I0608 11:29:56.912595 19748 net.cpp:84] Creating Layer conv3_2
+I0608 11:29:56.912597 19748 net.cpp:406] conv3_2 <- conv3_1
+I0608 11:29:56.912603 19748 net.cpp:380] conv3_2 -> conv3_2
+I0608 11:29:56.917790 19748 net.cpp:122] Setting up conv3_2
+I0608 11:29:56.917805 19748 net.cpp:129] Top shape: 30 256 56 56 (24084480)
+I0608 11:29:56.917809 19748 net.cpp:137] Memory required for data: 2763694200
+I0608 11:29:56.917814 19748 layer_factory.hpp:77] Creating layer relu3_2
+I0608 11:29:56.917820 19748 net.cpp:84] Creating Layer relu3_2
+I0608 11:29:56.917824 19748 net.cpp:406] relu3_2 <- conv3_2
+I0608 11:29:56.917829 19748 net.cpp:367] relu3_2 -> conv3_2 (in-place)
+I0608 11:29:56.918709 19748 net.cpp:122] Setting up relu3_2
+I0608 11:29:56.918721 19748 net.cpp:129] Top shape: 30 256 56 56 (24084480)
+I0608 11:29:56.918725 19748 net.cpp:137] Memory required for data: 2860032120
+I0608 11:29:56.918727 19748 layer_factory.hpp:77] Creating layer conv3_3
+I0608 11:29:56.918738 19748 net.cpp:84] Creating Layer conv3_3
+I0608 11:29:56.918742 19748 net.cpp:406] conv3_3 <- conv3_2
+I0608 11:29:56.918747 19748 net.cpp:380] conv3_3 -> conv3_3
+I0608 11:29:56.924583 19748 net.cpp:122] Setting up conv3_3
+I0608 11:29:56.924597 19748 net.cpp:129] Top shape: 30 256 56 56 (24084480)
+I0608 11:29:56.924602 19748 net.cpp:137] Memory required for data: 2956370040
+I0608 11:29:56.924607 19748 layer_factory.hpp:77] Creating layer relu3_3
+I0608 11:29:56.924616 19748 net.cpp:84] Creating Layer relu3_3
+I0608 11:29:56.924619 19748 net.cpp:406] relu3_3 <- conv3_3
+I0608 11:29:56.924625 19748 net.cpp:367] relu3_3 -> conv3_3 (in-place)
+I0608 11:29:56.924818 19748 net.cpp:122] Setting up relu3_3
+I0608 11:29:56.924829 19748 net.cpp:129] Top shape: 30 256 56 56 (24084480)
+I0608 11:29:56.924832 19748 net.cpp:137] Memory required for data: 3052707960
+I0608 11:29:56.924835 19748 layer_factory.hpp:77] Creating layer pool3
+I0608 11:29:56.924842 19748 net.cpp:84] Creating Layer pool3
+I0608 11:29:56.924845 19748 net.cpp:406] pool3 <- conv3_3
+I0608 11:29:56.924852 19748 net.cpp:380] pool3 -> pool3
+I0608 11:29:56.924895 19748 net.cpp:122] Setting up pool3
+I0608 11:29:56.924901 19748 net.cpp:129] Top shape: 30 256 28 28 (6021120)
+I0608 11:29:56.924904 19748 net.cpp:137] Memory required for data: 3076792440
+I0608 11:29:56.924907 19748 layer_factory.hpp:77] Creating layer conv4_1
+I0608 11:29:56.924914 19748 net.cpp:84] Creating Layer conv4_1
+I0608 11:29:56.924917 19748 net.cpp:406] conv4_1 <- pool3
+I0608 11:29:56.924924 19748 net.cpp:380] conv4_1 -> conv4_1
+I0608 11:29:56.934110 19748 net.cpp:122] Setting up conv4_1
+I0608 11:29:56.934126 19748 net.cpp:129] Top shape: 30 512 28 28 (12042240)
+I0608 11:29:56.934129 19748 net.cpp:137] Memory required for data: 3124961400
+I0608 11:29:56.934135 19748 layer_factory.hpp:77] Creating layer relu4_1
+I0608 11:29:56.934141 19748 net.cpp:84] Creating Layer relu4_1
+I0608 11:29:56.934144 19748 net.cpp:406] relu4_1 <- conv4_1
+I0608 11:29:56.934149 19748 net.cpp:367] relu4_1 -> conv4_1 (in-place)
+I0608 11:29:56.935701 19748 net.cpp:122] Setting up relu4_1
+I0608 11:29:56.935716 19748 net.cpp:129] Top shape: 30 512 28 28 (12042240)
+I0608 11:29:56.935719 19748 net.cpp:137] Memory required for data: 3173130360
+I0608 11:29:56.935722 19748 layer_factory.hpp:77] Creating layer conv4_2
+I0608 11:29:56.935731 19748 net.cpp:84] Creating Layer conv4_2
+I0608 11:29:56.935735 19748 net.cpp:406] conv4_2 <- conv4_1
+I0608 11:29:56.935741 19748 net.cpp:380] conv4_2 -> conv4_2
+I0608 11:29:56.949091 19748 net.cpp:122] Setting up conv4_2
+I0608 11:29:56.949107 19748 net.cpp:129] Top shape: 30 512 28 28 (12042240)
+I0608 11:29:56.949110 19748 net.cpp:137] Memory required for data: 3221299320
+I0608 11:29:56.949120 19748 layer_factory.hpp:77] Creating layer relu4_2
+I0608 11:29:56.949129 19748 net.cpp:84] Creating Layer relu4_2
+I0608 11:29:56.949132 19748 net.cpp:406] relu4_2 <- conv4_2
+I0608 11:29:56.949137 19748 net.cpp:367] relu4_2 -> conv4_2 (in-place)
+I0608 11:29:56.950022 19748 net.cpp:122] Setting up relu4_2
+I0608 11:29:56.950037 19748 net.cpp:129] Top shape: 30 512 28 28 (12042240)
+I0608 11:29:56.950039 19748 net.cpp:137] Memory required for data: 3269468280
+I0608 11:29:56.950042 19748 layer_factory.hpp:77] Creating layer conv4_3
+I0608 11:29:56.950050 19748 net.cpp:84] Creating Layer conv4_3
+I0608 11:29:56.950053 19748 net.cpp:406] conv4_3 <- conv4_2
+I0608 11:29:56.950060 19748 net.cpp:380] conv4_3 -> conv4_3
+I0608 11:29:56.964088 19748 net.cpp:122] Setting up conv4_3
+I0608 11:29:56.964105 19748 net.cpp:129] Top shape: 30 512 28 28 (12042240)
+I0608 11:29:56.964109 19748 net.cpp:137] Memory required for data: 3317637240
+I0608 11:29:56.964114 19748 layer_factory.hpp:77] Creating layer relu4_3
+I0608 11:29:56.964123 19748 net.cpp:84] Creating Layer relu4_3
+I0608 11:29:56.964126 19748 net.cpp:406] relu4_3 <- conv4_3
+I0608 11:29:56.964133 19748 net.cpp:367] relu4_3 -> conv4_3 (in-place)
+I0608 11:29:56.964315 19748 net.cpp:122] Setting up relu4_3
+I0608 11:29:56.964328 19748 net.cpp:129] Top shape: 30 512 28 28 (12042240)
+I0608 11:29:56.964330 19748 net.cpp:137] Memory required for data: 3365806200
+I0608 11:29:56.964334 19748 layer_factory.hpp:77] Creating layer pool4
+I0608 11:29:56.964340 19748 net.cpp:84] Creating Layer pool4
+I0608 11:29:56.964345 19748 net.cpp:406] pool4 <- conv4_3
+I0608 11:29:56.964350 19748 net.cpp:380] pool4 -> pool4
+I0608 11:29:56.964393 19748 net.cpp:122] Setting up pool4
+I0608 11:29:56.964406 19748 net.cpp:129] Top shape: 30 512 14 14 (3010560)
+I0608 11:29:56.964408 19748 net.cpp:137] Memory required for data: 3377848440
+I0608 11:29:56.964411 19748 layer_factory.hpp:77] Creating layer conv5_1
+I0608 11:29:56.964421 19748 net.cpp:84] Creating Layer conv5_1
+I0608 11:29:56.964424 19748 net.cpp:406] conv5_1 <- pool4
+I0608 11:29:56.964429 19748 net.cpp:380] conv5_1 -> conv5_1
+I0608 11:29:56.979140 19748 net.cpp:122] Setting up conv5_1
+I0608 11:29:56.979159 19748 net.cpp:129] Top shape: 30 512 14 14 (3010560)
+I0608 11:29:56.979162 19748 net.cpp:137] Memory required for data: 3389890680
+I0608 11:29:56.979169 19748 layer_factory.hpp:77] Creating layer relu5_1
+I0608 11:29:56.979177 19748 net.cpp:84] Creating Layer relu5_1
+I0608 11:29:56.979181 19748 net.cpp:406] relu5_1 <- conv5_1
+I0608 11:29:56.979187 19748 net.cpp:367] relu5_1 -> conv5_1 (in-place)
+I0608 11:29:56.980083 19748 net.cpp:122] Setting up relu5_1
+I0608 11:29:56.980098 19748 net.cpp:129] Top shape: 30 512 14 14 (3010560)
+I0608 11:29:56.980100 19748 net.cpp:137] Memory required for data: 3401932920
+I0608 11:29:56.980103 19748 layer_factory.hpp:77] Creating layer conv5_2
+I0608 11:29:56.980113 19748 net.cpp:84] Creating Layer conv5_2
+I0608 11:29:56.980116 19748 net.cpp:406] conv5_2 <- conv5_1
+I0608 11:29:56.980123 19748 net.cpp:380] conv5_2 -> conv5_2
+I0608 11:29:56.993680 19748 net.cpp:122] Setting up conv5_2
+I0608 11:29:56.993700 19748 net.cpp:129] Top shape: 30 512 14 14 (3010560)
+I0608 11:29:56.993703 19748 net.cpp:137] Memory required for data: 3413975160
+I0608 11:29:56.993710 19748 layer_factory.hpp:77] Creating layer relu5_2
+I0608 11:29:56.993716 19748 net.cpp:84] Creating Layer relu5_2
+I0608 11:29:56.993719 19748 net.cpp:406] relu5_2 <- conv5_2
+I0608 11:29:56.993724 19748 net.cpp:367] relu5_2 -> conv5_2 (in-place)
+I0608 11:29:56.994609 19748 net.cpp:122] Setting up relu5_2
+I0608 11:29:56.994623 19748 net.cpp:129] Top shape: 30 512 14 14 (3010560)
+I0608 11:29:56.994626 19748 net.cpp:137] Memory required for data: 3426017400
+I0608 11:29:56.994629 19748 layer_factory.hpp:77] Creating layer conv5_3
+I0608 11:29:56.994642 19748 net.cpp:84] Creating Layer conv5_3
+I0608 11:29:56.994645 19748 net.cpp:406] conv5_3 <- conv5_2
+I0608 11:29:56.994650 19748 net.cpp:380] conv5_3 -> conv5_3
+I0608 11:29:57.008710 19748 net.cpp:122] Setting up conv5_3
+I0608 11:29:57.008728 19748 net.cpp:129] Top shape: 30 512 14 14 (3010560)
+I0608 11:29:57.008730 19748 net.cpp:137] Memory required for data: 3438059640
+I0608 11:29:57.008738 19748 layer_factory.hpp:77] Creating layer relu5_3
+I0608 11:29:57.008744 19748 net.cpp:84] Creating Layer relu5_3
+I0608 11:29:57.008746 19748 net.cpp:406] relu5_3 <- conv5_3
+I0608 11:29:57.008754 19748 net.cpp:367] relu5_3 -> conv5_3 (in-place)
+I0608 11:29:57.008939 19748 net.cpp:122] Setting up relu5_3
+I0608 11:29:57.008950 19748 net.cpp:129] Top shape: 30 512 14 14 (3010560)
+I0608 11:29:57.008954 19748 net.cpp:137] Memory required for data: 3450101880
+I0608 11:29:57.008956 19748 layer_factory.hpp:77] Creating layer pool5
+I0608 11:29:57.008963 19748 net.cpp:84] Creating Layer pool5
+I0608 11:29:57.008966 19748 net.cpp:406] pool5 <- conv5_3
+I0608 11:29:57.008972 19748 net.cpp:380] pool5 -> pool5
+I0608 11:29:57.009018 19748 net.cpp:122] Setting up pool5
+I0608 11:29:57.009027 19748 net.cpp:129] Top shape: 30 512 7 7 (752640)
+I0608 11:29:57.009030 19748 net.cpp:137] Memory required for data: 3453112440
+I0608 11:29:57.009033 19748 layer_factory.hpp:77] Creating layer fc6
+I0608 11:29:57.009050 19748 net.cpp:84] Creating Layer fc6
+I0608 11:29:57.009054 19748 net.cpp:406] fc6 <- pool5
+I0608 11:29:57.009059 19748 net.cpp:380] fc6 -> fc6
+I0608 11:29:57.582003 19748 net.cpp:122] Setting up fc6
+I0608 11:29:57.582048 19748 net.cpp:129] Top shape: 30 4096 (122880)
+I0608 11:29:57.582052 19748 net.cpp:137] Memory required for data: 3453603960
+I0608 11:29:57.582063 19748 layer_factory.hpp:77] Creating layer relu6
+I0608 11:29:57.582077 19748 net.cpp:84] Creating Layer relu6
+I0608 11:29:57.582082 19748 net.cpp:406] relu6 <- fc6
+I0608 11:29:57.582088 19748 net.cpp:367] relu6 -> fc6 (in-place)
+I0608 11:29:57.583170 19748 net.cpp:122] Setting up relu6
+I0608 11:29:57.583184 19748 net.cpp:129] Top shape: 30 4096 (122880)
+I0608 11:29:57.583189 19748 net.cpp:137] Memory required for data: 3454095480
+I0608 11:29:57.583191 19748 layer_factory.hpp:77] Creating layer drop6
+I0608 11:29:57.583197 19748 net.cpp:84] Creating Layer drop6
+I0608 11:29:57.583201 19748 net.cpp:406] drop6 <- fc6
+I0608 11:29:57.583205 19748 net.cpp:367] drop6 -> fc6 (in-place)
+I0608 11:29:57.583248 19748 net.cpp:122] Setting up drop6
+I0608 11:29:57.583253 19748 net.cpp:129] Top shape: 30 4096 (122880)
+I0608 11:29:57.583256 19748 net.cpp:137] Memory required for data: 3454587000
+I0608 11:29:57.583259 19748 layer_factory.hpp:77] Creating layer fc7
+I0608 11:29:57.583266 19748 net.cpp:84] Creating Layer fc7
+I0608 11:29:57.583271 19748 net.cpp:406] fc7 <- fc6
+I0608 11:29:57.583276 19748 net.cpp:380] fc7 -> fc7
+I0608 11:29:57.677222 19748 net.cpp:122] Setting up fc7
+I0608 11:29:57.677263 19748 net.cpp:129] Top shape: 30 4096 (122880)
+I0608 11:29:57.677266 19748 net.cpp:137] Memory required for data: 3455078520
+I0608 11:29:57.677278 19748 layer_factory.hpp:77] Creating layer relu7
+I0608 11:29:57.677289 19748 net.cpp:84] Creating Layer relu7
+I0608 11:29:57.677292 19748 net.cpp:406] relu7 <- fc7
+I0608 11:29:57.677301 19748 net.cpp:367] relu7 -> fc7 (in-place)
+I0608 11:29:57.677585 19748 net.cpp:122] Setting up relu7
+I0608 11:29:57.677597 19748 net.cpp:129] Top shape: 30 4096 (122880)
+I0608 11:29:57.677600 19748 net.cpp:137] Memory required for data: 3455570040
+I0608 11:29:57.677603 19748 layer_factory.hpp:77] Creating layer drop7
+I0608 11:29:57.677611 19748 net.cpp:84] Creating Layer drop7
+I0608 11:29:57.677615 19748 net.cpp:406] drop7 <- fc7
+I0608 11:29:57.677620 19748 net.cpp:367] drop7 -> fc7 (in-place)
+I0608 11:29:57.677651 19748 net.cpp:122] Setting up drop7
+I0608 11:29:57.677657 19748 net.cpp:129] Top shape: 30 4096 (122880)
+I0608 11:29:57.677659 19748 net.cpp:137] Memory required for data: 3456061560
+I0608 11:29:57.677662 19748 layer_factory.hpp:77] Creating layer norm2
+I0608 11:29:57.702229 19748 net.cpp:84] Creating Layer norm2
+I0608 11:29:57.702255 19748 net.cpp:406] norm2 <- fc7
+I0608 11:29:57.702265 19748 net.cpp:380] norm2 -> norm2
+I0608 11:29:57.703006 19748 net.cpp:122] Setting up norm2
+I0608 11:29:57.703022 19748 net.cpp:129] Top shape: 30 4096 (122880)
+I0608 11:29:57.703025 19748 net.cpp:137] Memory required for data: 3456553080
+I0608 11:29:57.703030 19748 layer_factory.hpp:77] Creating layer fc9_1
+I0608 11:29:57.703039 19748 net.cpp:84] Creating Layer fc9_1
+I0608 11:29:57.703043 19748 net.cpp:406] fc9_1 <- norm2
+I0608 11:29:57.703049 19748 net.cpp:380] fc9_1 -> fc9_1
+I0608 11:29:57.703733 19748 net.cpp:122] Setting up fc9_1
+I0608 11:29:57.703744 19748 net.cpp:129] Top shape: 30 34 (1020)
+I0608 11:29:57.703747 19748 net.cpp:137] Memory required for data: 3456557160
+I0608 11:29:57.703754 19748 layer_factory.hpp:77] Creating layer triplet_select
+I0608 11:29:57.704035 19748 net.cpp:84] Creating Layer triplet_select
+I0608 11:29:57.704048 19748 net.cpp:406] triplet_select <- fc9_1
+I0608 11:29:57.704053 19748 net.cpp:406] triplet_select <- labels
+I0608 11:29:57.704058 19748 net.cpp:380] triplet_select -> archor
+I0608 11:29:57.704066 19748 net.cpp:380] triplet_select -> positive
+I0608 11:29:57.704071 19748 net.cpp:380] triplet_select -> negative
+I0608 11:29:57.704181 19748 net.cpp:122] Setting up triplet_select
+I0608 11:29:57.704205 19748 net.cpp:129] Top shape: 10 34 (340)
+I0608 11:29:57.704210 19748 net.cpp:129] Top shape: 10 34 (340)
+I0608 11:29:57.704212 19748 net.cpp:129] Top shape: 10 34 (340)
+I0608 11:29:57.704216 19748 net.cpp:137] Memory required for data: 3456561240
+I0608 11:29:57.704218 19748 layer_factory.hpp:77] Creating layer tripletloss
+I0608 11:29:57.704444 19748 net.cpp:84] Creating Layer tripletloss
+I0608 11:29:57.704457 19748 net.cpp:406] tripletloss <- archor
+I0608 11:29:57.704463 19748 net.cpp:406] tripletloss <- positive
+I0608 11:29:57.704465 19748 net.cpp:406] tripletloss <- negative
+I0608 11:29:57.704471 19748 net.cpp:380] tripletloss -> loss
+I0608 11:29:57.705034 19748 net.cpp:122] Setting up tripletloss
+I0608 11:29:57.705047 19748 net.cpp:129] Top shape: 1 (1)
+I0608 11:29:57.705051 19748 net.cpp:132]     with loss weight 1
+I0608 11:29:57.705066 19748 net.cpp:137] Memory required for data: 3456561244
+I0608 11:29:57.705070 19748 net.cpp:198] tripletloss needs backward computation.
+I0608 11:29:57.705073 19748 net.cpp:198] triplet_select needs backward computation.
+I0608 11:29:57.705076 19748 net.cpp:198] fc9_1 needs backward computation.
+I0608 11:29:57.705080 19748 net.cpp:200] norm2 does not need backward computation.
+I0608 11:29:57.705083 19748 net.cpp:200] drop7 does not need backward computation.
+I0608 11:29:57.705086 19748 net.cpp:200] relu7 does not need backward computation.
+I0608 11:29:57.705090 19748 net.cpp:200] fc7 does not need backward computation.
+I0608 11:29:57.705092 19748 net.cpp:200] drop6 does not need backward computation.
+I0608 11:29:57.705106 19748 net.cpp:200] relu6 does not need backward computation.
+I0608 11:29:57.705111 19748 net.cpp:200] fc6 does not need backward computation.
+I0608 11:29:57.705113 19748 net.cpp:200] pool5 does not need backward computation.
+I0608 11:29:57.705116 19748 net.cpp:200] relu5_3 does not need backward computation.
+I0608 11:29:57.705119 19748 net.cpp:200] conv5_3 does not need backward computation.
+I0608 11:29:57.705123 19748 net.cpp:200] relu5_2 does not need backward computation.
+I0608 11:29:57.705127 19748 net.cpp:200] conv5_2 does not need backward computation.
+I0608 11:29:57.705129 19748 net.cpp:200] relu5_1 does not need backward computation.
+I0608 11:29:57.705132 19748 net.cpp:200] conv5_1 does not need backward computation.
+I0608 11:29:57.705137 19748 net.cpp:200] pool4 does not need backward computation.
+I0608 11:29:57.705140 19748 net.cpp:200] relu4_3 does not need backward computation.
+I0608 11:29:57.705144 19748 net.cpp:200] conv4_3 does not need backward computation.
+I0608 11:29:57.705147 19748 net.cpp:200] relu4_2 does not need backward computation.
+I0608 11:29:57.705150 19748 net.cpp:200] conv4_2 does not need backward computation.
+I0608 11:29:57.705154 19748 net.cpp:200] relu4_1 does not need backward computation.
+I0608 11:29:57.705157 19748 net.cpp:200] conv4_1 does not need backward computation.
+I0608 11:29:57.705160 19748 net.cpp:200] pool3 does not need backward computation.
+I0608 11:29:57.705164 19748 net.cpp:200] relu3_3 does not need backward computation.
+I0608 11:29:57.705168 19748 net.cpp:200] conv3_3 does not need backward computation.
+I0608 11:29:57.705170 19748 net.cpp:200] relu3_2 does not need backward computation.
+I0608 11:29:57.705173 19748 net.cpp:200] conv3_2 does not need backward computation.
+I0608 11:29:57.705176 19748 net.cpp:200] relu3_1 does not need backward computation.
+I0608 11:29:57.705179 19748 net.cpp:200] conv3_1 does not need backward computation.
+I0608 11:29:57.705183 19748 net.cpp:200] pool2 does not need backward computation.
+I0608 11:29:57.705186 19748 net.cpp:200] relu2_2 does not need backward computation.
+I0608 11:29:57.705189 19748 net.cpp:200] conv2_2 does not need backward computation.
+I0608 11:29:57.705193 19748 net.cpp:200] relu2_1 does not need backward computation.
+I0608 11:29:57.705196 19748 net.cpp:200] conv2_1 does not need backward computation.
+I0608 11:29:57.705200 19748 net.cpp:200] pool1 does not need backward computation.
+I0608 11:29:57.705204 19748 net.cpp:200] relu1_2 does not need backward computation.
+I0608 11:29:57.705206 19748 net.cpp:200] conv1_2 does not need backward computation.
+I0608 11:29:57.705210 19748 net.cpp:200] relu1_1 does not need backward computation.
+I0608 11:29:57.705212 19748 net.cpp:200] conv1_1 does not need backward computation.
+I0608 11:29:57.705216 19748 net.cpp:200] data does not need backward computation.
+I0608 11:29:57.705219 19748 net.cpp:242] This network produces output loss
+I0608 11:29:57.705238 19748 net.cpp:255] Network initialization done.
+I0608 11:29:57.705958 19748 solver.cpp:172] Creating test net (#0) specified by net file: ../train.prototxt
+I0608 11:29:57.706204 19748 net.cpp:51] Initializing net from parameters: 
+name: "VGG_FACE_16_layers"
+state {
+  phase: TEST
+}
+layer {
+  name: "data"
+  type: "Python"
+  top: "data"
+  top: "labels"
+  python_param {
+    module: "datalayer"
+    layer: "DataLayer"
+  }
+}
+layer {
+  name: "conv1_1"
+  type: "Convolution"
+  bottom: "data"
+  top: "conv1_1"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 64
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu1_1"
+  type: "ReLU"
+  bottom: "conv1_1"
+  top: "conv1_1"
+}
+layer {
+  name: "conv1_2"
+  type: "Convolution"
+  bottom: "conv1_1"
+  top: "conv1_2"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 64
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu1_2"
+  type: "ReLU"
+  bottom: "conv1_2"
+  top: "conv1_2"
+}
+layer {
+  name: "pool1"
+  type: "Pooling"
+  bottom: "conv1_2"
+  top: "pool1"
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "conv2_1"
+  type: "Convolution"
+  bottom: "pool1"
+  top: "conv2_1"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 128
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu2_1"
+  type: "ReLU"
+  bottom: "conv2_1"
+  top: "conv2_1"
+}
+layer {
+  name: "conv2_2"
+  type: "Convolution"
+  bottom: "conv2_1"
+  top: "conv2_2"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 128
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu2_2"
+  type: "ReLU"
+  bottom: "conv2_2"
+  top: "conv2_2"
+}
+layer {
+  name: "pool2"
+  type: "Pooling"
+  bottom: "conv2_2"
+  top: "pool2"
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "conv3_1"
+  type: "Convolution"
+  bottom: "pool2"
+  top: "conv3_1"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 256
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu3_1"
+  type: "ReLU"
+  bottom: "conv3_1"
+  top: "conv3_1"
+}
+layer {
+  name: "conv3_2"
+  type: "Convolution"
+  bottom: "conv3_1"
+  top: "conv3_2"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 256
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu3_2"
+  type: "ReLU"
+  bottom: "conv3_2"
+  top: "conv3_2"
+}
+layer {
+  name: "conv3_3"
+  type: "Convolution"
+  bottom: "conv3_2"
+  top: "conv3_3"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 256
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu3_3"
+  type: "ReLU"
+  bottom: "conv3_3"
+  top: "conv3_3"
+}
+layer {
+  name: "pool3"
+  type: "Pooling"
+  bottom: "conv3_3"
+  top: "pool3"
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "conv4_1"
+  type: "Convolution"
+  bottom: "pool3"
+  top: "conv4_1"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu4_1"
+  type: "ReLU"
+  bottom: "conv4_1"
+  top: "conv4_1"
+}
+layer {
+  name: "conv4_2"
+  type: "Convolution"
+  bottom: "conv4_1"
+  top: "conv4_2"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu4_2"
+  type: "ReLU"
+  bottom: "conv4_2"
+  top: "conv4_2"
+}
+layer {
+  name: "conv4_3"
+  type: "Convolution"
+  bottom: "conv4_2"
+  top: "conv4_3"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu4_3"
+  type: "ReLU"
+  bottom: "conv4_3"
+  top: "conv4_3"
+}
+layer {
+  name: "pool4"
+  type: "Pooling"
+  bottom: "conv4_3"
+  top: "pool4"
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "conv5_1"
+  type: "Convolution"
+  bottom: "pool4"
+  top: "conv5_1"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu5_1"
+  type: "ReLU"
+  bottom: "conv5_1"
+  top: "conv5_1"
+}
+layer {
+  name: "conv5_2"
+  type: "Convolution"
+  bottom: "conv5_1"
+  top: "conv5_2"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu5_2"
+  type: "ReLU"
+  bottom: "conv5_2"
+  top: "conv5_2"
+}
+layer {
+  name: "conv5_3"
+  type: "Convolution"
+  bottom: "conv5_2"
+  top: "conv5_3"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  convolution_param {
+    num_output: 512
+    pad: 1
+    kernel_size: 3
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu5_3"
+  type: "ReLU"
+  bottom: "conv5_3"
+  top: "conv5_3"
+}
+layer {
+  name: "pool5"
+  type: "Pooling"
+  bottom: "conv5_3"
+  top: "pool5"
+  pooling_param {
+    pool: MAX
+    kernel_size: 2
+    stride: 2
+  }
+}
+layer {
+  name: "fc6"
+  type: "InnerProduct"
+  bottom: "pool5"
+  top: "fc6"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: 4096
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu6"
+  type: "ReLU"
+  bottom: "fc6"
+  top: "fc6"
+}
+layer {
+  name: "drop6"
+  type: "Dropout"
+  bottom: "fc6"
+  top: "fc6"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "fc7"
+  type: "InnerProduct"
+  bottom: "fc6"
+  top: "fc7"
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  param {
+    lr_mult: 0
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: 4096
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "relu7"
+  type: "ReLU"
+  bottom: "fc7"
+  top: "fc7"
+}
+layer {
+  name: "drop7"
+  type: "Dropout"
+  bottom: "fc7"
+  top: "fc7"
+  dropout_param {
+    dropout_ratio: 0.5
+  }
+}
+layer {
+  name: "norm2"
+  type: "Python"
+  bottom: "fc7"
+  top: "norm2"
+  python_param {
+    module: "norm2layer"
+    layer: "Norm2Layer"
+  }
+}
+layer {
+  name: "fc9_1"
+  type: "InnerProduct"
+  bottom: "norm2"
+  top: "fc9_1"
+  param {
+    lr_mult: 1
+    decay_mult: 0
+  }
+  inner_product_param {
+    num_output: 34
+    weight_filler {
+      type: "xavier"
+    }
+  }
+}
+layer {
+  name: "triplet_select"
+  type: "Python"
+  bottom: "fc9_1"
+  bottom: "labels"
+  top: "archor"
+  top: "positive"
+  top: "negative"
+  python_param {
+    module: "tripletselectlayer"
+    layer: "TripletSelectLayer"
+  }
+}
+layer {
+  name: "tripletloss"
+  type: "Python"
+  bottom: "archor"
+  bottom: "positive"
+  bottom: "negative"
+  top: "loss"
+  loss_weight: 1
+  python_param {
+    module: "tripletlosslayer"
+    layer: "TripletLayer"
+    param_str: "\'margin\': 0.2"
+  }
+}
+I0608 11:29:57.706321 19748 layer_factory.hpp:77] Creating layer data
+I0608 11:29:57.706346 19748 net.cpp:84] Creating Layer data
+I0608 11:29:57.706352 19748 net.cpp:380] data -> data
+I0608 11:29:57.706358 19748 net.cpp:380] data -> labels
+I0608 11:29:57.752919 19748 net.cpp:122] Setting up data
+I0608 11:29:57.752946 19748 net.cpp:129] Top shape: 30 3 224 224 (4515840)
+I0608 11:29:57.752951 19748 net.cpp:129] Top shape: 30 (30)
+I0608 11:29:57.752954 19748 net.cpp:137] Memory required for data: 18063480
+I0608 11:29:57.752959 19748 layer_factory.hpp:77] Creating layer conv1_1
+I0608 11:29:57.752967 19748 net.cpp:84] Creating Layer conv1_1
+I0608 11:29:57.752971 19748 net.cpp:406] conv1_1 <- data
+I0608 11:29:57.752977 19748 net.cpp:380] conv1_1 -> conv1_1
+I0608 11:29:57.755964 19748 net.cpp:122] Setting up conv1_1
+I0608 11:29:57.755980 19748 net.cpp:129] Top shape: 30 64 224 224 (96337920)
+I0608 11:29:57.755995 19748 net.cpp:137] Memory required for data: 403415160
+I0608 11:29:57.756005 19748 layer_factory.hpp:77] Creating layer relu1_1
+I0608 11:29:57.756011 19748 net.cpp:84] Creating Layer relu1_1
+I0608 11:29:57.756014 19748 net.cpp:406] relu1_1 <- conv1_1
+I0608 11:29:57.756021 19748 net.cpp:367] relu1_1 -> conv1_1 (in-place)
+I0608 11:29:57.756928 19748 net.cpp:122] Setting up relu1_1
+I0608 11:29:57.756942 19748 net.cpp:129] Top shape: 30 64 224 224 (96337920)
+I0608 11:29:57.756944 19748 net.cpp:137] Memory required for data: 788766840
+I0608 11:29:57.756947 19748 layer_factory.hpp:77] Creating layer conv1_2
+I0608 11:29:57.756956 19748 net.cpp:84] Creating Layer conv1_2
+I0608 11:29:57.756959 19748 net.cpp:406] conv1_2 <- conv1_1
+I0608 11:29:57.756965 19748 net.cpp:380] conv1_2 -> conv1_2
+I0608 11:29:57.759734 19748 net.cpp:122] Setting up conv1_2
+I0608 11:29:57.759748 19748 net.cpp:129] Top shape: 30 64 224 224 (96337920)
+I0608 11:29:57.759752 19748 net.cpp:137] Memory required for data: 1174118520
+I0608 11:29:57.759760 19748 layer_factory.hpp:77] Creating layer relu1_2
+I0608 11:29:57.759768 19748 net.cpp:84] Creating Layer relu1_2
+I0608 11:29:57.759771 19748 net.cpp:406] relu1_2 <- conv1_2
+I0608 11:29:57.759776 19748 net.cpp:367] relu1_2 -> conv1_2 (in-place)
+I0608 11:29:57.761365 19748 net.cpp:122] Setting up relu1_2
+I0608 11:29:57.761379 19748 net.cpp:129] Top shape: 30 64 224 224 (96337920)
+I0608 11:29:57.761381 19748 net.cpp:137] Memory required for data: 1559470200
+I0608 11:29:57.761385 19748 layer_factory.hpp:77] Creating layer pool1
+I0608 11:29:57.761392 19748 net.cpp:84] Creating Layer pool1
+I0608 11:29:57.761395 19748 net.cpp:406] pool1 <- conv1_2
+I0608 11:29:57.761400 19748 net.cpp:380] pool1 -> pool1
+I0608 11:29:57.761461 19748 net.cpp:122] Setting up pool1
+I0608 11:29:57.761467 19748 net.cpp:129] Top shape: 30 64 112 112 (24084480)
+I0608 11:29:57.761471 19748 net.cpp:137] Memory required for data: 1655808120
+I0608 11:29:57.761473 19748 layer_factory.hpp:77] Creating layer conv2_1
+I0608 11:29:57.761482 19748 net.cpp:84] Creating Layer conv2_1
+I0608 11:29:57.761484 19748 net.cpp:406] conv2_1 <- pool1
+I0608 11:29:57.761490 19748 net.cpp:380] conv2_1 -> conv2_1
+I0608 11:29:57.765017 19748 net.cpp:122] Setting up conv2_1
+I0608 11:29:57.765030 19748 net.cpp:129] Top shape: 30 128 112 112 (48168960)
+I0608 11:29:57.765034 19748 net.cpp:137] Memory required for data: 1848483960
+I0608 11:29:57.765043 19748 layer_factory.hpp:77] Creating layer relu2_1
+I0608 11:29:57.765049 19748 net.cpp:84] Creating Layer relu2_1
+I0608 11:29:57.765053 19748 net.cpp:406] relu2_1 <- conv2_1
+I0608 11:29:57.765056 19748 net.cpp:367] relu2_1 -> conv2_1 (in-place)
+I0608 11:29:57.765254 19748 net.cpp:122] Setting up relu2_1
+I0608 11:29:57.765267 19748 net.cpp:129] Top shape: 30 128 112 112 (48168960)
+I0608 11:29:57.765270 19748 net.cpp:137] Memory required for data: 2041159800
+I0608 11:29:57.765274 19748 layer_factory.hpp:77] Creating layer conv2_2
+I0608 11:29:57.765283 19748 net.cpp:84] Creating Layer conv2_2
+I0608 11:29:57.765286 19748 net.cpp:406] conv2_2 <- conv2_1
+I0608 11:29:57.765291 19748 net.cpp:380] conv2_2 -> conv2_2
+I0608 11:29:57.768724 19748 net.cpp:122] Setting up conv2_2
+I0608 11:29:57.768738 19748 net.cpp:129] Top shape: 30 128 112 112 (48168960)
+I0608 11:29:57.768743 19748 net.cpp:137] Memory required for data: 2233835640
+I0608 11:29:57.768748 19748 layer_factory.hpp:77] Creating layer relu2_2
+I0608 11:29:57.768754 19748 net.cpp:84] Creating Layer relu2_2
+I0608 11:29:57.768756 19748 net.cpp:406] relu2_2 <- conv2_2
+I0608 11:29:57.768762 19748 net.cpp:367] relu2_2 -> conv2_2 (in-place)
+I0608 11:29:57.769654 19748 net.cpp:122] Setting up relu2_2
+I0608 11:29:57.769666 19748 net.cpp:129] Top shape: 30 128 112 112 (48168960)
+I0608 11:29:57.769670 19748 net.cpp:137] Memory required for data: 2426511480
+I0608 11:29:57.769672 19748 layer_factory.hpp:77] Creating layer pool2
+I0608 11:29:57.769677 19748 net.cpp:84] Creating Layer pool2
+I0608 11:29:57.769680 19748 net.cpp:406] pool2 <- conv2_2
+I0608 11:29:57.769686 19748 net.cpp:380] pool2 -> pool2
+I0608 11:29:57.769744 19748 net.cpp:122] Setting up pool2
+I0608 11:29:57.769752 19748 net.cpp:129] Top shape: 30 128 56 56 (12042240)
+I0608 11:29:57.769754 19748 net.cpp:137] Memory required for data: 2474680440
+I0608 11:29:57.769757 19748 layer_factory.hpp:77] Creating layer conv3_1
+I0608 11:29:57.769764 19748 net.cpp:84] Creating Layer conv3_1
+I0608 11:29:57.769767 19748 net.cpp:406] conv3_1 <- pool2
+I0608 11:29:57.769773 19748 net.cpp:380] conv3_1 -> conv3_1
+I0608 11:29:57.773483 19748 net.cpp:122] Setting up conv3_1
+I0608 11:29:57.773499 19748 net.cpp:129] Top shape: 30 256 56 56 (24084480)
+I0608 11:29:57.773502 19748 net.cpp:137] Memory required for data: 2571018360
+I0608 11:29:57.773511 19748 layer_factory.hpp:77] Creating layer relu3_1
+I0608 11:29:57.773517 19748 net.cpp:84] Creating Layer relu3_1
+I0608 11:29:57.773520 19748 net.cpp:406] relu3_1 <- conv3_1
+I0608 11:29:57.773524 19748 net.cpp:367] relu3_1 -> conv3_1 (in-place)
+I0608 11:29:57.774405 19748 net.cpp:122] Setting up relu3_1
+I0608 11:29:57.774417 19748 net.cpp:129] Top shape: 30 256 56 56 (24084480)
+I0608 11:29:57.774420 19748 net.cpp:137] Memory required for data: 2667356280
+I0608 11:29:57.774423 19748 layer_factory.hpp:77] Creating layer conv3_2
+I0608 11:29:57.774431 19748 net.cpp:84] Creating Layer conv3_2
+I0608 11:29:57.774435 19748 net.cpp:406] conv3_2 <- conv3_1
+I0608 11:29:57.774441 19748 net.cpp:380] conv3_2 -> conv3_2
+I0608 11:29:57.780318 19748 net.cpp:122] Setting up conv3_2
+I0608 11:29:57.780331 19748 net.cpp:129] Top shape: 30 256 56 56 (24084480)
+I0608 11:29:57.780334 19748 net.cpp:137] Memory required for data: 2763694200
+I0608 11:29:57.780340 19748 layer_factory.hpp:77] Creating layer relu3_2
+I0608 11:29:57.780347 19748 net.cpp:84] Creating Layer relu3_2
+I0608 11:29:57.780351 19748 net.cpp:406] relu3_2 <- conv3_2
+I0608 11:29:57.780355 19748 net.cpp:367] relu3_2 -> conv3_2 (in-place)
+I0608 11:29:57.780552 19748 net.cpp:122] Setting up relu3_2
+I0608 11:29:57.780563 19748 net.cpp:129] Top shape: 30 256 56 56 (24084480)
+I0608 11:29:57.780567 19748 net.cpp:137] Memory required for data: 2860032120
+I0608 11:29:57.780570 19748 layer_factory.hpp:77] Creating layer conv3_3
+I0608 11:29:57.780580 19748 net.cpp:84] Creating Layer conv3_3
+I0608 11:29:57.780583 19748 net.cpp:406] conv3_3 <- conv3_2
+I0608 11:29:57.780588 19748 net.cpp:380] conv3_3 -> conv3_3
+I0608 11:29:57.786444 19748 net.cpp:122] Setting up conv3_3
+I0608 11:29:57.786458 19748 net.cpp:129] Top shape: 30 256 56 56 (24084480)
+I0608 11:29:57.786463 19748 net.cpp:137] Memory required for data: 2956370040
+I0608 11:29:57.786468 19748 layer_factory.hpp:77] Creating layer relu3_3
+I0608 11:29:57.786476 19748 net.cpp:84] Creating Layer relu3_3
+I0608 11:29:57.786480 19748 net.cpp:406] relu3_3 <- conv3_3
+I0608 11:29:57.786484 19748 net.cpp:367] relu3_3 -> conv3_3 (in-place)
+I0608 11:29:57.787374 19748 net.cpp:122] Setting up relu3_3
+I0608 11:29:57.787387 19748 net.cpp:129] Top shape: 30 256 56 56 (24084480)
+I0608 11:29:57.787390 19748 net.cpp:137] Memory required for data: 3052707960
+I0608 11:29:57.787395 19748 layer_factory.hpp:77] Creating layer pool3
+I0608 11:29:57.787401 19748 net.cpp:84] Creating Layer pool3
+I0608 11:29:57.787405 19748 net.cpp:406] pool3 <- conv3_3
+I0608 11:29:57.787408 19748 net.cpp:380] pool3 -> pool3
+I0608 11:29:57.787468 19748 net.cpp:122] Setting up pool3
+I0608 11:29:57.787474 19748 net.cpp:129] Top shape: 30 256 28 28 (6021120)
+I0608 11:29:57.787477 19748 net.cpp:137] Memory required for data: 3076792440
+I0608 11:29:57.787480 19748 layer_factory.hpp:77] Creating layer conv4_1
+I0608 11:29:57.787489 19748 net.cpp:84] Creating Layer conv4_1
+I0608 11:29:57.787492 19748 net.cpp:406] conv4_1 <- pool3
+I0608 11:29:57.787497 19748 net.cpp:380] conv4_1 -> conv4_1
+I0608 11:29:57.795629 19748 net.cpp:122] Setting up conv4_1
+I0608 11:29:57.795644 19748 net.cpp:129] Top shape: 30 512 28 28 (12042240)
+I0608 11:29:57.795646 19748 net.cpp:137] Memory required for data: 3124961400
+I0608 11:29:57.795652 19748 layer_factory.hpp:77] Creating layer relu4_1
+I0608 11:29:57.795658 19748 net.cpp:84] Creating Layer relu4_1
+I0608 11:29:57.795661 19748 net.cpp:406] relu4_1 <- conv4_1
+I0608 11:29:57.795667 19748 net.cpp:367] relu4_1 -> conv4_1 (in-place)
+I0608 11:29:57.796556 19748 net.cpp:122] Setting up relu4_1
+I0608 11:29:57.796569 19748 net.cpp:129] Top shape: 30 512 28 28 (12042240)
+I0608 11:29:57.796572 19748 net.cpp:137] Memory required for data: 3173130360
+I0608 11:29:57.796576 19748 layer_factory.hpp:77] Creating layer conv4_2
+I0608 11:29:57.796584 19748 net.cpp:84] Creating Layer conv4_2
+I0608 11:29:57.796587 19748 net.cpp:406] conv4_2 <- conv4_1
+I0608 11:29:57.796593 19748 net.cpp:380] conv4_2 -> conv4_2
+I0608 11:29:57.810607 19748 net.cpp:122] Setting up conv4_2
+I0608 11:29:57.810623 19748 net.cpp:129] Top shape: 30 512 28 28 (12042240)
+I0608 11:29:57.810627 19748 net.cpp:137] Memory required for data: 3221299320
+I0608 11:29:57.810638 19748 layer_factory.hpp:77] Creating layer relu4_2
+I0608 11:29:57.810644 19748 net.cpp:84] Creating Layer relu4_2
+I0608 11:29:57.810647 19748 net.cpp:406] relu4_2 <- conv4_2
+I0608 11:29:57.810652 19748 net.cpp:367] relu4_2 -> conv4_2 (in-place)
+I0608 11:29:57.810848 19748 net.cpp:122] Setting up relu4_2
+I0608 11:29:57.810860 19748 net.cpp:129] Top shape: 30 512 28 28 (12042240)
+I0608 11:29:57.810863 19748 net.cpp:137] Memory required for data: 3269468280
+I0608 11:29:57.810866 19748 layer_factory.hpp:77] Creating layer conv4_3
+I0608 11:29:57.810875 19748 net.cpp:84] Creating Layer conv4_3
+I0608 11:29:57.810879 19748 net.cpp:406] conv4_3 <- conv4_2
+I0608 11:29:57.810883 19748 net.cpp:380] conv4_3 -> conv4_3
+I0608 11:29:57.825551 19748 net.cpp:122] Setting up conv4_3
+I0608 11:29:57.825567 19748 net.cpp:129] Top shape: 30 512 28 28 (12042240)
+I0608 11:29:57.825570 19748 net.cpp:137] Memory required for data: 3317637240
+I0608 11:29:57.825577 19748 layer_factory.hpp:77] Creating layer relu4_3
+I0608 11:29:57.825582 19748 net.cpp:84] Creating Layer relu4_3
+I0608 11:29:57.825585 19748 net.cpp:406] relu4_3 <- conv4_3
+I0608 11:29:57.825590 19748 net.cpp:367] relu4_3 -> conv4_3 (in-place)
+I0608 11:29:57.826499 19748 net.cpp:122] Setting up relu4_3
+I0608 11:29:57.826511 19748 net.cpp:129] Top shape: 30 512 28 28 (12042240)
+I0608 11:29:57.826515 19748 net.cpp:137] Memory required for data: 3365806200
+I0608 11:29:57.826519 19748 layer_factory.hpp:77] Creating layer pool4
+I0608 11:29:57.826524 19748 net.cpp:84] Creating Layer pool4
+I0608 11:29:57.826527 19748 net.cpp:406] pool4 <- conv4_3
+I0608 11:29:57.826534 19748 net.cpp:380] pool4 -> pool4
+I0608 11:29:57.826594 19748 net.cpp:122] Setting up pool4
+I0608 11:29:57.826602 19748 net.cpp:129] Top shape: 30 512 14 14 (3010560)
+I0608 11:29:57.826606 19748 net.cpp:137] Memory required for data: 3377848440
+I0608 11:29:57.826607 19748 layer_factory.hpp:77] Creating layer conv5_1
+I0608 11:29:57.826616 19748 net.cpp:84] Creating Layer conv5_1
+I0608 11:29:57.826618 19748 net.cpp:406] conv5_1 <- pool4
+I0608 11:29:57.826624 19748 net.cpp:380] conv5_1 -> conv5_1
+I0608 11:29:57.840001 19748 net.cpp:122] Setting up conv5_1
+I0608 11:29:57.840021 19748 net.cpp:129] Top shape: 30 512 14 14 (3010560)
+I0608 11:29:57.840025 19748 net.cpp:137] Memory required for data: 3389890680
+I0608 11:29:57.840031 19748 layer_factory.hpp:77] Creating layer relu5_1
+I0608 11:29:57.840039 19748 net.cpp:84] Creating Layer relu5_1
+I0608 11:29:57.840044 19748 net.cpp:406] relu5_1 <- conv5_1
+I0608 11:29:57.840049 19748 net.cpp:367] relu5_1 -> conv5_1 (in-place)
+I0608 11:29:57.840941 19748 net.cpp:122] Setting up relu5_1
+I0608 11:29:57.840955 19748 net.cpp:129] Top shape: 30 512 14 14 (3010560)
+I0608 11:29:57.840960 19748 net.cpp:137] Memory required for data: 3401932920
+I0608 11:29:57.840962 19748 layer_factory.hpp:77] Creating layer conv5_2
+I0608 11:29:57.840970 19748 net.cpp:84] Creating Layer conv5_2
+I0608 11:29:57.840973 19748 net.cpp:406] conv5_2 <- conv5_1
+I0608 11:29:57.840981 19748 net.cpp:380] conv5_2 -> conv5_2
+I0608 11:29:57.855037 19748 net.cpp:122] Setting up conv5_2
+I0608 11:29:57.855054 19748 net.cpp:129] Top shape: 30 512 14 14 (3010560)
+I0608 11:29:57.855057 19748 net.cpp:137] Memory required for data: 3413975160
+I0608 11:29:57.855063 19748 layer_factory.hpp:77] Creating layer relu5_2
+I0608 11:29:57.855072 19748 net.cpp:84] Creating Layer relu5_2
+I0608 11:29:57.855074 19748 net.cpp:406] relu5_2 <- conv5_2
+I0608 11:29:57.855079 19748 net.cpp:367] relu5_2 -> conv5_2 (in-place)
+I0608 11:29:57.855268 19748 net.cpp:122] Setting up relu5_2
+I0608 11:29:57.855280 19748 net.cpp:129] Top shape: 30 512 14 14 (3010560)
+I0608 11:29:57.855283 19748 net.cpp:137] Memory required for data: 3426017400
+I0608 11:29:57.855286 19748 layer_factory.hpp:77] Creating layer conv5_3
+I0608 11:29:57.855298 19748 net.cpp:84] Creating Layer conv5_3
+I0608 11:29:57.855303 19748 net.cpp:406] conv5_3 <- conv5_2
+I0608 11:29:57.855307 19748 net.cpp:380] conv5_3 -> conv5_3
+I0608 11:29:57.869340 19748 net.cpp:122] Setting up conv5_3
+I0608 11:29:57.869357 19748 net.cpp:129] Top shape: 30 512 14 14 (3010560)
+I0608 11:29:57.869360 19748 net.cpp:137] Memory required for data: 3438059640
+I0608 11:29:57.869367 19748 layer_factory.hpp:77] Creating layer relu5_3
+I0608 11:29:57.869374 19748 net.cpp:84] Creating Layer relu5_3
+I0608 11:29:57.869376 19748 net.cpp:406] relu5_3 <- conv5_3
+I0608 11:29:57.869382 19748 net.cpp:367] relu5_3 -> conv5_3 (in-place)
+I0608 11:29:57.870277 19748 net.cpp:122] Setting up relu5_3
+I0608 11:29:57.870290 19748 net.cpp:129] Top shape: 30 512 14 14 (3010560)
+I0608 11:29:57.870293 19748 net.cpp:137] Memory required for data: 3450101880
+I0608 11:29:57.870296 19748 layer_factory.hpp:77] Creating layer pool5
+I0608 11:29:57.870304 19748 net.cpp:84] Creating Layer pool5
+I0608 11:29:57.870308 19748 net.cpp:406] pool5 <- conv5_3
+I0608 11:29:57.870313 19748 net.cpp:380] pool5 -> pool5
+I0608 11:29:57.870379 19748 net.cpp:122] Setting up pool5
+I0608 11:29:57.870386 19748 net.cpp:129] Top shape: 30 512 7 7 (752640)
+I0608 11:29:57.870388 19748 net.cpp:137] Memory required for data: 3453112440
+I0608 11:29:57.870391 19748 layer_factory.hpp:77] Creating layer fc6
+I0608 11:29:57.870404 19748 net.cpp:84] Creating Layer fc6
+I0608 11:29:57.870406 19748 net.cpp:406] fc6 <- pool5
+I0608 11:29:57.870412 19748 net.cpp:380] fc6 -> fc6
+I0608 11:29:58.441833 19748 net.cpp:122] Setting up fc6
+I0608 11:29:58.441879 19748 net.cpp:129] Top shape: 30 4096 (122880)
+I0608 11:29:58.441884 19748 net.cpp:137] Memory required for data: 3453603960
+I0608 11:29:58.441895 19748 layer_factory.hpp:77] Creating layer relu6
+I0608 11:29:58.441907 19748 net.cpp:84] Creating Layer relu6
+I0608 11:29:58.441911 19748 net.cpp:406] relu6 <- fc6
+I0608 11:29:58.441918 19748 net.cpp:367] relu6 -> fc6 (in-place)
+I0608 11:29:58.442206 19748 net.cpp:122] Setting up relu6
+I0608 11:29:58.442220 19748 net.cpp:129] Top shape: 30 4096 (122880)
+I0608 11:29:58.442224 19748 net.cpp:137] Memory required for data: 3454095480
+I0608 11:29:58.442226 19748 layer_factory.hpp:77] Creating layer drop6
+I0608 11:29:58.442234 19748 net.cpp:84] Creating Layer drop6
+I0608 11:29:58.442236 19748 net.cpp:406] drop6 <- fc6
+I0608 11:29:58.442240 19748 net.cpp:367] drop6 -> fc6 (in-place)
+I0608 11:29:58.442276 19748 net.cpp:122] Setting up drop6
+I0608 11:29:58.442281 19748 net.cpp:129] Top shape: 30 4096 (122880)
+I0608 11:29:58.442284 19748 net.cpp:137] Memory required for data: 3454587000
+I0608 11:29:58.442287 19748 layer_factory.hpp:77] Creating layer fc7
+I0608 11:29:58.442296 19748 net.cpp:84] Creating Layer fc7
+I0608 11:29:58.442298 19748 net.cpp:406] fc7 <- fc6
+I0608 11:29:58.442302 19748 net.cpp:380] fc7 -> fc7
+I0608 11:29:58.536016 19748 net.cpp:122] Setting up fc7
+I0608 11:29:58.536061 19748 net.cpp:129] Top shape: 30 4096 (122880)
+I0608 11:29:58.536064 19748 net.cpp:137] Memory required for data: 3455078520
+I0608 11:29:58.536074 19748 layer_factory.hpp:77] Creating layer relu7
+I0608 11:29:58.536085 19748 net.cpp:84] Creating Layer relu7
+I0608 11:29:58.536090 19748 net.cpp:406] relu7 <- fc7
+I0608 11:29:58.536098 19748 net.cpp:367] relu7 -> fc7 (in-place)
+I0608 11:29:58.537189 19748 net.cpp:122] Setting up relu7
+I0608 11:29:58.537201 19748 net.cpp:129] Top shape: 30 4096 (122880)
+I0608 11:29:58.537204 19748 net.cpp:137] Memory required for data: 3455570040
+I0608 11:29:58.537207 19748 layer_factory.hpp:77] Creating layer drop7
+I0608 11:29:58.537216 19748 net.cpp:84] Creating Layer drop7
+I0608 11:29:58.537220 19748 net.cpp:406] drop7 <- fc7
+I0608 11:29:58.537225 19748 net.cpp:367] drop7 -> fc7 (in-place)
+I0608 11:29:58.537269 19748 net.cpp:122] Setting up drop7
+I0608 11:29:58.537274 19748 net.cpp:129] Top shape: 30 4096 (122880)
+I0608 11:29:58.537277 19748 net.cpp:137] Memory required for data: 3456061560
+I0608 11:29:58.537281 19748 layer_factory.hpp:77] Creating layer norm2
+I0608 11:29:58.537338 19748 net.cpp:84] Creating Layer norm2
+I0608 11:29:58.537343 19748 net.cpp:406] norm2 <- fc7
+I0608 11:29:58.537348 19748 net.cpp:380] norm2 -> norm2
+I0608 11:29:58.537966 19748 net.cpp:122] Setting up norm2
+I0608 11:29:58.537978 19748 net.cpp:129] Top shape: 30 4096 (122880)
+I0608 11:29:58.537981 19748 net.cpp:137] Memory required for data: 3456553080
+I0608 11:29:58.537984 19748 layer_factory.hpp:77] Creating layer fc9_1
+I0608 11:29:58.537992 19748 net.cpp:84] Creating Layer fc9_1
+I0608 11:29:58.537995 19748 net.cpp:406] fc9_1 <- norm2
+I0608 11:29:58.538002 19748 net.cpp:380] fc9_1 -> fc9_1
+I0608 11:29:58.538691 19748 net.cpp:122] Setting up fc9_1
+I0608 11:29:58.538702 19748 net.cpp:129] Top shape: 30 34 (1020)
+I0608 11:29:58.538705 19748 net.cpp:137] Memory required for data: 3456557160
+I0608 11:29:58.538712 19748 layer_factory.hpp:77] Creating layer triplet_select
+I0608 11:29:58.538736 19748 net.cpp:84] Creating Layer triplet_select
+I0608 11:29:58.538741 19748 net.cpp:406] triplet_select <- fc9_1
+I0608 11:29:58.538745 19748 net.cpp:406] triplet_select <- labels
+I0608 11:29:58.538749 19748 net.cpp:380] triplet_select -> archor
+I0608 11:29:58.538767 19748 net.cpp:380] triplet_select -> positive
+I0608 11:29:58.538772 19748 net.cpp:380] triplet_select -> negative
+I0608 11:29:58.538880 19748 net.cpp:122] Setting up triplet_select
+I0608 11:29:58.538892 19748 net.cpp:129] Top shape: 10 34 (340)
+I0608 11:29:58.538895 19748 net.cpp:129] Top shape: 10 34 (340)
+I0608 11:29:58.538899 19748 net.cpp:129] Top shape: 10 34 (340)
+I0608 11:29:58.538902 19748 net.cpp:137] Memory required for data: 3456561240
+I0608 11:29:58.538904 19748 layer_factory.hpp:77] Creating layer tripletloss
+I0608 11:29:58.538925 19748 net.cpp:84] Creating Layer tripletloss
+I0608 11:29:58.538930 19748 net.cpp:406] tripletloss <- archor
+I0608 11:29:58.538934 19748 net.cpp:406] tripletloss <- positive
+I0608 11:29:58.538938 19748 net.cpp:406] tripletloss <- negative
+I0608 11:29:58.538942 19748 net.cpp:380] tripletloss -> loss
+I0608 11:29:58.539430 19748 net.cpp:122] Setting up tripletloss
+I0608 11:29:58.539443 19748 net.cpp:129] Top shape: 1 (1)
+I0608 11:29:58.539448 19748 net.cpp:132]     with loss weight 1
+I0608 11:29:58.539458 19748 net.cpp:137] Memory required for data: 3456561244
+I0608 11:29:58.539461 19748 net.cpp:198] tripletloss needs backward computation.
+I0608 11:29:58.539465 19748 net.cpp:198] triplet_select needs backward computation.
+I0608 11:29:58.539469 19748 net.cpp:198] fc9_1 needs backward computation.
+I0608 11:29:58.539471 19748 net.cpp:200] norm2 does not need backward computation.
+I0608 11:29:58.539474 19748 net.cpp:200] drop7 does not need backward computation.
+I0608 11:29:58.539476 19748 net.cpp:200] relu7 does not need backward computation.
+I0608 11:29:58.539479 19748 net.cpp:200] fc7 does not need backward computation.
+I0608 11:29:58.539482 19748 net.cpp:200] drop6 does not need backward computation.
+I0608 11:29:58.539485 19748 net.cpp:200] relu6 does not need backward computation.
+I0608 11:29:58.539489 19748 net.cpp:200] fc6 does not need backward computation.
+I0608 11:29:58.539491 19748 net.cpp:200] pool5 does not need backward computation.
+I0608 11:29:58.539506 19748 net.cpp:200] relu5_3 does not need backward computation.
+I0608 11:29:58.539508 19748 net.cpp:200] conv5_3 does not need backward computation.
+I0608 11:29:58.539512 19748 net.cpp:200] relu5_2 does not need backward computation.
+I0608 11:29:58.539515 19748 net.cpp:200] conv5_2 does not need backward computation.
+I0608 11:29:58.539518 19748 net.cpp:200] relu5_1 does not need backward computation.
+I0608 11:29:58.539521 19748 net.cpp:200] conv5_1 does not need backward computation.
+I0608 11:29:58.539525 19748 net.cpp:200] pool4 does not need backward computation.
+I0608 11:29:58.539528 19748 net.cpp:200] relu4_3 does not need backward computation.
+I0608 11:29:58.539531 19748 net.cpp:200] conv4_3 does not need backward computation.
+I0608 11:29:58.539535 19748 net.cpp:200] relu4_2 does not need backward computation.
+I0608 11:29:58.539537 19748 net.cpp:200] conv4_2 does not need backward computation.
+I0608 11:29:58.539541 19748 net.cpp:200] relu4_1 does not need backward computation.
+I0608 11:29:58.539544 19748 net.cpp:200] conv4_1 does not need backward computation.
+I0608 11:29:58.539547 19748 net.cpp:200] pool3 does not need backward computation.
+I0608 11:29:58.539551 19748 net.cpp:200] relu3_3 does not need backward computation.
+I0608 11:29:58.539553 19748 net.cpp:200] conv3_3 does not need backward computation.
+I0608 11:29:58.539556 19748 net.cpp:200] relu3_2 does not need backward computation.
+I0608 11:29:58.539559 19748 net.cpp:200] conv3_2 does not need backward computation.
+I0608 11:29:58.539562 19748 net.cpp:200] relu3_1 does not need backward computation.
+I0608 11:29:58.539566 19748 net.cpp:200] conv3_1 does not need backward computation.
+I0608 11:29:58.539569 19748 net.cpp:200] pool2 does not need backward computation.
+I0608 11:29:58.539572 19748 net.cpp:200] relu2_2 does not need backward computation.
+I0608 11:29:58.539575 19748 net.cpp:200] conv2_2 does not need backward computation.
+I0608 11:29:58.539578 19748 net.cpp:200] relu2_1 does not need backward computation.
+I0608 11:29:58.539582 19748 net.cpp:200] conv2_1 does not need backward computation.
+I0608 11:29:58.539584 19748 net.cpp:200] pool1 does not need backward computation.
+I0608 11:29:58.539587 19748 net.cpp:200] relu1_2 does not need backward computation.
+I0608 11:29:58.539590 19748 net.cpp:200] conv1_2 does not need backward computation.
+I0608 11:29:58.539593 19748 net.cpp:200] relu1_1 does not need backward computation.
+I0608 11:29:58.539597 19748 net.cpp:200] conv1_1 does not need backward computation.
+I0608 11:29:58.539600 19748 net.cpp:200] data does not need backward computation.
+I0608 11:29:58.539602 19748 net.cpp:242] This network produces output loss
+I0608 11:29:58.539623 19748 net.cpp:255] Network initialization done.
+I0608 11:29:58.539732 19748 solver.cpp:56] Solver scaffolding done.
+I0608 11:29:58.553365 19748 solver.cpp:330] Iteration 0, Testing net (#0)
+len of samples: 34
+len of samples: 34
+Solving...
+loss: ap:0.00221157 an:0.00153563
+loss: ap:0.00156282 an:0.00220191
+loss: ap:0.00134197 an:0.00160604
+loss: ap:0.00197133 an:0.0021244
+loss: ap:0.00150272 an:0.00104282
+loss: ap:0.00147776 an:0.00124069
+loss: ap:0.00140801 an:0.00153128
+loss: ap:0.00125944 an:0.00189868
+loss: ap:0.00142364 an:0.00245168
+loss: ap:0.00180741 an:0.00212121
+loss: ap:0.00125214 an:0.00199893
+loss: ap:0.00237014 an:0.00171756
+loss: ap:0.00114948 an:0.00144601
+loss: ap:0.0014682 an:0.00164301
+loss: ap:0.00110934 an:0.00242268
+loss: ap:0.00314928 an:0.0019329
+loss: ap:0.00193015 an:0.00181001
+loss: ap:0.00221661 an:0.00302774
+loss: ap:0.00144185 an:0.00202579
+loss: ap:0.00213982 an:0.00247183
+loss: ap:0.0012958 an:0.00169601
+loss: ap:0.00145533 an:0.00203257
+loss: ap:0.00177003 an:0.00431021
+loss: ap:0.000882467 an:0.00118624
+loss: ap:0.00156544 an:0.00178971
+loss: ap:0.00115154 an:0.00113951
+loss: ap:0.00211477 an:0.00176662
+loss: ap:0.00190073 an:0.00110472
+loss: ap:0.00208688 an:0.00188922
+loss: ap:0.00102364 an:0.00204496
+loss: ap:0.00151357 an:0.00173969
+loss: ap:0.00158937 an:0.00230742
+loss: ap:0.00123328 an:0.00125071
+loss: ap:0.0015771 an:0.00167811
+loss: ap:0.00143699 an:0.00161041
+loss: ap:0.00148166 an:0.00113629
+loss: ap:0.0015745 an:0.00211926
+loss: ap:0.00124802 an:0.00334504
+loss: ap:0.00170235 an:0.0015435
+loss: ap:0.00106958 an:0.00143378
+loss: ap:0.00182958 an:0.00163504
+loss: ap:0.00202401 an:0.00186749
+loss: ap:0.000920665 an:0.00143638
+loss: ap:0.00176729 an:0.00185448
+loss: ap:0.00119529 an:0.000933419
+loss: ap:0.00174778 an:0.00185473
+loss: ap:0.00234497 an:0.00231758
+loss: ap:0.00232494 an:0.00197284
+loss: ap:0.00147814 an:0.00263453
+loss: ap:0.00178666 an:0.00195115
+loss: ap:0.002133 an:0.00219573
+loss: ap:0.00241824 an:0.00198982
+loss: ap:0.00212019 an:0.00182187
+loss: ap:0.00171548 an:0.00201745
+loss: ap:0.00251819 an:0.00233661
+loss: ap:0.00198913 an:0.00219115
+loss: ap:0.00144511 an:0.0019694
+loss: ap:0.00193395 an:0.00293219
+loss: ap:0.00268815 an:0.00266872
+loss: ap:0.00148225 an:0.00206332
+loss: ap:0.00154895 an:0.0015577
+loss: ap:0.00123528 an:0.00171792
+loss: ap:0.00133792 an:0.00127054
+loss: ap:0.00200982 an:0.00259359
+loss: ap:0.00263324 an:0.00243482
+loss: ap:0.000924888 an:0.00106922
+loss: ap:0.00135521 an:0.00222573
+loss: ap:0.00131091 an:0.00137455
+loss: ap:0.00118309 an:0.00156797
+loss: ap:0.00181843 an:0.00290689
+loss: ap:0.00117573 an:0.00150114
+loss: ap:0.00177173 an:0.00186867
+loss: ap:0.00159882 an:0.00174435
+loss: ap:0.00216265 an:0.00113507
+loss: ap:0.00118984 an:0.00171041
+loss: ap:0.00272761 an:0.00332669
+loss: ap:0.00185144 an:0.00117445
+loss: ap:0.00236655 an:0.00298594
+loss: ap:0.00167717 an:0.00162757
+loss: ap:0.00208005 an:0.0026
+loss: ap:0.00172878 an:0.00183887
+loss: ap:0.00186365 an:0.00141688
+loss: ap:0.000887889 an:0.00107938
+loss: ap:0.00190533 an:0.0029946
+loss: ap:0.00189698 an:0.00189809
+loss: ap:0.00255986 an:0.00257331
+loss: ap:0.00131993 an:0.00181169
+loss: ap:0.00200017 an:0.000973065
+loss: ap:0.00183937 an:0.00179219
+loss: ap:0.0020339 an:0.00226884
+loss: ap:0.00187518 an:0.00160122
+loss: ap:0.00143142 an:0.00117536
+loss: ap:0.00155696 an:0.00166016
+loss: ap:0.00123068 an:0.00134526
+loss: ap:0.00179963 an:0.00163297
+loss: ap:0.00177032 an:0.00181213
+loss: ap:0.00127426 an:0.00173065
+loss: ap:0.00223884 an:0.00207356
+loss: ap:0.00102974 an:0.00129166
+loss: ap:0.00116935 an:0.00143396
+loss: ap:0.00226089 an:0.00331725
+loss: ap:0.00221731 an:0.00165158
+loss: ap:0.0015438 an:0.00152117
+loss: ap:0.00164493 an:0.00138932
+loss: ap:0.00251726 an:0.00182245
+loss: ap:0.00093665 an:0.00117087
+loss: ap:0.00113277 an:0.00145777
+loss: ap:0.00182769 an:0.00194982
+loss: ap:0.00106516 an:0.00173137
+loss: ap:0.000897112 an:0.00147443
+loss: ap:0.00142041 an:0.00162752
+loss: ap:0.00212006 an:0.00159709
+loss: ap:0.00158029 an:0.00183728
+loss: ap:0.00212089 an:0.00212653
+loss: ap:0.00203162 an:0.00247114
+loss: ap:0.00142537 an:0.00170964
+loss: ap:0.00190227 an:0.00195734
+loss: ap:0.00198565 an:0.00102178
+loss: ap:0.00148303 an:0.00159848
+loss: ap:0.00162758 an:0.0015689
+loss: ap:0.00150941 an:0.00144971
+loss: ap:0.00144019 an:0.00194516
+loss: ap:0.00157539 an:0.0027185
+loss: ap:0.00123156 an:0.00151441
+loss: ap:0.00181647 an:0.00136368
+loss: ap:0.00210061 an:0.00177866
+loss: ap:0.00217634 an:0.00175465
+loss: ap:0.00209068 an:0.001736
+loss: ap:0.00158973 an:0.0015843
+loss: ap:0.00146843 an:0.0017185
+loss: ap:0.00219903 an:0.00175125
+loss: ap:0.00161109 an:0.00124412
+loss: ap:0.000998471 an:0.00108396
+loss: ap:0.00108821 an:0.00169432
+loss: ap:0.000998069 an:0.0016827
+loss: ap:0.00156765 an:0.00153935
+loss: ap:0.00158815 an:0.00138131
+loss: ap:0.00188599 an:0.0018697
+loss: ap:0.0026721 an:0.00371454
+loss: ap:0.00145475 an:0.00192118
+loss: ap:0.00156034 an:0.00120391
+loss: ap:0.0018281 an:0.00145262
+loss: ap:0.00106266 an:0.00159513
+loss: ap:0.00199468 an:0.00141818
+loss: ap:0.00157556 an:0.00243652
+loss: ap:0.00113054 an:0.00205169
+loss: ap:0.0014566 an:0.0010803
+loss: ap:0.00112233 an:0.00158973
+loss: ap:0.00140049 an:0.00147296
+loss: ap:0.00119283 an:0.00241791
+loss: ap:0.0016071 an:0.00170106
+loss: ap:0.00131411 an:0.00171244
+loss: ap:0.00198566 an:0.00183427
+loss: ap:0.00209545 an:0.00157464
+loss: ap:0.000995179 an:0.00173855
+loss: ap:0.00197714 an:0.000833207
+loss: ap:0.00168283 an:0.00122809
+loss: ap:0.00211525 an:0.00195339
+loss: ap:0.00207679 an:0.00295126
+loss: ap:0.00150254 an:0.00117474
+loss: ap:0.00229066 an:0.002055
+loss: ap:0.00202471 an:0.0018522
+loss: ap:0.00148217 an:0.00195998
+loss: ap:0.0011893 an:0.00133585
+loss: ap:0.000811089 an:0.0012416
+loss: ap:0.0025488 an:0.00172379
+loss: ap:0.00168002 an:0.00135794
+loss: ap:0.00152953 an:0.00111244
+loss: ap:0.0010463 an:0.00172807
+loss: ap:0.000955057 an:0.00180325
+loss: ap:0.00163534 an:0.00194974
+loss: ap:0.00247655 an:0.00321538
+loss: ap:0.00180496 an:0.00318396
+loss: ap:0.00209293 an:0.00226309
+loss: ap:0.00195606 an:0.00152568
+loss: ap:0.00115645 an:0.00104839
+loss: ap:0.00146622 an:0.00325176
+loss: ap:0.00153999 an:0.00249159
+loss: ap:0.000903506 an:0.00199598
+loss: ap:0.00115388 an:0.00132725
+loss: ap:0.00171254 an:0.00184255
+loss: ap:0.00161839 an:0.00132196
+loss: ap:0.00137521 an:0.00171623
+loss: ap:0.00126395 an:0.00133342
+loss: ap:0.00124656 an:0.00210855
+loss: ap:0.00101514 an:0.00133332
+loss: ap:0.0021942 an:0.00250058
+loss: ap:0.00192659 an:0.00163307
+loss: ap:0.00230448 an:0.00216988
+loss: ap:0.00142555 an:0.00220641
+loss: ap:0.00214848 an:0.00159959
+loss: ap:0.00117489 an:0.000941562
+loss: ap:0.00090353 an:0.00187561
+loss: ap:0.00205641 an:0.00141951
+loss: ap:0.00150407 an:0.00223406
+loss: ap:0.00184002 an:0.00197303
+loss: ap:0.00169925 an:0.00133626
+loss: ap:0.00237477 an:0.00137265
+loss: ap:0.000894348 an:0.00226593
+loss: ap:0.000861916 an:0.0013847
+loss: ap:0.00148315 an:0.00190723
+loss: ap:0.00159272 an:0.00254607
+loss: ap:0.00193844 an:0.00226009
+loss: ap:0.00157777 an:0.0017945
+loss: ap:0.00284748 an:0.0029173
+loss: ap:0.00161005 an:0.00163947
+loss: ap:0.0021197 an:0.00261067
+loss: ap:0.00112944 an:0.00164046
+loss: ap:0.00091515 an:0.00129252
+loss: ap:0.00287626 an:0.00138736
+loss: ap:0.00134261 an:0.00267647
+loss: ap:0.00235457 an:0.0015046
+loss: ap:0.00207001 an:0.00205559
+loss: ap:0.00150794 an:0.00209389
+loss: ap:0.00101769 an:0.00138345
+loss: ap:0.00226106 an:0.00240077
+loss: ap:0.00138384 an:0.00158669
+loss: ap:0.00170881 an:0.00192256
+loss: ap:0.000869378 an:0.00114796
+loss: ap:0.00131959 an:0.00137163
+loss: ap:0.00195163 an:0.00136697
+loss: ap:0.00130552 an:0.00157
+loss: ap:0.00158667 an:0.00198909
+loss: ap:0.00188966 an:0.00143496
+loss: ap:0.00115681 an:0.00216641
+loss: ap:0.00167512 an:0.0021836
+loss: ap:0.00154661 an:0.0022646
+loss: ap:0.00269487 an:0.00180368
+loss: ap:0.00198352 an:0.00300193
+loss: ap:0.00106127 an:0.00165149
+loss: ap:0.00150346 an:0.00138794
+loss: ap:0.000911527 an:0.0012027
+loss: ap:0.00148119 an:0.00200581
+loss: ap:0.00117328 an:0.00151508
+loss: ap:0.000964814 an:0.00128925
+loss: ap:0.00150481 an:0.00211338
+loss: ap:0.00254137 an:0.00210897
+loss: ap:0.00122063 an:0.00123726
+loss: ap:0.00192757 an:0.00205793
+loss: ap:0.00138272 an:0.00099558
+loss: ap:0.00237477 an:0.00258113
+loss: ap:0.00141532 an:0.00182955
+loss: ap:0.00138538 an:0.00144909
+loss: ap:0.00207267 an:0.00184503
+loss: ap:0.00198348 an:0.0018697
+loss: ap:0.00281738 an:0.00214437
+loss: ap:0.00195702 an:0.00202253
+loss: ap:0.00195727 an:0.00169217
+loss: ap:0.00167065 an:0.00124424
+loss: ap:0.00110947 an:0.00177544
+loss: ap:0.00146324 an:0.00117564
+loss: ap:0.00133417 an:0.00172084
+loss: ap:0.000873833 an:0.00135608
+loss: ap:0.00139651 an:0.00175954
+loss: ap:0.00120913 an:0.0013816
+loss: ap:0.00194307 an:0.00258067
+loss: ap:0.00119314 an:0.00159861
+loss: ap:0.00136705 an:0.00167914
+loss: ap:0.00145877 an:0.00154585
+loss: ap:0.00155521 an:0.00175419
+loss: ap:0.00185234 an:0.00218006
+loss: ap:0.00206907 an:0.00171583
+loss: ap:0.00107633 an:0.00142185
+loss: ap:0.00156883 an:0.00217665
+loss: ap:0.000930015 an:0.0014197
+loss: ap:0.00198629 an:0.00154463
+loss: ap:0.00123431 an:0.00149191
+loss: ap:0.0012787 an:0.00156895
+loss: ap:0.00111209 an:0.00134217
+loss: ap:0.00243029 an:0.00261155
+loss: ap:0.00162335 an:0.00168915
+loss: ap:0.00169591 an:0.00120891
+loss: ap:0.00149408 an:0.0018091
+loss: ap:0.00113177 an:0.00152328
+loss: ap:0.00162675 an:0.00169321
+loss: ap:0.000954504 an:0.00154832
+loss: ap:0.00137812 an:0.00156891
+loss: ap:0.00203353 an:0.00233726
+loss: ap:0.00153292 an:0.00158213
+loss: ap:0.00075747 an:0.00208187
+loss: ap:0.000779688 an:0.00134168
+loss: ap:0.00139759 an:0.00185236
+loss: ap:0.00190593 an:0.00136299
+loss: ap:0.00137149 an:0.00100343
+loss: ap:0.00209711 an:0.00207569
+loss: ap:0.00190817 an:0.00251183
+loss: ap:0.00153151 an:0.00172632
+loss: ap:0.00127734 an:0.00173102
+loss: ap:0.00215323 an:0.00219256
+loss: ap:0.00128105 an:0.00135721
+loss: ap:0.00181671 an:0.00153431
+loss: ap:0.00142843 an:0.00170041
+loss: ap:0.00210126 an:0.00203693
+loss: ap:0.00193554 an:0.00162558
+loss: ap:0.00161009 an:0.00198857
+loss: ap:0.00186111 an:0.0020512
+loss: ap:0.00179035 an:0.00227918
+loss: ap:0.00163295 an:0.00183523
+loss: ap:0.00192814 an:0.00140086
+loss: ap:0.00180551 an:0.00149804
+loss: ap:0.00123079 an:0.00106884
+loss: ap:0.00127313 an:0.00187615
+loss: ap:0.00146921 an:0.00120191
+loss: ap:0.00188469 an:0.00125721
+loss: ap:0.00197815 an:0.00218084
+loss: ap:0.00109241 an:0.00140964
+loss: ap:0.00169668 an:0.00241247
+loss: ap:0.00127017 an:0.00283595
+loss: ap:0.00154066 an:0.00141509
+loss: ap:0.00130812 an:0.00169965
+loss: ap:0.001526 an:0.00158021
+loss: ap:0.00132196 an:0.00141402
+loss: ap:0.00173611 an:0.00179156
+loss: ap:0.00218657 an:0.00197843
+loss: ap:0.00192291 an:0.00197443
+loss: ap:0.00101004 an:0.00113593
+loss: ap:0.00201461 an:0.00153252
+loss: ap:0.00202076 an:0.00210847
+loss: ap:0.00157914 an:0.00186701
+loss: ap:0.00172392 an:0.0013392
+loss: ap:0.00143645 an:0.00165786
+loss: ap:0.00152635 an:0.00124586
+loss: ap:0.00237455 an:0.00136968
+loss: ap:0.00115839 an:0.00195074
+loss: ap:0.00151992 an:0.00136668
+loss: ap:0.000872388 an:0.00166938
+loss: ap:0.00142387 an:0.00158414
+loss: ap:0.00172241 an:0.00175263
+loss: ap:0.00121201 an:0.00107481
+loss: ap:0.00143349 an:0.00196549
+loss: ap:0.00210932 an:0.0022556
+loss: ap:0.00162994 an:0.00184357
+loss: ap:0.00116481 an:0.00173081
+loss: ap:0.00228429 an:0.0021333
+loss: ap:0.00117625 an:0.00173506
+loss: ap:0.00162039 an:0.00255538
+loss: ap:0.00108746 an:0.00181574
+loss: ap:0.00187149 an:0.00197733
+loss: ap:0.00136519 an:0.0011869
+loss: ap:0.00234367 an:0.00190687
+loss: ap:0.00126927 an:0.00152698
+loss: ap:0.00168716 an:0.00101077
+loss: ap:0.00142437 an:0.00139191
+loss: ap:0.00091433 an:0.000948078
+loss: ap:0.00162522 an:0.00197656
+loss: ap:0.000873844 an:0.0015538
+loss: ap:0.00167059 an:0.00238827
+loss: ap:0.00157941 an:0.00156656
+loss: ap:0.00232691 an:0.0037094
+loss: ap:0.00210636 an:0.00131268
+loss: ap:0.00162255 an:0.00194431
+loss: ap:0.00183413 an:0.00195424
+loss: ap:0.0014775 an:0.00200518
+loss: ap:0.0011871 an:0.000891487
+loss: ap:0.0015343 an:0.00245065
+loss: ap:0.001801 an:0.00141985
+loss: ap:0.00136031 an:0.00214544
+loss: ap:0.00223189 an:0.00220192
+loss: ap:0.00195626 an:0.00181347
+loss: ap:0.00137055 an:0.0010235
+loss: ap:0.00109442 an:0.00177843
+loss: ap:0.00142661 an:0.00126854
+loss: ap:0.00157553 an:0.0026145
+loss: ap:0.00165889 an:0.00138249
+loss: ap:0.000682742 an:0.00144721
+loss: ap:0.00241096 an:0.00194504
+loss: ap:0.00169468 an:0.00212231
+loss: ap:0.002705 an:0.00183386
+loss: ap:0.00147164 an:0.00195315
+loss: ap:0.000693651 an:0.00119899
+loss: ap:0.000937347 an:0.00151275
+loss: ap:0.00258857 an:0.00242633
+loss: ap:0.000842739 an:0.00124922
+loss: ap:0.00189326 an:0.00250183
+loss: ap:0.00141335 an:0.00104472
+loss: ap:0.00224575 an:0.00214125
+loss: ap:0.000937914 an:0.00178039
+loss: ap:0.0012732 an:0.00151032
+loss: ap:0.00179454 an:0.00119262
+loss: ap:0.00156892 an:0.00128302
+loss: ap:0.00164432 an:0.00132558
+loss: ap:0.00149547 an:0.00121825
+loss: ap:0.00147648 an:0.00240033
+loss: ap:0.00107731 an:0.002106
+loss: ap:0.00259707 an:0.00239286
+loss: ap:0.00168231 an:0.00171689
+loss: ap:0.0025797 an:0.0028671
+loss: ap:0.00180475 an:0.00205708
+loss: ap:0.001756 an:0.00199619
+loss: ap:0.00175026 an:0.00147968
+loss: ap:0.00185376 an:0.00247018
+loss: ap:0.002438 an:0.00138237
+loss: ap:0.00210616 an:0.00203524
+loss: ap:0.00162084 an:0.00194015
+loss: ap:0.000995644 an:0.00124608
+loss: ap:0.00186083 an:0.00286667
+loss: ap:0.00172982 an:0.00105155
+loss: ap:0.0010272 an:0.00145733
+loss: ap:0.00141341 an:0.00166759
+loss: ap:0.00101566 an:0.00197012
+loss: ap:0.00170817 an:0.0020033
+loss: ap:0.00173574 an:0.00220237
+loss: ap:0.00209047 an:0.00201079
+loss: ap:0.00171637 an:0.00213827
+loss: ap:0.00175512 an:0.00188006
+loss: ap:0.00136378 an:0.00208502
+loss: ap:0.00172132 an:0.00145881
+loss: ap:0.00136304 an:0.00225146
+loss: ap:0.00137029 an:0.00138346
+loss: ap:0.00138986 an:0.00124039
+loss: ap:0.00184295 an:0.00179898
+loss: ap:0.00127648 an:0.00164854
+loss: ap:0.00257993 an:0.0026211
+loss: ap:0.00181476 an:0.00223043
+loss: ap:0.00224922 an:0.00165712
+loss: ap:0.0023347 an:0.00239011
+loss: ap:0.00204324 an:0.00233958
+loss: ap:0.0018042 an:0.00186611
+loss: ap:0.00221721 an:0.00234951
+loss: ap:0.00130272 an:0.00197497
+loss: ap:0.00247464 an:0.0028104
+loss: ap:0.00196344 an:0.00232031
+loss: ap:0.00238877 an:0.00168501
+loss: ap:0.00188901 an:0.00217062
+loss: ap:0.00230955 an:0.0019143
+loss: ap:0.00202255 an:0.00178602
+loss: ap:0.00210339 an:0.00371977
+loss: ap:0.00154524 an:0.00115072
+loss: ap:0.00123755 an:0.00122017
+loss: ap:0.00156071 an:0.00166114
+loss: ap:0.00163645 an:0.00142273
+loss: ap:0.002143 an:0.00133981
+loss: ap:0.00234133 an:0.00179178
+loss: ap:0.00140135 an:0.00155253
+loss: ap:0.00142382 an:0.00161806
+loss: ap:0.00205729 an:0.00195686
+loss: ap:0.00188889 an:0.00175113
+loss: ap:0.00100722 an:0.00148051
+loss: ap:0.00167036 an:0.0018069
+loss: ap:0.00125225 an:0.00149226
+loss: ap:0.00346663 an:0.00146823
+loss: ap:0.00264049 an:0.00233893
+loss: ap:0.00108052 an:0.00166034
+loss: ap:0.00103623 an:0.00146996
+loss: ap:0.00118057 an:0.00319787
+loss: ap:0.00223639 an:0.00182194
+loss: ap:0.00119233 an:0.00187295
+loss: ap:0.000986415 an:0.00166229
+loss: ap:0.00174889 an:0.00137846
+loss: ap:0.00185833 an:0.00204269
+loss: ap:0.00138634 an:0.00134371
+loss: ap:0.00150592 an:0.00277974
+loss: ap:0.00227346 an:0.00290163
+loss: ap:0.00225922 an:0.00216859
+loss: ap:0.00169736 an:0.00176668
+loss: ap:0.00121663 an:0.00128142
+loss: ap:0.00161192 an:0.00185537
+loss: ap:0.00260937 an:0.0013089
+loss: ap:0.00146864 an:0.00230928
+loss: ap:0.00132105 an:0.0013331
+loss: ap:0.00133766 an:0.00113957
+loss: ap:0.00171217 an:0.00140486
+loss: ap:0.00110596 an:0.00181142
+loss: ap:0.00133379 an:0.00164616
+loss: ap:0.00133499 an:0.0015147
+loss: ap:0.0026476 an:0.00274432
+loss: ap:0.00195205 an:0.00288183
+loss: ap:0.00213184 an:0.00271733
+loss: ap:0.00242934 an:0.00203557
+loss: ap:0.00169766 an:0.00188799
+loss: ap:0.00195389 an:0.00164017
+loss: ap:0.00225392 an:0.0025793
+loss: ap:0.00186509 an:0.00288246
+loss: ap:0.00145705 an:0.00249967
+loss: ap:0.0014637 an:0.00167753
+loss: ap:0.001839 an:0.002244
+loss: ap:0.00149368 an:0.00159893
+loss: ap:0.00157383 an:0.00223872
+loss: ap:0.0019636 an:0.00133375
+loss: ap:0.00140273 an:0.00195981
+loss: ap:0.00158615 an:0.00238388
+loss: ap:0.00244228 an:0.00183165
+loss: ap:0.00174246 an:0.00226114
+loss: ap:0.00268713 an:0.0022521
+loss: ap:0.00192264 an:0.0017294
+loss: ap:0.00178682 an:0.00151098
+loss: ap:0.00159419 an:0.00176295
+loss: ap:0.00257997 an:0.0014339
+loss: ap:0.00199862 an:0.00181802
+loss: ap:0.00154353 an:0.00182714
+loss: ap:0.00168592 an:0.00145216
+loss: ap:0.00227873 an:0.00181397
+loss: ap:0.0013859 an:0.00175584
+loss: ap:0.00135301 an:0.00165026
+loss: ap:0.000950899 an:0.00179731
+loss: ap:0.00189432 an:0.00178712
+loss: ap:0.00224005 an:0.00139221
+loss: ap:0.00133198 an:0.00210739
+loss: ap:0.0019522 an:0.0015095
+loss: ap:0.00280148 an:0.00353951
+loss: ap:0.00148554 an:0.00206362
+loss: ap:0.0011616 an:0.00265919
+loss: ap:0.00261995 an:0.00166497
+loss: ap:0.00224387 an:0.00284943
+loss: ap:0.00191307 an:0.00117997
+loss: ap:0.00166485 an:0.00213027
+loss: ap:0.00206277 an:0.00169107
+loss: ap:0.00232318 an:0.00204134
+loss: ap:0.00152921 an:0.00128073
+loss: ap:0.00180145 an:0.00218064
+loss: ap:0.00148379 an:0.00281196
+loss: ap:0.00139154 an:0.0015317
+loss: ap:0.00187526 an:0.00155713
+loss: ap:0.00124892 an:0.00141845
+loss: ap:0.00152171 an:0.00173695
+loss: ap:0.00306574 an:0.0017028
+loss: ap:0.00161256 an:0.00197924
+loss: ap:0.00193475 an:0.00223016
+loss: ap:0.00134956 an:0.0013085
+loss: ap:0.000849247 an:0.00115171
+loss: ap:0.00230893 an:0.00147302
+loss: ap:0.00158516 an:0.00165386
+loss: ap:0.001141 an:0.00202523
+loss: ap:0.00206188 an:0.00177475
+loss: ap:0.00224349 an:0.00171514
+loss: ap:0.00183507 an:0.00186358
+loss: ap:0.00225085 an:0.00131512
+loss: ap:0.00173081 an:0.00150282
+loss: ap:0.0013925 an:0.00122348
+loss: ap:0.00172862 an:0.00238543
+loss: ap:0.00178513 an:0.00177695
+loss: ap:0.000812352 an:0.00142353
+loss: ap:0.00193492 an:0.00162998
+loss: ap:0.00199324 an:0.00155261
+loss: ap:0.00154092 an:0.00165991
+loss: ap:0.00116669 an:0.00195239
+loss: ap:0.00206997 an:0.00132343
+loss: ap:0.00192587 an:0.00244188
+loss: ap:0.00227632 an:0.00246913
+loss: ap:0.000933187 an:0.00144511
+loss: ap:0.00221908 an:0.00236343
+loss: ap:0.00212295 an:0.00177065
+loss: ap:0.00128067 an:0.00212131
+loss: ap:0.00177512 an:0.00181055
+loss: ap:0.00163373 an:0.00189788
+loss: ap:0.00145679 an:0.0016562
+loss: ap:0.00199473 an:0.00232613
+loss: ap:0.00138384 an:0.00197293
+loss: ap:0.0025304 an:0.00180117
+loss: ap:0.00109948 an:0.0015568
+loss: ap:0.00172171 an:0.000966897
+loss: ap:0.00249682 an:0.00164606
+loss: ap:0.00117486 an:0.00152204
+loss: ap:0.00125166 an:0.00190211
+loss: ap:0.00199071 an:0.00123717
+loss: ap:0.00107135 an:0.00184642
+loss: ap:0.00158049 an:0.00112239
+loss: ap:0.00138549 an:0.00198978
+loss: ap:0.00186203 an:0.00231983
+loss: ap:0.00193707 an:0.00195029
+loss: ap:0.00103057 an:0.00129182
+loss: ap:0.00272766 an:0.00219866
+loss: ap:0.00173286 an:0.00202093
+loss: ap:0.00158631 an:0.00197658
+loss: ap:0.00116394 an:0.00150134
+loss: ap:0.00271128 an:0.00204734
+loss: ap:0.00205325 an:0.00253884
+loss: ap:0.00216712 an:0.00173429
+loss: ap:0.00157819 an:0.00163696
+loss: ap:0.001547 an:0.00183231
+loss: ap:0.00180925 an:0.00306094
+loss: ap:0.00113425 an:0.00232526
+loss: ap:0.00230502 an:0.00189982
+loss: ap:0.002186 an:0.00130007
+loss: ap:0.00123526 an:0.00286867
+loss: ap:0.00171329 an:0.00187947
+loss: ap:0.00136506 an:0.00140396
+loss: ap:0.00165727 an:0.00207671
+loss: ap:0.00170975 an:0.00187615
+loss: ap:0.00115426 an:0.00178203
+loss: ap:0.00137891 an:0.0016531
+loss: ap:0.00151389 an:0.00196878
+loss: ap:0.001045 an:0.00182517
+loss: ap:0.0019755 an:0.00138086
+loss: ap:0.00113459 an:0.00126395
+loss: ap:0.00134921 an:0.00119259
+loss: ap:0.00138222 an:0.00213818
+loss: ap:0.00147794 an:0.00177621
+loss: ap:0.00315813 an:0.00188624
+loss: ap:0.0020403 an:0.00199493
+loss: ap:0.00195626 an:0.00198019
+loss: ap:0.00135542 an:0.00134692
+loss: ap:0.00151456 an:0.00264302
+loss: ap:0.0016075 an:0.00235609
+loss: ap:0.00125853 an:0.00129874
+loss: ap:0.00125952 an:0.0016929
+loss: ap:0.00147797 an:0.00181905
+loss: ap:0.00168705 an:0.00106622
+loss: ap:0.00181341 an:0.00235499
+loss: ap:0.0013039 an:0.00143246
+loss: ap:0.00108946 an:0.00138107
+loss: ap:0.00187518 an:0.00154523
+loss: ap:0.000741949 an:0.00176503
+loss: ap:0.00141515 an:0.00181777
+loss: ap:0.0008876 an:0.0015635
+loss: ap:0.00131885 an:0.00133876
+loss: ap:0.00144894 an:0.00184777
+loss: ap:0.00245066 an:0.00228503
+loss: ap:0.00112095 an:0.00267049
+loss: ap:0.00178612 an:0.00254861
+loss: ap:0.00133672 an:0.00151249
+loss: ap:0.0013818 an:0.00171878
+loss: ap:0.00237839 an:0.00218323
+loss: ap:0.000999262 an:0.00135683
+loss: ap:0.00177858 an:0.00238139
+loss: ap:0.00138755 an:0.00190378
+loss: ap:0.00225189 an:0.00173229
+loss: ap:0.00136851 an:0.00206188
+loss: ap:0.0018343 an:0.00186523
+loss: ap:0.00263587 an:0.00229568
+loss: ap:0.00140178 an:0.00241383
+loss: ap:0.0016591 an:0.00155102
+loss: ap:0.00110365 an:0.00202712
+loss: ap:0.00150055 an:0.00145603
+loss: ap:0.00176586 an:0.00365738
+loss: ap:0.00143443 an:0.00139997
+loss: ap:0.00139289 an:0.00113875
+loss: ap:0.00174907 an:0.00100672
+loss: ap:0.00183446 an:0.00178186
+loss: ap:0.00210987 an:0.00144038
+loss: ap:0.00144626 an:0.00160376
+loss: ap:0.00146725 an:0.0015194
+loss: ap:0.00162578 an:0.00154965
+loss: ap:0.00210859 an:0.00147519
+loss: ap:0.00128949 an:0.00171821
+loss: ap:0.000901456 an:0.00142674
+loss: ap:0.00201303 an:0.00218818
+loss: ap:0.000809301 an:0.00168051
+loss: ap:0.00111466 an:0.0027807
+loss: ap:0.00147315 an:0.00250824
+loss: ap:0.00189996 an:0.00246321
+loss: ap:0.00137289 an:0.00161244
+loss: ap:0.00130643 an:0.00215802
+loss: ap:0.00147768 an:0.00177771
+loss: ap:0.00201305 an:0.00190392
+loss: ap:0.00168075 an:0.00251586
+loss: ap:0.0013486 an:0.00242786
+loss: ap:0.00197304 an:0.00151301
+loss: ap:0.00175096 an:0.0019007
+loss: ap:0.00151704 an:0.00258162
+loss: ap:0.00142788 an:0.00211354
+loss: ap:0.00263786 an:0.00192933
+loss: ap:0.00181721 an:0.00175858
+loss: ap:0.00100041 an:0.00156575
+loss: ap:0.0017611 an:0.00156226
+loss: ap:0.00214682 an:0.0018054
+loss: ap:0.00115088 an:0.00193276
+loss: ap:0.00151695 an:0.00216796
+loss: ap:0.0014925 an:0.00180691
+loss: ap:0.0021785 an:0.00249317
+loss: ap:0.0015882 an:0.00141437
+loss: ap:0.00107818 an:0.00175297
+loss: ap:0.00187556 an:0.00182396
+loss: ap:0.00139047 an:0.00176196
+loss: ap:0.00166237 an:0.00217827
+loss: ap:0.00135049 an:0.000918788
+loss: ap:0.00224007 an:0.00163731
+loss: ap:0.00184236 an:0.00414424
+loss: ap:0.00179641 an:0.00212193
+loss: ap:0.00106155 an:0.00168846
+loss: ap:0.00291647 an:0.00128938
+loss: ap:0.0013102 an:0.00107496
+loss: ap:0.00197747 an:0.00138638
+loss: ap:0.00121794 an:0.00127631
+loss: ap:0.00120924 an:0.00121379
+loss: ap:0.00223429 an:0.00170089
+loss: ap:0.00101223 an:0.0017176
+loss: ap:0.00149215 an:0.0013807
+loss: ap:0.00172539 an:0.00125358
+loss: ap:0.00229342 an:0.00229734
+loss: ap:0.00195399 an:0.00180802
+loss: ap:0.00126009 an:0.00193567
+loss: ap:0.00148407 an:0.00126912
+loss: ap:0.00157373 an:0.00121294
+loss: ap:0.00171884 an:0.00158453
+loss: ap:0.00243754 an:0.00262546
+loss: ap:0.00175433 an:0.0020691
+loss: ap:0.00237108 an:0.00278832
+loss: ap:0.00118411 an:0.0014593
+loss: ap:0.00145868 an:0.0021943
+loss: ap:0.00104719 an:0.000923287
+loss: ap:0.0018791 an:0.00191336
+loss: ap:0.00190608 an:0.00220591
+loss: ap:0.00200965 an:0.00148374
+loss: ap:0.00238322 an:0.00309907
+loss: ap:0.00108572 an:0.0011702
+loss: ap:0.00232666 an:0.00240927
+loss: ap:0.00117448 an:0.00122377
+loss: ap:0.0022876 an:0.00216027
+loss: ap:0.00284831 an:0.00311274
+loss: ap:0.00210664 an:0.00210478
+loss: ap:0.00121331 an:0.00153076
+loss: ap:0.00143738 an:0.00147869
+loss: ap:0.00125953 an:0.00116727
+loss: ap:0.00210035 an:0.00201311
+loss: ap:0.00185408 an:0.00168525
+loss: ap:0.00200603 an:0.00172834
+loss: ap:0.00184195 an:0.00203747
+loss: ap:0.00157696 an:0.00114219
+loss: ap:0.00158522 an:0.0017298
+loss: ap:0.000640737 an:0.00277399
+loss: ap:0.00235623 an:0.00194294
+loss: ap:0.001335 an:0.00129799
+loss: ap:0.00108464 an:0.00117205
+loss: ap:0.000947377 an:0.00294546
+loss: ap:0.00135793 an:0.00158931
+loss: ap:0.00213841 an:0.00158087
+loss: ap:0.00242097 an:0.0015427
+loss: ap:0.00171991 an:0.00226348
+loss: ap:0.0015288 an:0.00221966
+loss: ap:0.00109787 an:0.00105657
+loss: ap:0.00137095 an:0.00218568
+loss: ap:0.00141792 an:0.00127077
+loss: ap:0.00229745 an:0.00196565
+loss: ap:0.00160498 an:0.00298393
+loss: ap:0.00249134 an:0.0022192
+loss: ap:0.0019172 an:0.00164463
+loss: ap:0.00178977 an:0.00177022
+loss: ap:0.00192351 an:0.00119039
+loss: ap:0.00217404 an:0.00188603
+loss: ap:0.00180785 an:0.00121468
+loss: ap:0.00218648 an:0.0026347
+loss: ap:0.00187161 an:0.00165113
+loss: ap:0.00223217 an:0.00208582
+loss: ap:0.00180408 an:0.00212801
+loss: ap:0.00166084 an:0.0020123
+loss: ap:0.00172936 an:0.00140265
+loss: ap:0.00119341 an:0.000747807
+loss: ap:0.00163784 an:0.00237274
+loss: ap:0.00134456 an:0.00141751
+loss: ap:0.000827134 an:0.00127133
+loss: ap:0.00151562 an:0.00105046
+loss: ap:0.00145438 an:0.00187223
+loss: ap:0.00122096 an:0.00178334
+loss: ap:0.00126872 an:0.00139655
+loss: ap:0.00154734 an:0.00189324
+loss: ap:0.0017188 an:0.00183799
+loss: ap:0.00186197 an:0.00213114
+loss: ap:0.00307395 an:0.00240854
+loss: ap:0.00165658 an:0.00131551
+loss: ap:0.00286856 an:0.00260643
+loss: ap:0.00188896 an:0.00242856
+loss: ap:0.00205985 an:0.00182133
+loss: ap:0.0015095 an:0.00152691
+loss: ap:0.00152547 an:0.00181335
+loss: ap:0.00181355 an:0.00132286
+loss: ap:0.000905032 an:0.00152649
+loss: ap:0.00170304 an:0.00204179
+loss: ap:0.0008298 an:0.0012198
+loss: ap:0.00216895 an:0.00289426
+loss: ap:0.00165036 an:0.00200553
+loss: ap:0.00224598 an:0.00165672
+loss: ap:0.00116643 an:0.00189757
+loss: ap:0.00168377 an:0.00179968
+loss: ap:0.00108529 an:0.00176034
+loss: ap:0.000897604 an:0.00118878
+loss: ap:0.00169725 an:0.00145915
+loss: ap:0.00120217 an:0.00237185
+loss: ap:0.00110894 an:0.0016708
+loss: ap:0.00139443 an:0.00145481
+loss: ap:0.00283713 an:0.00251643
+loss: ap:0.00233062 an:0.00274778
+loss: ap:0.00138376 an:0.00306066
+loss: ap:0.00202898 an:0.00176648
+loss: ap:0.00136117 an:0.00152356
+loss: ap:0.00199343 an:0.00149327
+loss: ap:0.00177098 an:0.00122801
+loss: ap:0.00249447 an:0.00287007
+loss: ap:0.000984596 an:0.00146825
+loss: ap:0.00131433 an:0.00149493
+loss: ap:0.00120913 an:0.00286086
+loss: ap:0.00128964 an:0.00165815
+loss: ap:0.00102941 an:0.00216749
+loss: ap:0.00182695 an:0.0021339
+loss: ap:0.00106196 an:0.00105008
+loss: ap:0.00138118 an:0.00131621
+loss: ap:0.000886693 an:0.00129089
+loss: ap:0.00173751 an:0.00160423
+loss: ap:0.00272265 an:0.00173664
+loss: ap:0.00240247 an:0.00135603
+loss: ap:0.00134784 an:0.00186617
+loss: ap:0.00129125 an:0.00180757
+loss: ap:0.00107003 an:0.00142966
+loss: ap:0.00111872 an:0.000940203
+loss: ap:0.00119537 an:0.00104851
+loss: ap:0.00126819 an:0.0013086
+loss: ap:0.00252639 an:0.00123646
+loss: ap:0.00118979 an:0.00192652
+loss: ap:0.00183185 an:0.00200547
+loss: ap:0.00153496 an:0.00142424
+loss: ap:0.00149819 an:0.00152417
+loss: ap:0.0019315 an:0.0023744
+loss: ap:0.00147741 an:0.0019555
+loss: ap:0.00114555 an:0.00124861
+loss: ap:0.0017832 an:0.00172437
+loss: ap:0.00191476 an:0.00243999
+loss: ap:0.00151783 an:0.00138994
+loss: ap:0.00157537 an:0.00186424
+loss: ap:0.0013342 an:0.00129675
+loss: ap:0.0014139 an:0.00256794
+loss: ap:0.00178082 an:0.00189737
+loss: ap:0.00213275 an:0.00305538
+loss: ap:0.00246088 an:0.00244987
+loss: ap:0.00204386 an:0.00163612
+loss: ap:0.00114898 an:0.00154681
+loss: ap:0.00183336 an:0.00101824
+loss: ap:0.00157921 an:0.00157326
+loss: ap:0.00143687 an:0.00172369
+loss: ap:0.00179467 an:0.00194446
+loss: ap:0.00203318 an:0.00221745
+loss: ap:0.00191849 an:0.00159936
+loss: ap:0.0014705 an:0.00125027
+loss: ap:0.00248243 an:0.00229635
+loss: ap:0.00135005 an:0.00139862
+loss: ap:0.00108286 an:0.00155286
+loss: ap:0.00104665 an:0.00167402
+loss: ap:0.000908597 an:0.00126616
+loss: ap:0.00222234 an:0.00193345
+loss: ap:0.00155771 an:0.00199328
+loss: ap:0.00165248 an:0.00111973
+loss: ap:0.000769254 an:0.00150022
+loss: ap:0.00187361 an:0.00192493
+loss: ap:0.00194717 an:0.00169598
+loss: ap:0.000937039 an:0.0015976
+loss: ap:0.00180283 an:0.00168693
+loss: ap:0.00170466 an:0.00125472
+loss: ap:0.00139269 an:0.00213513
+loss: ap:0.00191009 an:0.00224788
+loss: ap:0.00162954 an:0.00136064
+loss: ap:0.00201158 an:0.00157512
+loss: ap:0.00225983 an:0.00186566
+loss: ap:0.00142678 an:0.00240266
+loss: ap:0.00160616 an:0.00126067
+loss: ap:0.0014806 an:0.00131562
+loss: ap:0.0013761 an:0.00164145
+loss: ap:0.00124075 an:0.00240496
+loss: ap:0.00149418 an:0.00230635
+loss: ap:0.00226434 an:0.00129048
+loss: ap:0.00171086 an:0.00155646
+loss: ap:0.00144695 an:0.00130119
+loss: ap:0.00266409 an:0.00209608
+loss: ap:0.00194994 an:0.00173459
+loss: ap:0.00149214 an:0.00175213
+loss: ap:0.00121333 an:0.00158294
+loss: ap:0.00267829 an:0.00198417
+loss: ap:0.00141584 an:0.00220107
+loss: ap:0.00159894 an:0.00249642
+loss: ap:0.00124795 an:0.00157638
+loss: ap:0.00192513 an:0.00159604
+loss: ap:0.00140984 an:0.00147315
+loss: ap:0.00266766 an:0.00215184
+loss: ap:0.0015076 an:0.00167247
+loss: ap:0.00226726 an:0.00184591
+loss: ap:0.00144788 an:0.00225428
+loss: ap:0.00155129 an:0.00151416
+loss: ap:0.0017304 an:0.00139351
+loss: ap:0.00179224 an:0.00178002
+loss: ap:0.00123036 an:0.00200678
+loss: ap:0.000935891 an:0.00157847
+loss: ap:0.00107596 an:0.00181784
+loss: ap:0.00150476 an:0.00128909
+loss: ap:0.00130305 an:0.00116661
+loss: ap:0.00166037 an:0.00272531
+loss: ap:0.00122849 an:0.00155383
+loss: ap:0.00104321 an:0.00150747
+loss: ap:0.00133934 an:0.00155511
+loss: ap:0.00122554 an:0.00150726
+loss: ap:0.00169145 an:0.00155823
+loss: ap:0.00229232 an:0.00167703
+loss: ap:0.00100187 an:0.0015281
+loss: ap:0.00136424 an:0.00214561
+loss: ap:0.00181338 an:0.00253647
+loss: ap:0.00209934 an:0.00166363
+loss: ap:0.00175756 an:0.00167205
+loss: ap:0.00224248 an:0.00209942
+loss: ap:0.0020103 an:0.00205057
+loss: ap:0.00204587 an:0.00236107
+loss: ap:0.00190923 an:0.00212109
+loss: ap:0.00179256 an:0.00198613
+loss: ap:0.00261391 an:0.00243157
+loss: ap:0.0025276 an:0.00199725
+loss: ap:0.00168298 an:0.00206139
+loss: ap:0.00105874 an:0.0011357
+loss: ap:0.00256695 an:0.00166078
+loss: ap:0.00174881 an:0.00169525
+loss: ap:0.00293196 an:0.00254612
+loss: ap:0.00111707 an:0.00110237
+loss: ap:0.00181589 an:0.00302809
+loss: ap:0.0018447 an:0.00167058
+loss: ap:0.00215419 an:0.0013212
+loss: ap:0.00177909 an:0.00238832
+loss: ap:0.00254916 an:0.00244834
+loss: ap:0.0020353 an:0.00223231
+loss: ap:0.00124603 an:0.000980565
+loss: ap:0.00171684 an:0.00185087
+loss: ap:0.000984009 an:0.00144188
+loss: ap:0.00216273 an:0.00192262
+loss: ap:0.00189057 an:0.00217088
+loss: ap:0.00232432 an:0.00178077
+loss: ap:0.00144479 an:0.00130809
+loss: ap:0.00118327 an:0.00192766
+loss: ap:0.00132171 an:0.00294605
+loss: ap:0.0010289 an:0.00210168
+loss: ap:0.00130995 an:0.00134038
+loss: ap:0.00164923 an:0.0025229
+loss: ap:0.00132326 an:0.00144819
+loss: ap:0.00224979 an:0.00162376
+loss: ap:0.00174942 an:0.00266431
+loss: ap:0.00191473 an:0.0017959
+loss: ap:0.000960283 an:0.0015468
+loss: ap:0.00202697 an:0.0016889
+loss: ap:0.00179756 an:0.00219492
+loss: ap:0.000991732 an:0.00121597
+loss: ap:0.00140609 an:0.00110329
+loss: ap:0.00177345 an:0.00168327
+loss: ap:0.00137991 an:0.00178281
+loss: ap:0.00170463 an:0.001705
+loss: ap:0.0011952 an:0.00129412
+loss: ap:0.00154138 an:0.00229437
+loss: ap:0.00177253 an:0.00123984
+loss: ap:0.0025644 an:0.00239848
+loss: ap:0.002082 an:0.00166301
+loss: ap:0.00121327 an:0.00171991
+loss: ap:0.00193591 an:0.00199151
+loss: ap:0.00190431 an:0.00197847
+loss: ap:0.00121572 an:0.00172595
+loss: ap:0.00262932 an:0.00224759
+loss: ap:0.00204282 an:0.00149205
+loss: ap:0.00180668 an:0.00117475
+loss: ap:0.00144284 an:0.00182167
+loss: ap:0.00261584 an:0.00294496
+loss: ap:0.00183554 an:0.00247005
+loss: ap:0.00180276 an:0.00264348
+loss: ap:0.00191247 an:0.00324086
+loss: ap:0.00201877 an:0.00255505
+loss: ap:0.00123195 an:0.00248663
+loss: ap:0.00100327 an:0.00123957
+loss: ap:0.00114936 an:0.00239896
+loss: ap:0.00111413 an:0.00208053
+loss: ap:0.00223356 an:0.00242947
+loss: ap:0.00209021 an:0.00210833
+loss: ap:0.000960727 an:0.00161542
+loss: ap:0.00169189 an:0.00199444
+loss: ap:0.00100886 an:0.0014377
+loss: ap:0.00173785 an:0.0017826
+loss: ap:0.00187712 an:0.00161007
+loss: ap:0.00205679 an:0.00240515
+loss: ap:0.00123505 an:0.0018646
+loss: ap:0.00227455 an:0.00209402
+loss: ap:0.00185605 an:0.00101404
+loss: ap:0.00128171 an:0.00211878
+loss: ap:0.00169495 an:0.0014012
+loss: ap:0.00145926 an:0.00111082
+loss: ap:0.00211113 an:0.00160526
+loss: ap:0.00276699 an:0.00344152
+loss: ap:0.000841509 an:0.00152194
+loss: ap:0.001I0608 11:35:01.966835 19748 solver.cpp:397]     Test net output #0: loss = 0.0998645 (* 1 = 0.0998645 loss)
+I0608 11:35:02.381703 19748 solver.cpp:218] Iteration 0 (0 iter/s, 303.835s/20 iters), loss = 0.101083
+I0608 11:35:02.381750 19748 solver.cpp:237]     Train net output #0: loss = 0.101083 (* 1 = 0.101083 loss)
+I0608 11:35:02.381762 19748 sgd_solver.cpp:105] Iteration 0, lr = 0.01
+I0608 11:35:10.264060 19748 solver.cpp:218] Iteration 20 (2.53738 iter/s, 7.88216s/20 iters), loss = 0.098456
+I0608 11:35:10.264109 19748 solver.cpp:237]     Train net output #0: loss = 0.098456 (* 1 = 0.098456 loss)
+I0608 11:35:10.264119 19748 sgd_solver.cpp:105] Iteration 20, lr = 0.01
+I0608 11:35:18.053561 19748 solver.cpp:218] Iteration 40 (2.56762 iter/s, 7.7893s/20 iters), loss = 0.0995884
+I0608 11:35:18.053612 19748 solver.cpp:237]     Train net output #0: loss = 0.0995884 (* 1 = 0.0995884 loss)
+I0608 11:35:18.053622 19748 sgd_solver.cpp:105] Iteration 40, lr = 0.01
+I0608 11:35:25.907871 19748 solver.cpp:218] Iteration 60 (2.54644 iter/s, 7.85412s/20 iters), loss = 0.0998293
+I0608 11:35:25.907919 19748 solver.cpp:237]     Train net output #0: loss = 0.0998293 (* 1 = 0.0998293 loss)
+I0608 11:35:25.907930 19748 sgd_solver.cpp:105] Iteration 60, lr = 0.01
+49282 an:0.00284698
+loss: ap:0.00200506 an:0.00279744
+loss: ap:0.00202837 an:0.0023068
+loss: ap:0.00141302 an:0.00187858
+loss: ap:0.0022347 an:0.0021057
+loss: ap:0.00128742 an:0.00169488
+loss: ap:0.00105737 an:0.0015792
+loss: ap:0.00317759 an:0.00331167
+loss: ap:0.00221014 an:0.00264011
+loss: ap:0.0024456 an:0.00211589
+loss: ap:0.00233955 an:0.00323514
+loss: ap:0.00134727 an:0.00113655
+loss: ap:0.00164281 an:0.00114804
+loss: ap:0.00200343 an:0.00292354
+loss: ap:0.00193547 an:0.00117499
+loss: ap:0.00120533 an:0.00178858
+loss: ap:0.00067879 an:0.00154803
+loss: ap:0.00113319 an:0.00169461
+loss: ap:0.00214834 an:0.00202167
+loss: ap:0.00171981 an:0.0021305
+loss: ap:0.00139112 an:0.001176
+loss: ap:0.000876816 an:0.00124917
+loss: ap:0.00256882 an:0.00239578
+loss: ap:0.00173744 an:0.00217413
+loss: ap:0.00126182 an:0.00180911
+loss: ap:0.00189689 an:0.00223151
+loss: ap:0.00140498 an:0.00193645
+loss: ap:0.00218226 an:0.00287753
+loss: ap:0.00146537 an:0.00147795
+loss: ap:0.000662986 an:0.00103554
+loss: ap:0.00143111 an:0.0018053
+loss: ap:0.00184909 an:0.00163106
+loss: ap:0.00229709 an:0.00239043
+loss: ap:0.00136963 an:0.00165336
+loss: ap:0.019122 an:0.0131443
+fc9_1: 0.0270508
+loss: ap:0.0130773 an:0.0164035
+fc9_1: 0.027051
+loss: ap:0.0196106 an:0.0206065
+fc9_1: 0.0270524
+loss: ap:0.0126429 an:0.0159965
+fc9_1: 0.0270525
+loss: ap:0.0178726 an:0.0152608
+fc9_1: 0.0270528
+loss: ap:0.0203652 an:0.0155248
+fc9_1: 0.0270527
+loss: ap:0.0189957 an:0.0179217
+fc9_1: 0.0270515
+loss: ap:0.0166215 an:0.0177619
+fc9_1: 0.0270505
+loss: ap:0.0159804 an:0.0163827
+fc9_1: 0.0270582
+loss: ap:0.017103 an:0.0197571
+fc9_1: 0.0270614
+loss: ap:0.0172652 an:0.0150717
+fc9_1: 0.0270614
+loss: ap:0.0140214 an:0.0158648
+fc9_1: 0.027063
+loss: ap:0.0151972 an:0.0156609
+fc9_1: 0.0270643
+loss: ap:0.0144703 an:0.0202196
+fc9_1: 0.0270725
+loss: ap:0.0163771 an:0.0190657
+fc9_1: 0.0270902
+loss: ap:0.0127284 an:0.0142112
+fc9_1: 0.0271211
+loss: ap:0.0138908 an:0.0128893
+fc9_1: 0.0271419
+loss: ap:0.0130761 an:0.0118745
+fc9_1: 0.0271724
+loss: ap:0.0203471 an:0.016119
+fc9_1: 0.0272025
+loss: ap:0.0158675 an:0.018722
+fc9_1: 0.0272252
+loss: ap:0.0140406 an:0.0172498
+fc9_1: 0.0272501
+loss: ap:0.0190172 an:0.0134114
+fc9_1: 0.0272747
+loss: ap:0.020095 an:0.0163942
+fc9_1: 0.0273035
+loss: ap:0.0157154 an:0.0190844
+fc9_1: 0.0273337
+loss: ap:0.0177256 an:0.0135367
+fc9_1: 0.0273634
+loss: ap:0.0166094 an:0.0141153
+fc9_1: 0.0273857
+loss: ap:0.0195947 an:0.0218697
+fc9_1: 0.0274071
+loss: ap:0.0158115 an:0.0170264
+fc9_1: 0.0274189
+loss: ap:0.0175279 an:0.0167166
+fc9_1: 0.0274232
+loss: ap:0.0179305 an:0.0145367
+fc9_1: 0.0274204
+loss: ap:0.0149218 an:0.0143229
+fc9_1: 0.0274051
+loss: ap:0.0157241 an:0.0147367
+fc9_1: 0.0274003
+loss: ap:0.0158738 an:0.0152459
+fc9_1: 0.0274016
+loss: ap:0.0202155 an:0.0180165
+fc9_1: 0.0273834
+loss: ap:0.0131073 an:0.0117541
+fc9_1: 0.027385
+loss: ap:0.015334 an:0.018347
+fc9_1: 0.0274064
+loss: ap:0.016079 an:0.0149331
+fc9_1: 0.0274329
+loss: ap:0.0141671 an:0.015551
+fc9_1: 0.0274476
+loss: ap:0.0171395 an:0.01602
+fc9_1: 0.02746
+loss: ap:0.0134823 an:0.0130206
+fc9_1: 0.0274701
+loss: ap:0.0155073 an:0.0196919
+fc9_1: 0.0274952
+loss: ap:0.0161251 an:0.013928
+fc9_1: 0.0275387
+loss: ap:0.0124339 an:0.0126183
+fc9_1: 0.0275803
+loss: ap:0.0158647 an:0.0138899
+fc9_1: 0.0276409
+loss: ap:0.0134674 an:0.0160804
+fc9_1: 0.0277022
+loss: ap:0.0175773 an:0.0203991
+fc9_1: 0.0277562
+loss: ap:0.0156855 an:0.0169299
+fc9_1: 0.0278191
+loss: ap:0.0163579 an:0.0182149
+fc9_1: 0.0278808
+loss: ap:0.0151057 an:0.0155088
+fc9_1: 0.0279436
+loss: ap:0.0195324 an:0.0146045
+fc9_1: 0.0279958
+loss: ap:0.0138925 an:0.0199271
+fc9_1: 0.0280371
+loss: ap:0.0160091 an:0.0157602
+fc9_1: 0.0280801
+loss: ap:0.0141242 an:0.0182189
+fc9_1: 0.0281186
+loss: ap:0.0131212 an:0.0169115
+fc9_1: 0.0281479
+loss: ap:0.0145194 an:0.0132759
+fc9_1: 0.0281662
+loss: ap:0.013655 an:0.0111466
+fc9_1: 0.0281896
+loss: ap:0.0131059 an:0.0113289
+fc9_1: 0.028203
+loss: ap:0.0179491 an:0.0132798
+fc9_1: 0.0282148
+loss: ap:0.0135936 an:0.011584
+fc9_1: 0.028221
+loss: ap:0.0132294 an:0.0133855
+fc9_1: 0.0282197
+loss: ap:0.0179304 an:0.01428
+fc9_1: 0.028I0608 11:35:33.632360 19748 solver.cpp:218] Iteration 80 (2.58923 iter/s, 7.72429s/20 iters), loss = 0.101356
+I0608 11:35:33.632410 19748 solver.cpp:237]     Train net output #0: loss = 0.101356 (* 1 = 0.101356 loss)
+I0608 11:35:33.632418 19748 sgd_solver.cpp:105] Iteration 80, lr = 0.01
+I0608 11:35:41.347210 19748 solver.cpp:218] Iteration 100 (2.59247 iter/s, 7.71465s/20 iters), loss = 0.0998533
+I0608 11:35:41.347261 19748 solver.cpp:237]     Train net output #0: loss = 0.0998533 (* 1 = 0.0998533 loss)
+I0608 11:35:41.347271 19748 sgd_solver.cpp:105] Iteration 100, lr = 0.01
+I0608 11:35:49.043287 19748 solver.cpp:218] Iteration 120 (2.59879 iter/s, 7.69588s/20 iters), loss = 0.100039
+I0608 11:35:49.043337 19748 solver.cpp:237]     Train net output #0: loss = 0.100039 (* 1 = 0.100039 loss)
+I0608 11:35:49.043347 19748 sgd_solver.cpp:105] Iteration 120, lr = 0.01
+I0608 11:35:56.865702 19748 solver.cpp:218] Iteration 140 (2.55682 iter/s, 7.82222s/20 iters), loss = 0.0992163
+I0608 11:35:56.865751 19748 solver.cpp:237]     Train net output #0: loss = 0.0992163 (* 1 = 0.0992163 loss)
+I0608 11:35:56.865761 19748 sgd_solver.cpp:105] Iteration 140, lr = 0.01
+2245
+loss: ap:0.0171188 an:0.0152719
+fc9_1: 0.0282278
+loss: ap:0.0126182 an:0.0132773
+fc9_1: 0.0282216
+loss: ap:0.018295 an:0.0160431
+fc9_1: 0.0282207
+loss: ap:0.0164683 an:0.0156247
+fc9_1: 0.0282238
+loss: ap:0.0183759 an:0.0187957
+fc9_1: 0.0282253
+loss: ap:0.0144868 an:0.0136292
+fc9_1: 0.0282682
+loss: ap:0.0141014 an:0.0142441
+fc9_1: 0.0282963
+loss: ap:0.0185363 an:0.018804
+fc9_1: 0.0283399
+loss: ap:0.0142438 an:0.0169134
+fc9_1: 0.0283629
+loss: ap:0.0142191 an:0.017999
+fc9_1: 0.0283797
+loss: ap:0.0228354 an:0.0179715
+fc9_1: 0.0283763
+loss: ap:0.0162914 an:0.0170955
+fc9_1: 0.0283786
+loss: ap:0.0133185 an:0.0160548
+fc9_1: 0.0283728
+loss: ap:0.0165557 an:0.0178961
+fc9_1: 0.0283632
+loss: ap:0.0209467 an:0.0170747
+fc9_1: 0.0283448
+loss: ap:0.014207 an:0.0189347
+fc9_1: 0.0283477
+loss: ap:0.023925 an:0.0185927
+fc9_1: 0.0283443
+loss: ap:0.0148737 an:0.0152391
+fc9_1: 0.0283897
+loss: ap:0.0190327 an:0.0163011
+fc9_1: 0.0284622
+loss: ap:0.0180447 an:0.0139606
+fc9_1: 0.0284995
+loss: ap:0.0205888 an:0.0124997
+fc9_1: 0.0285433
+loss: ap:0.0144838 an:0.0184723
+fc9_1: 0.0285997
+loss: ap:0.0171693 an:0.0146575
+fc9_1: 0.0286383
+loss: ap:0.0164633 an:0.0147707
+fc9_1: 0.0286928
+loss: ap:0.0195952 an:0.0181295
+fc9_1: 0.0287697
+loss: ap:0.0158932 an:0.0161607
+fc9_1: 0.028868
+loss: ap:0.0118441 an:0.012452
+fc9_1: 0.0289166
+loss: ap:0.0141645 an:0.0125187
+fc9_1: 0.0289537
+loss: ap:0.0142577 an:0.0121187
+fc9_1: 0.028993
+loss: ap:0.016626 an:0.016394
+fc9_1: 0.0290521
+loss: ap:0.0122837 an:0.0141972
+fc9_1: 0.0291267
+loss: ap:0.016842 an:0.0147188
+fc9_1: 0.0291924
+loss: ap:0.0150183 an:0.0155709
+fc9_1: 0.0292541
+loss: ap:0.0137531 an:0.017446
+fc9_1: 0.0293285
+loss: ap:0.014728 an:0.019135
+fc9_1: 0.0294198
+loss: ap:0.0130335 an:0.0157524
+fc9_1: 0.0295434
+loss: ap:0.0182128 an:0.0159087
+fc9_1: 0.0296589
+loss: ap:0.0165656 an:0.0184906
+fc9_1: 0.0297356
+loss: ap:0.0147515 an:0.0158874
+fc9_1: 0.0298049
+loss: ap:0.0174138 an:0.0148506
+fc9_1: 0.0298668
+loss: ap:0.0164574 an:0.019542
+fc9_1: 0.0299267
+loss: ap:0.0162079 an:0.0148976
+fc9_1: 0.0299906
+loss: ap:0.0243735 an:0.0228421
+fc9_1: 0.0300443
+loss: ap:0.0149994 an:0.0144922
+fc9_1: 0.030088
+loss: ap:0.022535 an:0.0208905
+fc9_1: 0.0300863
+loss: ap:0.015838 an:0.0194259
+fc9_1: 0.0300709
+loss: ap:0.014546 an:0.0134969
+fc9_1: 0.0300822
+loss: ap:0.0143748 an:0.0153746
+fc9_1: 0.0300787
+loss: ap:0.0137673 an:0.0149345
+fc9_1: 0.0301088
+loss: ap:0.0119158 an:0.0123974
+fc9_1: 0.0301373
+loss: ap:0.0139966 an:0.0155149
+fc9_1: 0.0302025
+loss: ap:0.0160199 an:0.0188025
+fc9_1: 0.0302473
+loss: ap:0.0167134 an:0.0202816
+fc9_1: 0.0303112
+loss: ap:0.0130815 an:0.0118231
+fc9_1: 0.0304086
+loss: ap:0.0132322 an:0.0141513
+fc9_1: 0.0305112
+loss: ap:0.013022 an:0.0125541
+fc9_1: 0.0305776
+loss: ap:0.0140945 an:0.0187803
+fc9_1: 0.0306584
+loss: ap:0.0160187 an:0.017736
+fc9_1: 0.03073
+loss: ap:0.0141286 an:0.0154701
+fc9_1: 0.0308108
+loss: ap:0.0176117 an:0.0161474
+fc9_1: 0.0308991
+loss: ap:0.0170839 an:0.019102
+fc9_1: 0.0310028
+loss: ap:0.0154694 an:0.0210864
+fc9_1: 0.0311333
+loss: ap:0.0181207 an:0.0155854
+fc9_1: 0.0312418
+loss: ap:0.0168278 an:0.0131482
+fc9_1: 0.0313862
+loss: ap:0.0132212 an:0.0155106
+fc9_1: 0.0314993
+loss: ap:0.0132359 an:0.0171781
+fc9_1: 0.0316464
+loss: ap:0.0187823 an:0.0202754
+fc9_1: 0.0318387
+loss: ap:0.0167417 an:0.0167371
+fc9_1: 0.0319888
+loss: ap:0.0146047 an:0.0175046
+fc9_1: 0.032101
+loss: ap:0.0173375 an:0.0164039
+fc9_1: 0.0322297
+loss: ap:0.0191056 an:0.0169064
+fc9_1: 0.0323818
+loss: ap:0.0195336 an:0.0147945
+fc9_1: 0.0324973
+loss: ap:0.017281 an:0.0182989
+fc9_1: 0.0325607
+loss: ap:0.0150703 an:0.0131407
+fc9_1: 0.0326138
+loss: ap:0.0129989 an:0.0143708
+fc9_1: 0.0327169
+loss: ap:0.0149149 an:0.0158665
+fc9_1: 0.0327523
+loss: ap:0.0216181 an:0.0204721
+fc9_1: 0.0327223
+loss: ap:0.020006 an:0.0219289
+fc9_1: 0.0327773
+loss: ap:0.0208651 an:0.0255494
+fc9_1: 0.0329208
+loss: ap:0.0220558 an:0.0246525
+fc9_1: 0.0330266
+loss: ap:0.0153642 an:0.022383
+fc9_1: 0.0331438
+loss: ap:0.0149584 an:0.0124589
+fc9_1: 0.0331997
+loss: ap:0.0223603 an:0.0135243
+fc9_1: 0.0334283
+loss: ap:0.015589 an:0.0179679
+fc9_1: 0.0335971
+lossI0608 11:36:04.694834 19748 solver.cpp:218] Iteration 160 (2.55463 iter/s, 7.82893s/20 iters), loss = 0.0989505
+I0608 11:36:04.694885 19748 solver.cpp:237]     Train net output #0: loss = 0.0989505 (* 1 = 0.0989505 loss)
+I0608 11:36:04.694895 19748 sgd_solver.cpp:105] Iteration 160, lr = 0.01
+I0608 11:36:12.509852 19748 solver.cpp:218] Iteration 180 (2.55924 iter/s, 7.81482s/20 iters), loss = 0.100907
+I0608 11:36:12.509902 19748 solver.cpp:237]     Train net output #0: loss = 0.100907 (* 1 = 0.100907 loss)
+I0608 11:36:12.509912 19748 sgd_solver.cpp:105] Iteration 180, lr = 0.01
+I0608 11:36:20.379446 19748 solver.cpp:218] Iteration 200 (2.54149 iter/s, 7.8694s/20 iters), loss = 0.0965562
+I0608 11:36:20.379494 19748 solver.cpp:237]     Train net output #0: loss = 0.0965562 (* 1 = 0.0965562 loss)
+I0608 11:36:20.379504 19748 sgd_solver.cpp:105] Iteration 200, lr = 0.01
+I0608 11:36:28.105742 19748 solver.cpp:218] Iteration 220 (2.58863 iter/s, 7.7261s/20 iters), loss = 0.0995231
+I0608 11:36:28.105792 19748 solver.cpp:237]     Train net output #0: loss = 0.0995231 (* 1 = 0.0995231 loss)
+I0608 11:36:28.105800 19748 sgd_solver.cpp:105] Iteration 220, lr = 0.01
+: ap:0.0166886 an:0.020302
+fc9_1: 0.0337233
+loss: ap:0.0128485 an:0.0152231
+fc9_1: 0.0338213
+loss: ap:0.0153501 an:0.0174129
+fc9_1: 0.0339178
+loss: ap:0.0176297 an:0.0209636
+fc9_1: 0.034058
+loss: ap:0.0147486 an:0.0132831
+fc9_1: 0.0342123
+loss: ap:0.014247 an:0.0127579
+fc9_1: 0.0343722
+loss: ap:0.0136547 an:0.0172261
+fc9_1: 0.0344661
+loss: ap:0.0255463 an:0.0215332
+fc9_1: 0.0345456
+loss: ap:0.0197566 an:0.017042
+fc9_1: 0.0346679
+loss: ap:0.020303 an:0.0167814
+fc9_1: 0.034806
+loss: ap:0.0196518 an:0.0171455
+fc9_1: 0.0349239
+loss: ap:0.0154072 an:0.0128444
+fc9_1: 0.0350788
+loss: ap:0.0190579 an:0.0164413
+fc9_1: 0.0352328
+loss: ap:0.0142054 an:0.0166286
+fc9_1: 0.0353726
+loss: ap:0.0142766 an:0.0179057
+fc9_1: 0.0355399
+loss: ap:0.0202093 an:0.0206288
+fc9_1: 0.0357492
+loss: ap:0.016775 an:0.0238011
+fc9_1: 0.0358844
+loss: ap:0.019583 an:0.0240512
+fc9_1: 0.0359982
+loss: ap:0.0154395 an:0.0246555
+fc9_1: 0.0361195
+loss: ap:0.0168629 an:0.0189329
+fc9_1: 0.0362018
+loss: ap:0.0144458 an:0.0175973
+fc9_1: 0.0362381
+loss: ap:0.018148 an:0.0196997
+fc9_1: 0.0363142
+loss: ap:0.0120888 an:0.0190559
+fc9_1: 0.0364875
+loss: ap:0.0251569 an:0.0186047
+fc9_1: 0.0366932
+loss: ap:0.0166255 an:0.0205178
+fc9_1: 0.0368699
+loss: ap:0.0184473 an:0.0197654
+fc9_1: 0.0370075
+loss: ap:0.01732 an:0.0447101
+fc9_1: 0.0370978
+loss: ap:0.0349584 an:0.0376754
+fc9_1: 0.0371645
+loss: ap:0.0194084 an:0.022141
+fc9_1: 0.0371678
+loss: ap:0.0190509 an:0.0165991
+fc9_1: 0.0371505
+loss: ap:0.0186144 an:0.0213531
+fc9_1: 0.0371566
+loss: ap:0.0253284 an:0.0299458
+fc9_1: 0.0374482
+loss: ap:0.0254958 an:0.0238863
+fc9_1: 0.0378104
+loss: ap:0.0239057 an:0.0274719
+fc9_1: 0.0381899
+loss: ap:0.0264523 an:0.0198007
+fc9_1: 0.0385853
+loss: ap:0.0179055 an:0.0143556
+fc9_1: 0.0389872
+loss: ap:0.0216444 an:0.0147836
+fc9_1: 0.0392351
+loss: ap:0.0151062 an:0.0248568
+fc9_1: 0.0394155
+loss: ap:0.0212093 an:0.0307165
+fc9_1: 0.0395657
+loss: ap:0.021747 an:0.0346561
+fc9_1: 0.0396811
+loss: ap:0.0297629 an:0.0186383
+fc9_1: 0.0397945
+loss: ap:0.0226451 an:0.041182
+fc9_1: 0.0398372
+loss: ap:0.0265897 an:0.0547399
+fc9_1: 0.0400011
+loss: ap:0.0253321 an:0.0180231
+fc9_1: 0.0401393
+loss: ap:0.0240437 an:0.045026
+fc9_1: 0.040559
+loss: ap:0.0212622 an:0.0143437
+fc9_1: 0.0413001
+loss: ap:0.0219128 an:0.0291373
+fc9_1: 0.0419102
+loss: ap:0.0188357 an:0.0188694
+fc9_1: 0.0425485
+loss: ap:0.0283649 an:0.0146385
+fc9_1: 0.0430663
+loss: ap:0.0251474 an:0.0290206
+fc9_1: 0.0435449
+loss: ap:0.017429 an:0.0298697
+fc9_1: 0.0439544
+loss: ap:0.0377358 an:0.0289499
+fc9_1: 0.0446964
+loss: ap:0.0362159 an:0.022441
+fc9_1: 0.0454391
+loss: ap:0.0232482 an:0.0306123
+fc9_1: 0.0460208
+loss: ap:0.0353193 an:0.0668437
+fc9_1: 0.0464174
+speed: 1.907s / iter
+loss: ap:0.017821 an:0.0315423
+fc9_1: 0.0468547
+loss: ap:0.0608485 an:0.0835861
+fc9_1: 0.0472498
+loss: ap:0.0338822 an:0.0529614
+fc9_1: 0.0476694
+loss: ap:0.0218721 an:0.0315555
+fc9_1: 0.0479796
+loss: ap:0.034346 an:0.0660303
+fc9_1: 0.0483876
+loss: ap:0.0346586 an:0.065966
+fc9_1: 0.0487158
+loss: ap:0.0273993 an:0.0438161
+fc9_1: 0.0491783
+loss: ap:0.0339339 an:0.0612458
+fc9_1: 0.0496061
+loss: ap:0.0185482 an:0.0366365
+fc9_1: 0.0502579
+loss: ap:0.0277416 an:0.0204253
+fc9_1: 0.0509282
+loss: ap:0.0336291 an:0.0547605
+fc9_1: 0.05164
+loss: ap:0.0369165 an:0.0226898
+fc9_1: 0.0522191
+loss: ap:0.0346246 an:0.0865195
+fc9_1: 0.0527604
+loss: ap:0.0291362 an:0.0381158
+fc9_1: 0.0532834
+loss: ap:0.0332029 an:0.0355741
+fc9_1: 0.0537631
+loss: ap:0.0268481 an:0.0184199
+fc9_1: 0.0543939
+loss: ap:0.0302177 an:0.0387558
+fc9_1: 0.0553059
+loss: ap:0.0412589 an:0.0240082
+fc9_1: 0.0563536
+loss: ap:0.0479714 an:0.0436241
+fc9_1: 0.0571983
+loss: ap:0.0243475 an:0.0493487
+fc9_1: 0.058126
+loss: ap:0.0612496 an:0.0327122
+fc9_1: 0.0592929
+loss: ap:0.0507696 an:0.0789406
+fc9_1: 0.060339
+loss: ap:0.0612515 an:0.0780279
+fc9_1: 0.0615703
+loss: ap:0.057576 an:0.0748398
+fc9_1: 0.0627938
+loss: ap:0.0338274 an:0.0641231
+fc9_1: 0.063421
+loss: ap:0.10439 an:0.0298733
+fc9_1: 0.0640192
+loss: ap:0.036944 an:0.062673
+fc9_1: 0.0647512
+loss: ap:0.0701557 an:0.0252519
+fc9_1: 0.0655423
+loss: ap:0.0743012 an:0.0305022
+fc9_1: 0.06I0608 11:36:35.911794 19748 solver.cpp:218] Iteration 240 (2.56218 iter/s, 7.80586s/20 iters), loss = 0.0795391
+I0608 11:36:35.911849 19748 solver.cpp:237]     Train net output #0: loss = 0.0795391 (* 1 = 0.0795391 loss)
+I0608 11:36:35.911859 19748 sgd_solver.cpp:105] Iteration 240, lr = 0.01
+I0608 11:36:43.866025 19748 solver.cpp:218] Iteration 260 (2.51445 iter/s, 7.95403s/20 iters), loss = 0.149008
+I0608 11:36:43.866087 19748 solver.cpp:237]     Train net output #0: loss = 0.149008 (* 1 = 0.149008 loss)
+I0608 11:36:43.866097 19748 sgd_solver.cpp:105] Iteration 260, lr = 0.01
+I0608 11:36:51.590005 19748 solver.cpp:218] Iteration 280 (2.5894 iter/s, 7.72379s/20 iters), loss = 0.0511431
+I0608 11:36:51.590054 19748 solver.cpp:237]     Train net output #0: loss = 0.0511431 (* 1 = 0.0511431 loss)
+I0608 11:36:51.590062 19748 sgd_solver.cpp:105] Iteration 280, lr = 0.01
+I0608 11:36:59.414850 19748 solver.cpp:218] Iteration 300 (2.55603 iter/s, 7.82465s/20 iters), loss = 0.0536963
+I0608 11:36:59.414899 19748 solver.cpp:237]     Train net output #0: loss = 0.0536963 (* 1 = 0.0536963 loss)
+I0608 11:36:59.414908 19748 sgd_solver.cpp:105] Iteration 300, lr = 0.01
+60239
+loss: ap:0.0389611 an:0.053006
+fc9_1: 0.0665203
+loss: ap:0.120432 an:0.0206521
+fc9_1: 0.0673779
+loss: ap:0.0391946 an:0.0365627
+fc9_1: 0.0682783
+loss: ap:0.0382964 an:0.0784018
+fc9_1: 0.0690961
+loss: ap:0.0918604 an:0.0336658
+fc9_1: 0.0699172
+loss: ap:0.0368414 an:0.0824517
+fc9_1: 0.0707303
+loss: ap:0.0773673 an:0.16149
+fc9_1: 0.0714997
+loss: ap:0.0724762 an:0.134181
+fc9_1: 0.0724553
+loss: ap:0.0464861 an:0.135484
+fc9_1: 0.0733226
+loss: ap:0.0601543 an:0.128163
+fc9_1: 0.074325
+loss: ap:0.0492751 an:0.0925352
+fc9_1: 0.0753439
+loss: ap:0.161363 an:0.193277
+fc9_1: 0.0761796
+loss: ap:0.0673015 an:0.127176
+fc9_1: 0.0773847
+loss: ap:0.0916405 an:0.0443948
+fc9_1: 0.0783587
+loss: ap:0.121413 an:0.22044
+fc9_1: 0.0793653
+loss: ap:0.0677723 an:0.0801597
+fc9_1: 0.0803754
+loss: ap:0.168053 an:0.269418
+fc9_1: 0.0815466
+loss: ap:0.0532798 an:0.0783088
+fc9_1: 0.0828902
+loss: ap:0.0604576 an:0.0825688
+fc9_1: 0.0839609
+loss: ap:0.0908398 an:0.0608952
+fc9_1: 0.0847652
+loss: ap:0.0900814 an:0.226941
+fc9_1: 0.0859312
+loss: ap:0.137962 an:0.0575147
+fc9_1: 0.0869601
+loss: ap:0.133469 an:0.122333
+fc9_1: 0.0882201
+loss: ap:0.0322375 an:0.0641977
+fc9_1: 0.0892354
+loss: ap:0.0775137 an:0.227057
+fc9_1: 0.0900971
+loss: ap:0.071984 an:0.142917
+fc9_1: 0.0907049
+loss: ap:0.146332 an:0.149286
+fc9_1: 0.0916992
+loss: ap:0.0869559 an:0.124216
+fc9_1: 0.0930131
+loss: ap:0.123832 an:0.231485
+fc9_1: 0.0939506
+loss: ap:0.130989 an:0.13406
+fc9_1: 0.0947345
+loss: ap:0.118782 an:0.0363225
+fc9_1: 0.0953742
+loss: ap:0.266234 an:0.0382068
+fc9_1: 0.0958871
+loss: ap:0.161306 an:0.429373
+fc9_1: 0.0965502
+loss: ap:0.103267 an:0.257758
+fc9_1: 0.0970337
+loss: ap:0.12401 an:0.0832641
+fc9_1: 0.0982968
+loss: ap:0.263901 an:0.291938
+fc9_1: 0.0993874
+loss: ap:0.240678 an:0.323539
+fc9_1: 0.100444
+loss: ap:0.13331 an:0.184834
+fc9_1: 0.101086
+loss: ap:0.184401 an:0.194055
+fc9_1: 0.101774
+loss: ap:0.100689 an:0.238647
+fc9_1: 0.10247
+loss: ap:0.187964 an:0.0463082
+fc9_1: 0.103462
+loss: ap:0.0923658 an:0.310548
+fc9_1: 0.104526
+loss: ap:0.225131 an:0.248982
+fc9_1: 0.105707
+loss: ap:0.421154 an:0.0828435
+fc9_1: 0.106873
+loss: ap:0.109461 an:0.500886
+fc9_1: 0.107834
+loss: ap:0.0774736 an:0.291917
+fc9_1: 0.108841
+loss: ap:0.0245941 an:0.533158
+fc9_1: 0.109848
+loss: ap:0.338008 an:0.403224
+fc9_1: 0.111052
+loss: ap:0.108487 an:0.269856
+fc9_1: 0.112231
+loss: ap:0.0957248 an:0.0919509
+fc9_1: 0.113569
+loss: ap:0.13983 an:0.193429
+fc9_1: 0.113702
+loss: ap:0.1212 an:0.220204
+fc9_1: 0.113878
+loss: ap:0.183521 an:0.842122
+fc9_1: 0.115017
+loss: ap:0.105688 an:0.497927
+fc9_1: 0.117234
+loss: ap:0.300599 an:0.143785
+fc9_1: 0.11971
+loss: ap:0.495126 an:0.631561
+fc9_1: 0.121798
+loss: ap:0.317801 an:0.382567
+fc9_1: 0.123996
+loss: ap:0.296428 an:0.560415
+fc9_1: 0.126232
+loss: ap:0.29133 an:0.784085
+fc9_1: 0.128947
+loss: ap:0.432593 an:1.25673
+fc9_1: 0.132178
+loss: ap:0.914891 an:0.752421
+fc9_1: 0.135549
+loss: ap:0.246391 an:0.637565
+fc9_1: 0.138799
+loss: ap:0.12534 an:0.426355
+fc9_1: 0.142329
+loss: ap:0.471682 an:0.816198
+fc9_1: 0.145595
+loss: ap:0.194355 an:0.141036
+fc9_1: 0.148734
+loss: ap:0.327809 an:0.810611
+fc9_1: 0.15217
+loss: ap:0.512841 an:1.43696
+fc9_1: 0.155167
+loss: ap:0.419649 an:0.825321
+fc9_1: 0.158116
+loss: ap:0.693798 an:0.429236
+fc9_1: 0.160213
+loss: ap:0.411243 an:0.126016
+fc9_1: 0.162074
+loss: ap:0.286351 an:0.964034
+fc9_1: 0.163379
+loss: ap:0.405789 an:0.391436
+fc9_1: 0.165039
+loss: ap:0.2517 an:0.581795
+fc9_1: 0.165997
+loss: ap:0.478681 an:0.555744
+fc9_1: 0.166683
+loss: ap:0.214039 an:0.48639
+fc9_1: 0.167797
+loss: ap:1.34022 an:1.86226
+fc9_1: 0.168994
+loss: ap:0.399281 an:0.602194
+fc9_1: 0.169591
+loss: ap:0.677476 an:1.59488
+fc9_1: 0.170839
+loss: ap:0.290705 an:0.217365
+fc9_1: 0.172238
+loss: ap:0.737216 an:0.510958
+fc9_1: 0.173164
+loss: ap:1.51008 an:0.26465
+fc9_1: 0.173919
+loss: ap:1.03136 an:0.185384
+fc9_1: 0.175145
+loss: ap:1.22912 an:0.179306
+fc9_1: 0.175718
+loss: ap:1.00665 an:0.373395
+fc9_1: 0.176112
+loss: ap:1.4666 an:1.42376
+fc9_1: 0.177111
+loss: ap:1.27633 an:0.672586
+fc9_1: 0.17771
+loss: ap:0.637347 an:0.350518
+fc9_1: 0.178882
+loss: ap:1.47037 an:0.792701
+fc9_1: 0.180I0608 11:37:07.141224 19748 solver.cpp:218] Iteration 320 (2.5886 iter/s, 7.72619s/20 iters), loss = 0.0353685
+I0608 11:37:07.141273 19748 solver.cpp:237]     Train net output #0: loss = 0.0353685 (* 1 = 0.0353685 loss)
+I0608 11:37:07.141283 19748 sgd_solver.cpp:105] Iteration 320, lr = 0.01
+I0608 11:37:15.013773 19748 solver.cpp:218] Iteration 340 (2.54054 iter/s, 7.87235s/20 iters), loss = 0.225141
+I0608 11:37:15.013824 19748 solver.cpp:237]     Train net output #0: loss = 0.225141 (* 1 = 0.225141 loss)
+I0608 11:37:15.013834 19748 sgd_solver.cpp:105] Iteration 340, lr = 0.01
+I0608 11:37:22.824170 19748 solver.cpp:218] Iteration 360 (2.56075 iter/s, 7.81021s/20 iters), loss = 0.0178969
+I0608 11:37:22.824218 19748 solver.cpp:237]     Train net output #0: loss = 0.0178969 (* 1 = 0.0178969 loss)
+I0608 11:37:22.824228 19748 sgd_solver.cpp:105] Iteration 360, lr = 0.01
+I0608 11:37:30.549813 19748 solver.cpp:218] Iteration 380 (2.58884 iter/s, 7.72546s/20 iters), loss = 0.259847
+I0608 11:37:30.549863 19748 solver.cpp:237]     Train net output #0: loss = 0.259847 (* 1 = 0.259847 loss)
+I0608 11:37:30.549872 19748 sgd_solver.cpp:105] Iteration 380, lr = 0.01
+I0608 11:37:38.372176 19748 solver.cpp:218] Iteration 400 (2.55684 iter/s, 7.82217s/20 iters), loss = 0.182799
+I0608 11:37:38.372225 19748 solver.cpp:237]     Train net output #0: loss = 0.182799 (* 1 = 0.182799 loss)
+I0608 11:37:38.372233 19748 sgd_solver.cpp:105] Iteration 400, lr = 0.01
+611
+loss: ap:1.12786 an:1.55236
+fc9_1: 0.181807
+loss: ap:1.29739 an:2.46441
+fc9_1: 0.182941
+loss: ap:1.1603 an:0.296016
+fc9_1: 0.184866
+loss: ap:0.682317 an:1.76696
+fc9_1: 0.187325
+loss: ap:0.411901 an:0.822855
+fc9_1: 0.190236
+loss: ap:1.14376 an:0.694074
+fc9_1: 0.192077
+loss: ap:1.19059 an:0.221234
+fc9_1: 0.194015
+loss: ap:2.27577 an:1.04297
+fc9_1: 0.195679
+loss: ap:0.485409 an:1.85637
+fc9_1: 0.19635
+loss: ap:0.49155 an:0.722337
+fc9_1: 0.198417
+loss: ap:0.726667 an:0.579347
+fc9_1: 0.200715
+loss: ap:0.323237 an:0.53764
+fc9_1: 0.203163
+loss: ap:1.43375 an:2.34098
+fc9_1: 0.204972
+loss: ap:0.600353 an:2.28861
+fc9_1: 0.205855
+loss: ap:0.774544 an:1.59384
+fc9_1: 0.207453
+loss: ap:0.631759 an:1.43595
+fc9_1: 0.208134
+loss: ap:2.54397 an:4.33743
+fc9_1: 0.209454
+loss: ap:1.70246 an:1.92108
+fc9_1: 0.211186
+loss: ap:1.0504 an:1.00757
+fc9_1: 0.21323
+loss: ap:0.412755 an:1.81986
+fc9_1: 0.216064
+loss: ap:0.494251 an:2.06573
+fc9_1: 0.220283
+loss: ap:1.01121 an:3.11556
+fc9_1: 0.224296
+loss: ap:0.945716 an:1.0355
+fc9_1: 0.228159
+loss: ap:1.33049 an:0.679502
+fc9_1: 0.232202
+loss: ap:2.01757 an:0.611315
+fc9_1: 0.23569
+loss: ap:0.491897 an:1.29172
+fc9_1: 0.240449
+loss: ap:1.03496 an:1.1479
+fc9_1: 0.245486
+loss: ap:1.34764 an:3.52522
+fc9_1: 0.250057
+loss: ap:0.505139 an:1.66369
+fc9_1: 0.25265
+loss: ap:1.64676 an:0.31348
+fc9_1: 0.255252
+loss: ap:0.741898 an:1.33277
+fc9_1: 0.257315
+loss: ap:1.63412 an:4.07638
+fc9_1: 0.25973
+loss: ap:0.85919 an:1.05652
+fc9_1: 0.261221
+loss: ap:1.19437 an:4.46884
+fc9_1: 0.262567
+loss: ap:2.16857 an:0.422242
+fc9_1: 0.263022
+loss: ap:0.665407 an:2.70889
+fc9_1: 0.263983
+loss: ap:1.98721 an:0.380235
+fc9_1: 0.264423
+loss: ap:0.952855 an:4.43382
+fc9_1: 0.270536
+loss: ap:0.861914 an:1.46854
+fc9_1: 0.276507
+loss: ap:1.56195 an:4.71209
+fc9_1: 0.282558
+loss: ap:3.52319 an:4.6458
+fc9_1: 0.289173
+loss: ap:2.56748 an:0.392567
+fc9_1: 0.295101
+loss: ap:2.94987 an:4.39195
+fc9_1: 0.300327
+loss: ap:0.961244 an:2.86279
+fc9_1: 0.304911
+loss: ap:1.81961 an:1.65565
+fc9_1: 0.309527
+loss: ap:2.34634 an:4.81189
+fc9_1: 0.313681
+loss: ap:3.5245 an:1.67858
+fc9_1: 0.317768
+loss: ap:1.17173 an:1.97701
+fc9_1: 0.321558
+loss: ap:6.20307 an:1.93805
+fc9_1: 0.324955
+loss: ap:1.34783 an:1.55231
+fc9_1: 0.328368
+loss: ap:2.43254 an:0.58312
+fc9_1: 0.331361
+loss: ap:2.29749 an:4.85464
+fc9_1: 0.334378
+loss: ap:1.17106 an:0.962134
+fc9_1: 0.336694
+loss: ap:2.74571 an:3.90625
+fc9_1: 0.339397
+loss: ap:1.38818 an:3.49334
+fc9_1: 0.341869
+loss: ap:0.530279 an:2.88574
+fc9_1: 0.343886
+loss: ap:2.22638 an:4.80257
+fc9_1: 0.346206
+loss: ap:2.86356 an:1.38884
+fc9_1: 0.348509
+loss: ap:1.12266 an:1.56603
+fc9_1: 0.350273
+loss: ap:0.506182 an:4.43667
+fc9_1: 0.351479
+loss: ap:2.50708 an:0.518087
+fc9_1: 0.352341
+loss: ap:4.63728 an:1.38179
+fc9_1: 0.352903
+loss: ap:2.86721 an:1.83453
+fc9_1: 0.352956
+loss: ap:3.33858 an:0.994147
+fc9_1: 0.353942
+loss: ap:2.33123 an:2.41284
+fc9_1: 0.356207
+loss: ap:0.983457 an:5.43349
+fc9_1: 0.359287
+loss: ap:3.80308 an:4.75992
+fc9_1: 0.362386
+loss: ap:3.43797 an:0.123846
+fc9_1: 0.3649
+loss: ap:3.68519 an:6.74355
+fc9_1: 0.367197
+loss: ap:0.967878 an:2.73299
+fc9_1: 0.37033
+loss: ap:1.99501 an:4.45587
+fc9_1: 0.374046
+loss: ap:4.36594 an:7.43103
+fc9_1: 0.377361
+loss: ap:0.979253 an:6.13644
+fc9_1: 0.382096
+loss: ap:3.3039 an:5.92297
+fc9_1: 0.387682
+loss: ap:2.92285 an:3.0041
+fc9_1: 0.39256
+loss: ap:2.41406 an:6.48066
+fc9_1: 0.397426
+loss: ap:3.7591 an:0.973007
+fc9_1: 0.402152
+loss: ap:3.23997 an:6.38294
+fc9_1: 0.40717
+loss: ap:1.62521 an:3.29788
+fc9_1: 0.412037
+loss: ap:3.90561 an:4.21953
+fc9_1: 0.41665
+loss: ap:3.33587 an:8.05142
+fc9_1: 0.421217
+loss: ap:1.20634 an:4.73926
+fc9_1: 0.424837
+loss: ap:2.2791 an:11.6029
+fc9_1: 0.428587
+speed: 1.149s / iter
+loss: ap:2.09777 an:8.86949
+fc9_1: 0.431658
+loss: ap:5.45235 an:5.91653
+fc9_1: 0.434452
+loss: ap:1.36501 an:8.74539
+fc9_1: 0.437115
+loss: ap:1.83541 an:6.3363
+fc9_1: 0.440131
+loss: ap:7.81368 an:12.0114
+fc9_1: 0.442765
+loss: ap:3.50193 an:5.89822
+fc9_1: 0.445206
+loss: ap:3.74653 an:3.84485
+fc9_1: 0.44632
+loss: ap:3.33138 an:1.35518
+fc9_1: 0.446778
+loss: ap:0.280839 an:4.74022
+fc9_1: 0.448774
+loss: I0608 11:37:46.101145 19748 solver.cpp:218] Iteration 420 (2.58773 iter/s, 7.72878s/20 iters), loss = 0
+I0608 11:37:46.101191 19748 solver.cpp:237]     Train net output #0: loss = 0 (* 1 = 0 loss)
+I0608 11:37:46.101200 19748 sgd_solver.cpp:105] Iteration 420, lr = 0.01
+I0608 11:37:53.944363 19748 solver.cpp:218] Iteration 440 (2.55003 iter/s, 7.84303s/20 iters), loss = 1.08005
+I0608 11:37:53.944412 19748 solver.cpp:237]     Train net output #0: loss = 1.08005 (* 1 = 1.08005 loss)
+I0608 11:37:53.944422 19748 sgd_solver.cpp:105] Iteration 440, lr = 0.01
+I0608 11:38:01.677124 19748 solver.cpp:218] Iteration 460 (2.58646 iter/s, 7.73257s/20 iters), loss = 1.03915
+I0608 11:38:01.677171 19748 solver.cpp:237]     Train net output #0: loss = 1.03915 (* 1 = 1.03915 loss)
+I0608 11:38:01.677181 19748 sgd_solver.cpp:105] Iteration 460, lr = 0.01
+I0608 11:38:09.542621 19748 solver.cpp:218] Iteration 480 (2.54281 iter/s, 7.86531s/20 iters), loss = 0
+I0608 11:38:09.542667 19748 solver.cpp:237]     Train net output #0: loss = 0 (* 1 = 0 loss)
+I0608 11:38:09.542676 19748 sgd_solver.cpp:105] Iteration 480, lr = 0.01
+I0608 11:38:17.395756 19748 solver.cpp:218] Iteration 500 (2.54681 iter/s, 7.85295s/20 iters), loss = 0.162816
+I0608 11:38:17.395804 19748 solver.cpp:237]     Train net output #0: loss = 0.162816 (* 1 = 0.162816 loss)
+I0608 11:38:17.395813 19748 sgd_solver.cpp:105] Iteration 500, lr = 0.01
+ap:5.24932 an:9.91434
+fc9_1: 0.451481
+loss: ap:4.12 an:9.74733
+fc9_1: 0.453325
+loss: ap:2.19783 an:4.03151
+fc9_1: 0.456892
+loss: ap:9.94547 an:13.3773
+fc9_1: 0.458927
+loss: ap:12.8831 an:12.8943
+fc9_1: 0.462102
+loss: ap:3.73363 an:3.1981
+fc9_1: 0.465629
+loss: ap:7.47328 an:8.98751
+fc9_1: 0.473296
+loss: ap:2.85226 an:7.14865
+fc9_1: 0.480026
+loss: ap:3.96356 an:10.7331
+fc9_1: 0.485424
+loss: ap:4.31464 an:10.5483
+fc9_1: 0.491783
+loss: ap:2.73834 an:3.32427
+fc9_1: 0.498347
+loss: ap:8.5661 an:20.1047
+fc9_1: 0.506696
+loss: ap:7.91217 an:14.9783
+fc9_1: 0.516241
+loss: ap:3.25098 an:5.03211
+fc9_1: 0.524402
+loss: ap:5.05774 an:13.2106
+fc9_1: 0.532067
+loss: ap:7.64007 an:1.48006
+fc9_1: 0.538038
+loss: ap:6.10045 an:2.97408
+fc9_1: 0.543013
+loss: ap:9.3988 an:20.9797
+fc9_1: 0.547726
+loss: ap:6.79109 an:0.912514
+fc9_1: 0.552553
+loss: ap:1.32504 an:14.1504
+fc9_1: 0.557385
+loss: ap:5.22216 an:9.99194
+fc9_1: 0.561828
+loss: ap:3.33271 an:4.73536
+fc9_1: 0.565405
+loss: ap:4.18729 an:3.45578
+fc9_1: 0.567858
+loss: ap:7.67817 an:2.99085
+fc9_1: 0.569356
+loss: ap:5.85898 an:7.8501
+fc9_1: 0.571826
+loss: ap:6.26582 an:8.41758
+fc9_1: 0.573243
+loss: ap:17.9419 an:0.952211
+fc9_1: 0.574884
+loss: ap:10.3172 an:19.9011
+fc9_1: 0.576464
+loss: ap:5.98476 an:7.97009
+fc9_1: 0.57864
+loss: ap:8.74772 an:3.57894
+fc9_1: 0.579859
+loss: ap:4.14798 an:3.64503
+fc9_1: 0.581511
+loss: ap:6.00631 an:2.33918
+fc9_1: 0.581155
+loss: ap:17.8865 an:5.8319
+fc9_1: 0.58047
+loss: ap:2.76001 an:7.88864
+fc9_1: 0.579262
+loss: ap:8.2048 an:12.7171
+fc9_1: 0.579288
+loss: ap:9.65506 an:14.5736
+fc9_1: 0.581505
+loss: ap:10.8875 an:2.87558
+fc9_1: 0.583891
+loss: ap:9.95629 an:12.7325
+fc9_1: 0.586934
+loss: ap:7.99104 an:23.7654
+fc9_1: 0.590204
+loss: ap:5.51626 an:9.1954
+fc9_1: 0.591418
+loss: ap:16.7014 an:20.0922
+fc9_1: 0.592726
+loss: ap:5.636 an:10.609
+fc9_1: 0.594057
+loss: ap:8.97628 an:14.1546
+fc9_1: 0.596569
+loss: ap:8.15359 an:18.1906
+fc9_1: 0.598915
+loss: ap:12.6425 an:18.3832
+fc9_1: 0.601845
+loss: ap:17.0875 an:3.15977
+fc9_1: 0.604974
+loss: ap:6.11292 an:15.7836
+fc9_1: 0.607549
+loss: ap:9.62152 an:2.03329
+fc9_1: 0.609021
+loss: ap:7.83678 an:2.90256
+fc9_1: 0.608822
+loss: ap:8.08232 an:1.40003
+fc9_1: 0.608856
+loss: ap:9.89191 an:20.6948
+fc9_1: 0.609982
+loss: ap:7.12708 an:9.57426
+fc9_1: 0.612161
+loss: ap:4.56094 an:6.77264
+fc9_1: 0.614944
+loss: ap:5.0761 an:7.0227
+fc9_1: 0.619051
+loss: ap:10.4939 an:7.09987
+fc9_1: 0.622417
+loss: ap:5.45558 an:10.6779
+fc9_1: 0.624964
+loss: ap:13.1128 an:27.2827
+fc9_1: 0.628366
+loss: ap:11.4157 an:17.0357
+fc9_1: 0.632455
+loss: ap:17.4868 an:22.2731
+fc9_1: 0.63798
+loss: ap:8.14405 an:3.87512
+fc9_1: 0.643278
+loss: ap:7.49528 an:24.9004
+fc9_1: 0.648048
+loss: ap:7.93707 an:12.5789
+fc9_1: 0.653743
+loss: ap:12.835 an:21.5229
+fc9_1: 0.661963
+loss: ap:9.71122 an:25.6373
+fc9_1: 0.669325
+loss: ap:8.6521 an:27.8122
+fc9_1: 0.67522
+loss: ap:10.399 an:4.08078
+fc9_1: 0.680676
+loss: ap:22.2192 an:24.7304
+fc9_1: 0.685699
+loss: ap:3.16405 an:8.09661
+fc9_1: 0.690605
+loss: ap:16.1132 an:2.10272
+fc9_1: 0.694599
+loss: ap:16.5259 an:2.07031
+fc9_1: 0.697518
+loss: ap:12.7448 an:30.9478
+fc9_1: 0.69877
+loss: ap:18.5982 an:25.3756
+fc9_1: 0.70037
+loss: ap:5.73472 an:6.56712
+fc9_1: 0.701439
+loss: ap:9.59087 an:17.4292
+fc9_1: 0.703247
+loss: ap:21.6844 an:40.0453
+fc9_1: 0.706151
+loss: ap:15.4647 an:20.2682
+fc9_1: 0.710693
+loss: ap:4.78508 an:20.7448
+fc9_1: 0.714135
+loss: ap:4.48673 an:5.07282
+fc9_1: 0.717524
+loss: ap:7.23963 an:14.7481
+fc9_1: 0.721767
+loss: ap:23.171 an:9.76765
+fc9_1: 0.725482
+loss: ap:15.4255 an:24.4832
+fc9_1: 0.727407
+loss: ap:11.5585 an:3.63795
+fc9_1: 0.729209
+loss: ap:4.52122 an:19.999
+fc9_1: 0.729622
+loss: ap:15.3015 an:15.1279
+fc9_1: 0.730086
+loss: ap:5.67455 an:17.5747
+fc9_1: 0.730931
+loss: ap:4.84246 an:12.3531
+fc9_1: 0.734087
+loss: ap:3.31462 an:14.1739
+fc9_1: 0.737634
+loss: ap:18.54 an:14.822
+fc9_1: 0.740567
+loss: ap:14.6768 an:15.2916
+fc9_1: 0.744752
+loss: ap:19.1308 an:4.98421
+fc9_1: 0.749302
+loss: ap:12.5757 an:3.9097
+fc9_1: 0.753102
+loss: ap:9.82911 an:17.3053
+fc9_1: 0.758238
+loss: ap:15.0218 an:27.1482
+fc9_1: 0.762097
+loss: ap:10.1258 an:2.99216
+fc9_1: 0.7I0608 11:38:25.227810 19748 solver.cpp:218] Iteration 520 (2.55367 iter/s, 7.83187s/20 iters), loss = 3.59824
+I0608 11:38:25.227866 19748 solver.cpp:237]     Train net output #0: loss = 3.59824 (* 1 = 3.59824 loss)
+I0608 11:38:25.227876 19748 sgd_solver.cpp:105] Iteration 520, lr = 0.01
+I0608 11:38:32.951594 19748 solver.cpp:218] Iteration 540 (2.58947 iter/s, 7.72358s/20 iters), loss = 0.416525
+I0608 11:38:32.951643 19748 solver.cpp:237]     Train net output #0: loss = 0.416525 (* 1 = 0.416525 loss)
+I0608 11:38:32.951653 19748 sgd_solver.cpp:105] Iteration 540, lr = 0.01
+I0608 11:38:40.677309 19748 solver.cpp:218] Iteration 560 (2.58882 iter/s, 7.72553s/20 iters), loss = 0.0179407
+I0608 11:38:40.677356 19748 solver.cpp:237]     Train net output #0: loss = 0.0179407 (* 1 = 0.0179407 loss)
+I0608 11:38:40.677366 19748 sgd_solver.cpp:105] Iteration 560, lr = 0.01
+I0608 11:38:48.496578 19748 solver.cpp:218] Iteration 580 (2.55785 iter/s, 7.81908s/20 iters), loss = 0
+I0608 11:38:48.496625 19748 solver.cpp:237]     Train net output #0: loss = 0 (* 1 = 0 loss)
+I0608 11:38:48.496634 19748 sgd_solver.cpp:105] Iteration 580, lr = 0.01
+65556
+loss: ap:10.2099 an:44.304
+fc9_1: 0.768542
+loss: ap:15.098 an:5.65156
+fc9_1: 0.771481
+loss: ap:32.7894 an:62.494
+fc9_1: 0.775542
+loss: ap:15.3886 an:12.7825
+fc9_1: 0.780174
+loss: ap:21.526 an:13.3717
+fc9_1: 0.784282
+loss: ap:18.8338 an:4.35398
+fc9_1: 0.788141
+loss: ap:22.2877 an:4.64779
+fc9_1: 0.790383
+loss: ap:24.7113 an:27.6748
+fc9_1: 0.793009
+loss: ap:17.3882 an:1.52017
+fc9_1: 0.793648
+loss: ap:24.9134 an:5.62486
+fc9_1: 0.793519
+loss: ap:8.25502 an:10.4972
+fc9_1: 0.795874
+loss: ap:8.54561 an:12.681
+fc9_1: 0.797817
+loss: ap:10.2173 an:18.388
+fc9_1: 0.804273
+loss: ap:16.5709 an:19.2661
+fc9_1: 0.809513
+loss: ap:21.4036 an:44.5871
+fc9_1: 0.817524
+loss: ap:4.95836 an:21.3258
+fc9_1: 0.826058
+loss: ap:7.6231 an:18.4455
+fc9_1: 0.834356
+loss: ap:24.1244 an:9.30757
+fc9_1: 0.840997
+loss: ap:9.9495 an:32.1416
+fc9_1: 0.847492
+loss: ap:41.4667 an:56.7152
+fc9_1: 0.851036
+loss: ap:5.27627 an:30.5004
+fc9_1: 0.853888
+loss: ap:27.6837 an:3.57119
+fc9_1: 0.858225
+loss: ap:10.656 an:44.0678
+fc9_1: 0.861701
+loss: ap:10.5918 an:2.44219
+fc9_1: 0.86489
+loss: ap:6.45534 an:26.4598
+fc9_1: 0.869388
+loss: ap:13.332 an:10.9174
+fc9_1: 0.873162
+loss: ap:11.2793 an:43.2374
+fc9_1: 0.878369
+loss: ap:13.3919 an:40.5368
+fc9_1: 0.885715
+loss: ap:9.90439 an:26.9219
+fc9_1: 0.891852
+loss: ap:24.033 an:8.46003
+fc9_1: 0.898168
+loss: ap:12.2742 an:12.3017
+fc9_1: 0.901696
+loss: ap:28.7189 an:7.55149
+fc9_1: 0.905576
+loss: ap:8.43199 an:29.3706
+fc9_1: 0.909268
+loss: ap:20.1221 an:7.05649
+fc9_1: 0.913412
+loss: ap:27.2777 an:54.3854
+fc9_1: 0.919099
+loss: ap:21.1772 an:26.9403
+fc9_1: 0.923947
+loss: ap:10.5685 an:19.0135
+fc9_1: 0.928146
+loss: ap:13.2283 an:13.2732
+fc9_1: 0.93179
+loss: ap:20.4435 an:8.22632
+fc9_1: 0.934037
+loss: ap:3.73627 an:37.3168
+fc9_1: 0.936402
+loss: ap:22.7813 an:13.4362
+fc9_1: 0.939247
+loss: ap:16.0725 an:48.4733
+fc9_1: 0.943707
+loss: ap:9.3985 an:16.8302
+fc9_1: 0.947988
+loss: ap:25.3843 an:36.4193
+fc9_1: 0.953119
+loss: ap:18.8677 an:27.57
+fc9_1: 0.957457
+loss: ap:20.8748 an:12.4286
+fc9_1: 0.958496
+loss: ap:7.39352 an:15.2212
+fc9_1: 0.961218
+loss: ap:18.1392 an:8.73739
+fc9_1: 0.963741
+loss: ap:28.836 an:8.58733
+fc9_1: 0.966314
+loss: ap:10.5578 an:46.5196
+fc9_1: 0.968216
+loss: ap:31.3883 an:40.5459
+fc9_1: 0.970956
+loss: ap:57.9009 an:25.5825
+fc9_1: 0.973128
+loss: ap:13.245 an:13.2039
+fc9_1: 0.974452
+loss: ap:23.3658 an:17.9997
+fc9_1: 0.976213
+loss: ap:9.31054 an:18.0716
+fc9_1: 0.97806
+loss: ap:27.1265 an:38.6297
+fc9_1: 0.981586
+loss: ap:19.0212 an:51.2607
+fc9_1: 0.983762
+loss: ap:16.1769 an:25.2947
+fc9_1: 0.984801
+loss: ap:5.61911 an:51.6322
+fc9_1: 0.988266
+loss: ap:25.8813 an:12.5777
+fc9_1: 0.990362
+loss: ap:20.1152 an:81.3095
+fc9_1: 0.991377
+loss: ap:11.8001 an:22.7713
+fc9_1: 0.98976
+loss: ap:37.7115 an:18.717
+fc9_1: 0.987313
+loss: ap:11.0767 an:55.6399
+fc9_1: 0.987053
+loss: ap:30.1956 an:17.1607
+fc9_1: 0.987875
+loss: ap:24.65 an:4.33561
+fc9_1: 0.988259
+loss: ap:22.409 an:88.5239
+fc9_1: 0.988525
+loss: ap:46.0973 an:60.3848
+fc9_1: 0.988657
+loss: ap:8.17828 an:31.1736
+fc9_1: 0.988624
+loss: ap:35.924 an:51.5219
+fc9_1: 0.991434
+loss: ap:36.5449 an:4.66779
+fc9_1: 0.992332
+loss: ap:20.6499 an:32.0696
+fc9_1: 0.99289
+loss: ap:15.5754 an:6.05666
+fc9_1: 0.992718
+loss: ap:96.5479 an:137.704
+fc9_1: 0.993386
+loss: ap:61.4691 an:13.6447
+fc9_1: 0.996155
+loss: ap:19.6617 an:28.5225
+fc9_1: 0.997605
+loss: ap:16.6911 an:19.2181
+fc9_1: 1.0023
+loss: ap:10.7411 an:30.2626
+fc9_1: 1.00572
+loss: ap:38.7937 an:29.3036
+fc9_1: 1.01027
+loss: ap:45.3453 an:24.3463
+fc9_1: 1.01808
+loss: ap:35.1927 an:7.82367
+fc9_1: 1.02448
+loss: ap:15.0296 an:34.0573
+fc9_1: 1.03085
+loss: ap:30.9529 an:14.7951
+fc9_1: 1.03522
+loss: ap:30.9485 an:47.9964
+fc9_1: 1.03968
+loss: ap:23.4212 an:6.51968
+fc9_1: 1.04392
+loss: ap:27.29 an:15.1014
+fc9_1: 1.04714
+loss: ap:38.9587 an:8.94642
+fc9_1: 1.04818
+loss: ap:31.7913 an:77.8168
+fc9_1: 1.05296
+loss: ap:23.4659 an:19.2794
+fc9_1: 1.06017
+loss: ap:9.54208 an:38.7112
+fc9_1: 1.06433
+loss: ap:17.0528 an:42.43
+fc9_1: 1.06775
+loss: ap:11.4515 an:43.0014
+fc9_1: 1.06977
+loss: ap:50.799 an:84.3534
+fc9_1: 1.07444
+loss: ap:16.2999 an:86.6222
+fc9_1: 1.0799
+loss:I0608 11:38:56.355876 19748 solver.cpp:218] Iteration 600 (2.54482 iter/s, 7.85911s/20 iters), loss = 3.365
+I0608 11:38:56.355926 19748 solver.cpp:237]     Train net output #0: loss = 3.365 (* 1 = 3.365 loss)
+I0608 11:38:56.355937 19748 sgd_solver.cpp:105] Iteration 600, lr = 0.01
+I0608 11:39:04.217756 19748 solver.cpp:218] Iteration 620 (2.54398 iter/s, 7.86168s/20 iters), loss = 0.608828
+I0608 11:39:04.217802 19748 solver.cpp:237]     Train net output #0: loss = 0.608828 (* 1 = 0.608828 loss)
+I0608 11:39:04.217810 19748 sgd_solver.cpp:105] Iteration 620, lr = 0.01
+I0608 11:39:12.045604 19748 solver.cpp:218] Iteration 640 (2.55504 iter/s, 7.82766s/20 iters), loss = 0
+I0608 11:39:12.045651 19748 solver.cpp:237]     Train net output #0: loss = 0 (* 1 = 0 loss)
+I0608 11:39:12.045660 19748 sgd_solver.cpp:105] Iteration 640, lr = 0.01
+I0608 11:39:19.905500 19748 solver.cpp:218] Iteration 660 (2.54462 iter/s, 7.85971s/20 iters), loss = 1.97848
+I0608 11:39:19.905545 19748 solver.cpp:237]     Train net output #0: loss = 1.97848 (* 1 = 1.97848 loss)
+I0608 11:39:19.905555 19748 sgd_solver.cpp:105] Iteration 660, lr = 0.01
+I0608 11:39:27.628584 19748 solver.cpp:218] Iteration 680 (2.5897 iter/s, 7.7229s/20 iters), loss = 8.39853
+I0608 11:39:27.628631 19748 solver.cpp:237]     Train net output #0: loss = 8.39853 (* 1 = 8.39853 loss)
+I0608 11:39:27.628640 19748 sgd_solver.cpp:105] Iteration 680, lr = 0.01
+ ap:27.6181 an:38.7774
+fc9_1: 1.08503
+loss: ap:38.9894 an:96.2269
+fc9_1: 1.0882
+loss: ap:11.1428 an:49.2392
+fc9_1: 1.09153
+speed: 0.896s / iter
+loss: ap:21.8503 an:4.24022
+fc9_1: 1.09385
+loss: ap:10.2753 an:12.4684
+fc9_1: 1.0952
+loss: ap:74.0491 an:53.4982
+fc9_1: 1.10049
+loss: ap:25.9167 an:16.903
+fc9_1: 1.10423
+loss: ap:30.3468 an:26.5519
+fc9_1: 1.10993
+loss: ap:7.78599 an:35.4338
+fc9_1: 1.11694
+loss: ap:32.8762 an:57.683
+fc9_1: 1.12407
+loss: ap:5.19038 an:37.5915
+fc9_1: 1.13157
+loss: ap:12.8974 an:46.0296
+fc9_1: 1.13757
+loss: ap:9.96917 an:48.229
+fc9_1: 1.14314
+loss: ap:28.4784 an:20.016
+fc9_1: 1.15255
+loss: ap:22.2071 an:54.2656
+fc9_1: 1.15987
+loss: ap:40.5835 an:92.1155
+fc9_1: 1.16403
+loss: ap:27.9559 an:48.1559
+fc9_1: 1.17196
+loss: ap:41.7843 an:152.306
+fc9_1: 1.17718
+loss: ap:19.3503 an:32.1214
+fc9_1: 1.18232
+loss: ap:56.5312 an:4.45513
+fc9_1: 1.18788
+loss: ap:16.7543 an:33.1896
+fc9_1: 1.19553
+loss: ap:53.746 an:40.1473
+fc9_1: 1.20171
+loss: ap:60.4272 an:11.7843
+fc9_1: 1.20967
+loss: ap:26.2876 an:40.2127
+fc9_1: 1.21795
+loss: ap:81.1711 an:92.6018
+fc9_1: 1.2292
+loss: ap:12.4823 an:65.7802
+fc9_1: 1.24022
+loss: ap:32.6697 an:31.2812
+fc9_1: 1.25273
+loss: ap:36.4232 an:64.509
+fc9_1: 1.26599
+loss: ap:21.9789 an:52.0986
+fc9_1: 1.27827
+loss: ap:16.4808 an:33.6447
+fc9_1: 1.28966
+loss: ap:51.6574 an:52.0098
+fc9_1: 1.2988
+loss: ap:14.6806 an:52.0988
+fc9_1: 1.30584
+loss: ap:53.3285 an:26.1871
+fc9_1: 1.31291
+loss: ap:35.9299 an:80.9041
+fc9_1: 1.31778
+loss: ap:29.0913 an:26.529
+fc9_1: 1.32134
+loss: ap:70.1805 an:61.1615
+fc9_1: 1.32416
+loss: ap:21.8483 an:59.8833
+fc9_1: 1.33097
+loss: ap:34.3401 an:70.5651
+fc9_1: 1.33847
+loss: ap:23.3578 an:122.672
+fc9_1: 1.34501
+loss: ap:21.2737 an:28.3018
+fc9_1: 1.3482
+loss: ap:20.0814 an:106.615
+fc9_1: 1.34785
+loss: ap:33.9457 an:55.2201
+fc9_1: 1.34772
+loss: ap:35.966 an:19.9448
+fc9_1: 1.34622
+loss: ap:47.4585 an:90.284
+fc9_1: 1.34566
+loss: ap:15.0439 an:115.64
+fc9_1: 1.34255
+loss: ap:35.0723 an:67.8503
+fc9_1: 1.34026
+loss: ap:18.744 an:74.1457
+fc9_1: 1.33895
+loss: ap:32.3154 an:57.1427
+fc9_1: 1.34229
+loss: ap:37.2447 an:67.7573
+fc9_1: 1.34958
+loss: ap:35.1946 an:84.0288
+fc9_1: 1.35554
+loss: ap:66.6567 an:28.9519
+fc9_1: 1.3614
+loss: ap:113.553 an:153.336
+fc9_1: 1.36941
+loss: ap:57.7838 an:89.4706
+fc9_1: 1.37824
+loss: ap:46.7402 an:44.0063
+fc9_1: 1.38675
+loss: ap:71.773 an:4.13421
+fc9_1: 1.39472
+loss: ap:83.2125 an:51.3782
+fc9_1: 1.40231
+loss: ap:20.0913 an:65.504
+fc9_1: 1.40763
+loss: ap:76.593 an:140.714
+fc9_1: 1.41164
+loss: ap:78.7129 an:7.86139
+fc9_1: 1.41615
+loss: ap:31.1183 an:93.0938
+fc9_1: 1.41681
+loss: ap:28.723 an:97.8437
+fc9_1: 1.41889
+loss: ap:14.0078 an:48.391
+fc9_1: 1.42023
+loss: ap:33.4621 an:53.289
+fc9_1: 1.42256
+loss: ap:47.8012 an:54.0086
+fc9_1: 1.42748
+loss: ap:41.6968 an:47.1298
+fc9_1: 1.43147
+loss: ap:63.7219 an:75.8142
+fc9_1: 1.43141
+loss: ap:57.9829 an:29.3063
+fc9_1: 1.42969
+loss: ap:39.3141 an:60.162
+fc9_1: 1.42582
+loss: ap:18.5234 an:79.2105
+fc9_1: 1.42342
+loss: ap:115.006 an:144.366
+fc9_1: 1.42442
+loss: ap:72.1804 an:138.841
+fc9_1: 1.43388
+loss: ap:64.7134 an:107.226
+fc9_1: 1.44368
+loss: ap:41.339 an:168.178
+fc9_1: 1.45814
+loss: ap:70.5247 an:26.0307
+fc9_1: 1.47346
+loss: ap:34.4318 an:96.522
+fc9_1: 1.48546
+loss: ap:29.1856 an:42.1141
+fc9_1: 1.49837
+loss: ap:46.7941 an:37.0341
+fc9_1: 1.51124
+loss: ap:78.7643 an:139.477
+fc9_1: 1.52432
+loss: ap:107.955 an:15.2059
+fc9_1: 1.53567
+loss: ap:54.0795 an:98.6879
+fc9_1: 1.55026
+loss: ap:65.8624 an:131.105
+fc9_1: 1.56398
+loss: ap:55.2517 an:38.0694
+fc9_1: 1.57606
+loss: ap:156.599 an:25.8635
+fc9_1: 1.58822
+loss: ap:112.902 an:38.0935
+fc9_1: 1.59914
+loss: ap:29.9244 an:53.5771
+fc9_1: 1.60539
+loss: ap:56.3101 an:46.2425
+fc9_1: 1.61474
+loss: ap:47.0551 an:34.9108
+fc9_1: 1.62363
+loss: ap:84.6452 an:51.4784
+fc9_1: 1.63128
+loss: ap:46.229 an:197.038
+fc9_1: 1.63647
+loss: ap:90.8652 an:36.9115
+fc9_1: 1.63857
+loss: ap:40.5795 an:88.0617
+fc9_1: 1.6431
+loss: ap:64.3545 an:88.7242
+fc9_1: 1.64518
+loss: ap:67.5652 an:156.502
+fc9_1: 1.65704
+loss: ap:75.1343 an:27.6716
+fc9_1: 1.67013
+loss: ap:76.3048 an:52.1461
+fc9_1: 1.68078
+loss: ap:121.802 an:257I0608 11:39:35.496879 19748 solver.cpp:218] Iteration 700 (2.54191 iter/s, 7.86811s/20 iters), loss = 0
+I0608 11:39:35.496929 19748 solver.cpp:237]     Train net output #0: loss = 0 (* 1 = 0 loss)
+I0608 11:39:35.496938 19748 sgd_solver.cpp:105] Iteration 700, lr = 0.01
+I0608 11:39:43.851042 19748 solver.cpp:218] Iteration 720 (2.39407 iter/s, 8.35396s/20 iters), loss = 2.13847
+I0608 11:39:43.851091 19748 solver.cpp:237]     Train net output #0: loss = 2.13847 (* 1 = 2.13847 loss)
+I0608 11:39:43.851100 19748 sgd_solver.cpp:105] Iteration 720, lr = 0.01
+I0608 11:40:18.597261 19748 solver.cpp:218] Iteration 740 (0.575613 iter/s, 34.7456s/20 iters), loss = 1.59294
+I0608 11:40:18.597312 19748 solver.cpp:237]     Train net output #0: loss = 1.59294 (* 1 = 1.59294 loss)
+I0608 11:40:18.597324 19748 sgd_solver.cpp:105] Iteration 740, lr = 0.01
+I0608 11:41:40.148766 19748 solver.cpp:218] Iteration 760 (0.245248 iter/s, 81.5501s/20 iters), loss = 0.319573
+I0608 11:41:40.148818 19748 solver.cpp:237]     Train net output #0: loss = 0.319573 (* 1 = 0.319573 loss)
+I0608 11:41:40.148828 19748 sgd_solver.cpp:105] Iteration 760, lr = 0.01
+I0608 11:42:34.539969 19748 solver.cpp:218] Iteration 780 (0.367713 iter/s, 54.3903s/20 iters), loss = 0
+I0608 11:42:34.540020 19748 solver.cpp:237]     Train net output #0: loss = 0 (* 1 = 0 loss)
+I0608 11:42:34.540030 19748 sgd_solver.cpp:105] Iteration 780, lr = 0.01
+.566
+fc9_1: 1.68748
+loss: ap:143.974 an:43.2986
+fc9_1: 1.69603
+loss: ap:76.7349 an:202.084
+fc9_1: 1.70395
+loss: ap:46.5224 an:34.0595
+fc9_1: 1.71287
+loss: ap:48.682 an:118.774
+fc9_1: 1.7213
+loss: ap:32.2695 an:67.7832
+fc9_1: 1.72758
+loss: ap:22.8077 an:41.4757
+fc9_1: 1.73654
+loss: ap:137.012 an:24.6084
+fc9_1: 1.74166
+loss: ap:65.9056 an:201.924
+fc9_1: 1.74734
+loss: ap:30.9438 an:55.4897
+fc9_1: 1.75161
+loss: ap:39.2472 an:79.9148
+fc9_1: 1.75553
+loss: ap:31.1419 an:112.021
+fc9_1: 1.75744
+loss: ap:31.5367 an:94.8076
+fc9_1: 1.76482
+loss: ap:49.6777 an:100.821
+fc9_1: 1.77368
+loss: ap:46.3086 an:98.579
+fc9_1: 1.77996
+loss: ap:82.3515 an:56.8632
+fc9_1: 1.783
+loss: ap:40.0957 an:176.336
+fc9_1: 1.78398
+loss: ap:113.678 an:21.7108
+fc9_1: 1.7895
+loss: ap:117.408 an:193.336
+fc9_1: 1.79296
+loss: ap:54.4031 an:48.5061
+fc9_1: 1.79555
+loss: ap:15.7489 an:63.2409
+fc9_1: 1.80136
+loss: ap:22.728 an:175.508
+fc9_1: 1.8
+loss: ap:51.5835 an:76.8185
+fc9_1: 1.7963
+loss: ap:51.8547 an:81.4008
+fc9_1: 1.79242
+loss: ap:56.8692 an:47.4052
+fc9_1: 1.79219
+loss: ap:177.318 an:43.2153
+fc9_1: 1.79448
+loss: ap:127.358 an:211.412
+fc9_1: 1.79867
+loss: ap:201.723 an:166.731
+fc9_1: 1.80299
+loss: ap:47.2701 an:89.925
+fc9_1: 1.8055
+loss: ap:24.571 an:120.469
+fc9_1: 1.81104
+loss: ap:80.0527 an:72.139
+fc9_1: 1.81591
+loss: ap:152.883 an:273.075
+fc9_1: 1.81758
+loss: ap:176.051 an:145.008
+fc9_1: 1.81813
+loss: ap:82.061 an:66.0205
+fc9_1: 1.82303
+loss: ap:61.4766 an:39.8259
+fc9_1: 1.8262
+loss: ap:93.0095 an:44.3073
+fc9_1: 1.83415
+loss: ap:130.531 an:135.276
+fc9_1: 1.84217
+loss: ap:89.664 an:189.399
+fc9_1: 1.84705
+loss: ap:110.791 an:32.1072
+fc9_1: 1.85513
+loss: ap:107.147 an:189.653
+fc9_1: 1.86539
+loss: ap:157.073 an:206.525
+fc9_1: 1.87114
+loss: ap:128.789 an:88.1695
+fc9_1: 1.87403
+loss: ap:169.867 an:319.173
+fc9_1: 1.87503
+loss: ap:109.326 an:230.215
+fc9_1: 1.8818
+loss: ap:73.204 an:25.1176
+fc9_1: 1.89105
+loss: ap:85.2844 an:40.1166
+fc9_1: 1.89841
+loss: ap:13.7391 an:39.4891
+fc9_1: 1.90992
+loss: ap:34.8636 an:197.612
+fc9_1: 1.92174
+loss: ap:72.3081 an:171.71
+fc9_1: 1.93591
+loss: ap:55.7995 an:70.8213
+fc9_1: 1.95275
+loss: ap:71.5137 an:53.6814
+fc9_1: 1.97567
+loss: ap:82.8009 an:53.2488
+fc9_1: 1.99608
+loss: ap:93.9181 an:114.925
+fc9_1: 2.01383
+loss: ap:85.1095 an:207.352
+fc9_1: 2.02986
+loss: ap:162.428 an:170.951
+fc9_1: 2.047
+loss: ap:106.184 an:285.207
+fc9_1: 2.06291
+loss: ap:211.129 an:48.4165
+fc9_1: 2.07579
+loss: ap:91.5036 an:241.745
+fc9_1: 2.08648
+loss: ap:196.339 an:142.658
+fc9_1: 2.09375
+loss: ap:83.0486 an:256.494
+fc9_1: 2.09766
+loss: ap:47.3658 an:120.872
+fc9_1: 2.10176
+loss: ap:38.9818 an:60.9189
+fc9_1: 2.10678
+loss: ap:151.869 an:31.8629
+fc9_1: 2.1135
+loss: ap:98.192 an:176.282
+fc9_1: 2.11702
+loss: ap:197.344 an:268.178
+fc9_1: 2.11976
+loss: ap:78.9186 an:196.284
+fc9_1: 2.1161
+loss: ap:42.7052 an:156.744
+fc9_1: 2.11597
+loss: ap:209.678 an:339.562
+fc9_1: 2.11494
+loss: ap:81.1282 an:182.977
+fc9_1: 2.11477
+loss: ap:58.1446 an:94.3615
+fc9_1: 2.11467
+loss: ap:161.052 an:196.445
+fc9_1: 2.13429
+loss: ap:170.21 an:318.27
+fc9_1: 2.15525
+loss: ap:71.0851 an:260.906
+fc9_1: 2.17256
+loss: ap:63.4455 an:147.242
+fc9_1: 2.19158
+loss: ap:107.455 an:15.9819
+fc9_1: 2.20483
+loss: ap:79.7509 an:88.0134
+fc9_1: 2.21874
+loss: ap:112.007 an:251.782
+fc9_1: 2.23417
+loss: ap:147.432 an:234.371
+fc9_1: 2.24543
+loss: ap:57.4878 an:101.691
+fc9_1: 2.24905
+loss: ap:107.306 an:426.234
+fc9_1: 2.25063
+loss: ap:82.7455 an:195.269
+fc9_1: 2.25687
+loss: ap:174.184 an:70.0536
+fc9_1: 2.27789
+loss: ap:45.1942 an:148.247
+fc9_1: 2.30335
+loss: ap:197.96 an:39.8955
+fc9_1: 2.32787
+loss: ap:193.058 an:41.1208
+fc9_1: 2.3528
+loss: ap:101.061 an:365.634
+fc9_1: 2.37844
+loss: ap:118.949 an:160.839
+fc9_1: 2.3921
+loss: ap:91.9891 an:259.611
+fc9_1: 2.40439
+loss: ap:128.643 an:371.148
+fc9_1: 2.41474
+loss: ap:87.5349 an:381.903
+fc9_1: 2.41773
+loss: ap:184.427 an:282.339
+fc9_1: 2.42269
+loss: ap:68.0844 an:240.152
+fc9_1: 2.42988
+loss: ap:104.656 an:139.105
+fc9_1: 2.43651
+loss: ap:83.3433 an:200.727
+fc9_1: 2.45732
+loss: ap:272.203 an:260.64
+fc9_1: 2.47755
+loss: ap:181.37 an:104.6
+fc9_1: 2.49307
+loss: ap:285.543 an:95.0417I0608 11:43:14.865913 19748 solver.cpp:218] Iteration 800 (0.495967 iter/s, 40.3252s/20 iters), loss = 1.33407
+I0608 11:43:14.865965 19748 solver.cpp:237]     Train net output #0: loss = 1.33407 (* 1 = 1.33407 loss)
+I0608 11:43:14.865973 19748 sgd_solver.cpp:105] Iteration 800, lr = 0.01
+I0608 11:43:29.393681 19748 solver.cpp:218] Iteration 820 (1.3767 iter/s, 14.5275s/20 iters), loss = 18.8688
+I0608 11:43:29.393731 19748 solver.cpp:237]     Train net output #0: loss = 18.8688 (* 1 = 18.8688 loss)
+I0608 11:43:29.393740 19748 sgd_solver.cpp:105] Iteration 820, lr = 0.01
+I0608 11:43:33.834333 19748 solver.cpp:218] Iteration 840 (4.50398 iter/s, 4.44052s/20 iters), loss = 0.520912
+I0608 11:43:33.834383 19748 solver.cpp:237]     Train net output #0: loss = 0.520912 (* 1 = 0.520912 loss)
+I0608 11:43:33.834393 19748 sgd_solver.cpp:105] Iteration 840, lr = 0.01
+I0608 11:43:38.215266 19748 solver.cpp:218] Iteration 860 (4.56538 iter/s, 4.3808s/20 iters), loss = 1.93948
+I0608 11:43:38.215312 19748 solver.cpp:237]     Train net output #0: loss = 1.93948 (* 1 = 1.93948 loss)
+I0608 11:43:38.215322 19748 sgd_solver.cpp:105] Iteration 860, lr = 0.01
+I0608 11:43:42.603618 19748 solver.cpp:218] Iteration 880 (4.55765 iter/s, 4.38822s/20 iters), loss = 0
+I0608 11:43:42.603675 19748 solver.cpp:237]     Train net output #0: loss = 0 (* 1 = 0 loss)
+I0608 11:43:42.603684 19748 sgd_solver.cpp:105] Iteration 880, lr = 0.01
+
+fc9_1: 2.50235
+loss: ap:179.337 an:95.7193
+fc9_1: 2.5106
+loss: ap:217.49 an:39.6495
+fc9_1: 2.51245
+loss: ap:253.447 an:291.927
+fc9_1: 2.51865
+loss: ap:71.7353 an:132.324
+fc9_1: 2.52828
+loss: ap:95.5159 an:156.442
+fc9_1: 2.53669
+loss: ap:129.706 an:180.138
+fc9_1: 2.54243
+loss: ap:186.648 an:202.532
+fc9_1: 2.54783
+loss: ap:220.798 an:71.8135
+fc9_1: 2.55177
+loss: ap:122.326 an:97.1375
+fc9_1: 2.56125
+loss: ap:194.854 an:328.469
+fc9_1: 2.56476
+loss: ap:83.9726 an:195.019
+fc9_1: 2.57136
+speed: 0.994s / iter
+loss: ap:170.998 an:396.326
+fc9_1: 2.58295
+loss: ap:241.451 an:187.14
+fc9_1: 2.60437
+loss: ap:216.777 an:277.162
+fc9_1: 2.62134
+loss: ap:114.125 an:243.77
+fc9_1: 2.63829
+loss: ap:44.7037 an:85.4748
+fc9_1: 2.65281
+loss: ap:131.547 an:110.824
+fc9_1: 2.66695
+loss: ap:306.529 an:390.251
+fc9_1: 2.68048
+loss: ap:122.604 an:160.297
+fc9_1: 2.70456
+loss: ap:80.0878 an:245.481
+fc9_1: 2.72742
+loss: ap:210.217 an:356.662
+fc9_1: 2.74897
+loss: ap:125.178 an:116.251
+fc9_1: 2.77204
+loss: ap:150.879 an:54.4531
+fc9_1: 2.79315
+loss: ap:200.005 an:387.885
+fc9_1: 2.81847
+loss: ap:90.3196 an:73.8625
+fc9_1: 2.84117
+loss: ap:183.43 an:342.876
+fc9_1: 2.87181
+loss: ap:128.186 an:69.3966
+fc9_1: 2.90342
+loss: ap:289.942 an:393.955
+fc9_1: 2.93421
+loss: ap:102.327 an:114.707
+fc9_1: 2.95694
+loss: ap:256.956 an:83.4906
+fc9_1: 2.97274
+loss: ap:244.608 an:415.354
+fc9_1: 2.98714
+loss: ap:91.5879 an:212.164
+fc9_1: 3.00416
+loss: ap:176.738 an:49.4024
+fc9_1: 3.02824
+loss: ap:105.531 an:52.9829
+fc9_1: 3.05782
+loss: ap:88.6223 an:244.338
+fc9_1: 3.08349
+loss: ap:139.582 an:278.184
+fc9_1: 3.11273
+loss: ap:78.8503 an:200.923
+fc9_1: 3.14195
+loss: ap:258.262 an:97.8835
+fc9_1: 3.16163
+loss: ap:278.575 an:557.677
+fc9_1: 3.17807
+loss: ap:94.7681 an:323.157
+fc9_1: 3.19144
+loss: ap:108.264 an:358.355
+fc9_1: 3.20618
+loss: ap:168.716 an:66.6581
+fc9_1: 3.21401
+loss: ap:300.268 an:629.805
+fc9_1: 3.22814
+loss: ap:83.8399 an:55.7741
+fc9_1: 3.25165
+loss: ap:173.203 an:426.622
+fc9_1: 3.27079
+loss: ap:317.678 an:411.414
+fc9_1: 3.28854
+loss: ap:245.334 an:52.3092
+fc9_1: 3.29275
+loss: ap:162.578 an:356.402
+fc9_1: 3.29289
+loss: ap:684.76 an:465.843
+fc9_1: 3.28909
+loss: ap:128.755 an:90.2666
+fc9_1: 3.28995
+loss: ap:198.338 an:205.782
+fc9_1: 3.29399
+loss: ap:65.4065 an:339.752
+fc9_1: 3.2985
+loss: ap:134.721 an:186.212
+fc9_1: 3.29473
+loss: ap:453.568 an:51.3195
+fc9_1: 3.29589
+loss: ap:354.765 an:507.322
+fc9_1: 3.29625
+loss: ap:38.9382 an:525.672
+fc9_1: 3.30278
+loss: ap:190.486 an:517.897
+fc9_1: 3.30629
+loss: ap:277.073 an:406.681
+fc9_1: 3.31324
+loss: ap:415.226 an:57.0318
+fc9_1: 3.31405
+loss: ap:258.515 an:35.3197
+fc9_1: 3.31397
+loss: ap:236.966 an:209.069
+fc9_1: 3.31112
+loss: ap:269.02 an:30.8549
+fc9_1: 3.30658
+loss: ap:470.194 an:364.382
+fc9_1: 3.30358
+loss: ap:125.344 an:183.016
+fc9_1: 3.29992
+loss: ap:90.0006 an:98.8308
+fc9_1: 3.3007
+loss: ap:349.965 an:401.814
+fc9_1: 3.30252
+loss: ap:153.946 an:50.5592
+fc9_1: 3.29818
+loss: ap:223.591 an:349.038
+fc9_1: 3.29213
+loss: ap:224.016 an:374.827
+fc9_1: 3.29425
+loss: ap:320.273 an:217.825
+fc9_1: 3.30208
+loss: ap:343.442 an:506.738
+fc9_1: 3.30377
+loss: ap:414.451 an:487.833
+fc9_1: 3.31057
+loss: ap:140.247 an:355.825
+fc9_1: 3.31625
+loss: ap:325.499 an:237.36
+fc9_1: 3.32993
+loss: ap:302.673 an:315.271
+fc9_1: 3.34733
+loss: ap:409.809 an:61.645
+fc9_1: 3.36987
+loss: ap:61.9782 an:247.092
+fc9_1: 3.38455
+loss: ap:430.603 an:420.323
+fc9_1: 3.40456
+loss: ap:244.563 an:309.973
+fc9_1: 3.41849
+loss: ap:184.468 an:292.137
+fc9_1: 3.42656
+loss: ap:188.912 an:351.266
+fc9_1: 3.43238
+loss: ap:135.35 an:358.603
+fc9_1: 3.44174
+loss: ap:80.8635 an:308.821
+fc9_1: 3.44922
+loss: ap:566.999 an:698.413
+fc9_1: 3.44625
+loss: ap:120.011 an:187.912
+fc9_1: 3.43448
+loss: ap:309.69 an:299.777
+fc9_1: 3.42237
+loss: ap:481.881 an:683.471
+fc9_1: 3.39725
+loss: ap:237.373 an:499.221
+fc9_1: 3.40502
+loss: ap:104.001 an:115.532
+fc9_1: 3.43756
+loss: ap:357.226 an:203.256
+fc9_1: 3.46361
+loss: ap:362.912 an:185.48
+fc9_1: 3.48463
+loss: ap:397.214 an:677.603
+fc9_1: 3.49423
+loss: ap:534.644 an:523.294
+fc9_1: 3.50331
+loss: ap:306.832 an:186.213
+fc9_1: 3.50954
+loss: ap:345.199 an:641.871
+fc9I0608 11:43:46.986654 19748 solver.cpp:218] Iteration 900 (4.56319 iter/s, 4.3829s/20 iters), loss = 7.78321
+I0608 11:43:46.986702 19748 solver.cpp:237]     Train net output #0: loss = 7.78321 (* 1 = 7.78321 loss)
+I0608 11:43:46.986711 19748 sgd_solver.cpp:105] Iteration 900, lr = 0.01
+I0608 11:43:51.480013 19748 solver.cpp:218] Iteration 920 (4.45116 iter/s, 4.49321s/20 iters), loss = 20
+I0608 11:43:51.480063 19748 solver.cpp:237]     Train net output #0: loss = 20 (* 1 = 20 loss)
+I0608 11:43:51.480073 19748 sgd_solver.cpp:105] Iteration 920, lr = 0.01
+I0608 11:43:55.877725 19748 solver.cpp:218] Iteration 940 (4.54796 iter/s, 4.39758s/20 iters), loss = 0.857784
+I0608 11:43:55.877775 19748 solver.cpp:237]     Train net output #0: loss = 0.857784 (* 1 = 0.857784 loss)
+I0608 11:43:55.877784 19748 sgd_solver.cpp:105] Iteration 940, lr = 0.01
+I0608 11:44:00.279033 19748 solver.cpp:218] Iteration 960 (4.54424 iter/s, 4.40117s/20 iters), loss = 6.58524
+I0608 11:44:00.279081 19748 solver.cpp:237]     Train net output #0: loss = 6.58524 (* 1 = 6.58524 loss)
+I0608 11:44:00.279091 19748 sgd_solver.cpp:105] Iteration 960, lr = 0.01
+_1: 3.50993
+loss: ap:253.856 an:382.657
+fc9_1: 3.51661
+loss: ap:213.359 an:630.729
+fc9_1: 3.52961
+loss: ap:148.474 an:529.045
+fc9_1: 3.54591
+loss: ap:109.704 an:456.699
+fc9_1: 3.55916
+loss: ap:187.398 an:335.375
+fc9_1: 3.57326
+loss: ap:474.476 an:260.836
+fc9_1: 3.57885
+loss: ap:188.713 an:183.317
+fc9_1: 3.58294
+loss: ap:436.147 an:880.507
+fc9_1: 3.59232
+loss: ap:293.742 an:127.722
+fc9_1: 3.60981
+loss: ap:325.5 an:83.543
+fc9_1: 3.61674
+loss: ap:256.111 an:508.482
+fc9_1: 3.61992
+loss: ap:147.502 an:465.14
+fc9_1: 3.63034
+loss: ap:293.875 an:473.229
+fc9_1: 3.64912
+loss: ap:496.506 an:505.426
+fc9_1: 3.66876
+loss: ap:254.982 an:244.377
+fc9_1: 3.69835
+loss: ap:441.625 an:410.375
+fc9_1: 3.71574
+loss: ap:289.23 an:473.169
+fc9_1: 3.72322
+loss: ap:307.736 an:332.704
+fc9_1: 3.72779
+loss: ap:381.667 an:703.511
+fc9_1: 3.75079
+loss: ap:134.323 an:304.166
+fc9_1: 3.76954
+loss: ap:489.41 an:719.841
+fc9_1: 3.78821
+loss: ap:187.918 an:341.389
+fc9_1: 3.80882
+loss: ap:260.693 an:510.661
+fc9_1: 3.81031
+loss: ap:165.414 an:503.361
+fc9_1: 3.81644
+loss: ap:772.955 an:124.001
+fc9_1: 3.8336
+loss: ap:461.137 an:72.2523
+fc9_1: 3.851
+loss: ap:298.985 an:439.129
+fc9_1: 3.8789
+loss: ap:474.388 an:172.677
+fc9_1: 3.90055
+loss: ap:308.007 an:333.384
+fc9_1: 3.91255
+loss: ap:157.454 an:193.919
+fc9_1: 3.92865
+loss: ap:135.502 an:609.224
+fc9_1: 3.93665
+loss: ap:820.616 an:456.177
+fc9_1: 3.94134
+loss: ap:390.627 an:90.3059
+fc9_1: 3.95179
+loss: ap:173.999 an:258.441
+fc9_1: 3.95914
+loss: ap:259.85 an:292.158
+fc9_1: 3.94984
+loss: ap:280.425 an:128.228
+fc9_1: 3.95047
+loss: ap:463.664 an:316.106
+fc9_1: 3.9523
+loss: ap:317.826 an:705.588
+fc9_1: 3.95987
+loss: ap:407.039 an:379.058
+fc9_1: 3.95993
+loss: ap:241.939 an:125.734
+fc9_1: 3.97008
+loss: ap:500.547 an:855.099
+fc9_1: 3.98537
+loss: ap:697.118 an:222.043
+fc9_1: 3.99462
+loss: ap:464.978 an:460.971
+fc9_1: 4.01294
+loss: ap:236.001 an:319.27
+fc9_1: 4.0426
+loss: ap:265.12 an:687.054
+fc9_1: 4.07246
+loss: ap:547.757 an:208.891
+fc9_1: 4.0845
+loss: ap:240.021 an:448.08
+fc9_1: 4.08925
+loss: ap:586.559 an:132.023
+fc9_1: 4.08269
+loss: ap:477.887 an:751.692
+fc9_1: 4.06193
+loss: ap:570.793 an:1045.71
+fc9_1: 4.06109
+loss: ap:173.945 an:283.415
+fc9_1: 4.06329
+loss: ap:483.216 an:98.0156
+fc9_1: 4.07116
+loss: ap:706.476 an:263.48
+fc9_1: 4.07867
+loss: ap:492.276 an:242.292
+fc9_1: 4.07302
+loss: ap:518.514 an:158.607
+fc9_1: 4.07248
+loss: ap:229.212 an:526.482
+fc9_1: 4.08218
+loss: ap:522.365 an:754.818
+fc9_1: 4.09436
+loss: ap:347.701 an:759.679
+fc9_1: 4.10859
+loss: ap:1346.96 an:1273.33
+fc9_1: 4.1211
+loss: ap:532.388 an:455.009
+fc9_1: 4.13298
+loss: ap:606.909 an:601.744
+fc9_1: 4.16298
+loss: ap:372.958 an:665.035
+fc9_1: 4.1971
+loss: ap:279.827 an:181.684
+fc9_1: 4.22221
+loss: ap:376.423 an:713.162
+fc9_1: 4.2532
+loss: ap:374.729 an:430.001
+fc9_1: 4.27395
+loss: ap:225.302 an:450.758
+fc9_1: 4.3051
+loss: ap:467.922 an:874.834
+fc9_1: 4.33937
+loss: ap:455.417 an:720.352
+fc9_1: 4.36401
+loss: ap:361.109 an:577.765
+fc9_1: 4.39648
+loss: ap:413.359 an:381.2
+fc9_1: 4.43639
+loss: ap:480.859 an:47.6084
+fc9_1: 4.47927
+loss: ap:269.726 an:325.905
+fc9_1: 4.52012
+loss: ap:947.486 an:119.831
+fc9_1: 4.56128
+loss: ap:565.326 an:1124.7
+fc9_1: 4.5952
+loss: ap:1351.76 an:1460.31
+fc9_1: 4.63722
+loss: ap:663.444 an:218.912
+fc9_1: 4.66787
+loss: ap:635.891 an:870.406
+fc9_1: 4.70599
+loss: ap:1606.42 an:242.117
+fc9_1: 4.74364
+loss: ap:264.197 an:224.885
+fc9_1: 4.78474
+loss: ap:750.225 an:687.687
+fc9_1: 4.82306
+loss: ap:657.137 an:757.535
+fc9_1: 4.87492
+loss: ap:300.729 an:484.809
+fc9_1: 4.93187
+loss: ap:511.683 an:1215.69
+fc9_1: 4.99577
+loss: ap:1073.15 an:1501.15
+fc9_1: 5.05117
+loss: ap:852.469 an:1145.54
+fc9_1: 5.10457
+loss: ap:492.847 an:713.303
+fc9_1: 5.162
+loss: ap:880.753 an:130.066
+fc9_1: 5.21349
+loss: ap:517.553 an:435.736
+fc9_1: 5.26176
+loss: ap:371.73 an:570.08
+fc9_1: 5.30521
+loss: ap:1347.42 an:1396.74
+fc9_1: 5.3548
+loss: ap:294.549 an:497.363
+fc9_1: 5.38964
+loss: ap:612.4 an:1269.5
+fc9_1: 5.41843
+loss: ap:1029.27 an:1220.23
+fc9_1: 5.4487
+loss: ap:790.712 an:172.353
+fc9_1: 5.47676
+loss: ap:559.562 an:179.578
+fc9_1: 5.50134
+loss: ap:594.188 an:62.9641
+fc9_1:I0608 11:44:04.700922 19748 solver.cpp:218] Iteration 980 (4.52309 iter/s, 4.42175s/20 iters), loss = 76.4962
+I0608 11:44:04.700971 19748 solver.cpp:237]     Train net output #0: loss = 76.4962 (* 1 = 76.4962 loss)
+I0608 11:44:04.700980 19748 sgd_solver.cpp:105] Iteration 980, lr = 0.01
+I0608 11:44:09.017490 19748 solver.cpp:330] Iteration 1000, Testing net (#0)
+ 5.51951
+loss: ap:505.286 an:200.069
+fc9_1: 5.53217
+loss: ap:260.656 an:665.241
+fc9_1: 5.55526
+loss: ap:835.397 an:809.849
+fc9_1: 5.58124
+loss: ap:829.694 an:120.476
+fc9_1: 5.60631
+loss: ap:173.848 an:694.895
+fc9_1: 5.6485
+loss: ap:206.662 an:566.448
+fc9_1: 5.67855
+loss: ap:1101.74 an:62.1864
+fc9_1: 5.72091
+loss: ap:229.527 an:494.871
+fc9_1: 5.77019
+loss: ap:914.017 an:1057.66
+fc9_1: 5.81599
+loss: ap:349.562 an:1045.83
+fc9_1: 5.86865
+loss: ap:448.504 an:841.041
+fc9_1: 5.91793
+loss: ap:576.877 an:1078.32
+fc9_1: 5.96454
+loss: ap:321.819 an:731.2
+fc9_1: 6.00749
+loss: ap:684.94 an:1631.9
+fc9_1: 6.04686
+loss: ap:356.951 an:476.267
+fc9_1: 6.07613
+loss: ap:833.277 an:287.119
+fc9_1: 6.10527
+loss: ap:1102.52 an:1730.03
+fc9_1: 6.13193
+loss: ap:1106.68 an:540.62
+fc9_1: 6.15252
+loss: ap:1828.32 an:1979.68
+fc9_1: 6.18239
+loss: ap:1254.94 an:1280.94
+fc9_1: 6.2111
+speed: 0.850s / iter
+loss: ap:371.444 an:989.493
+loss: ap:123.255 an:2078.03
+loss: ap:172.118 an:652.752
+loss: ap:308.322 an:639.012
+loss: ap:223.009 an:1728.93
+loss: ap:216.761 an:1292.94
+loss: ap:119.978 an:491.153
+loss: ap:158.046 an:682.781
+loss: ap:350.638 an:481.442
+loss: ap:190.243 an:1261.84
+loss: ap:420.099 an:1784.2
+loss: ap:288.777 an:1502.35
+loss: ap:95.7319 an:1625.68
+loss: ap:212.842 an:2022.84
+loss: ap:279.795 an:908.147
+loss: ap:301.618 an:721.094
+loss: ap:306.628 an:762.002
+loss: ap:450.455 an:2297.87
+loss: ap:175.589 an:975.972
+loss: ap:99.0203 an:2108.3
+loss: ap:118.496 an:1303.96
+loss: ap:262.437 an:676.87
+loss: ap:317.533 an:2621.28
+loss: ap:587.493 an:1746.84
+loss: ap:143.745 an:1426.97
+loss: ap:413.014 an:252.537
+loss: ap:145.211 an:309.131
+loss: ap:333.782 an:557.145
+loss: ap:211.505 an:459.479
+loss: ap:364.767 an:1074.72
+loss: ap:265.436 an:2372.73
+loss: ap:179.563 an:1644.77
+loss: ap:303.363 an:1133.56
+loss: ap:294.218 an:1924.46
+loss: ap:262.364 an:1362.0
+loss: ap:831.656 an:2175.02
+loss: ap:524.705 an:1061.0
+loss: ap:73.5142 an:446.767
+loss: ap:128.099 an:1362.44
+loss: ap:251.666 an:1462.11
+loss: ap:240.264 an:2170.36
+loss: ap:351.186 an:1793.68
+loss: ap:219.562 an:1959.78
+loss: ap:132.86 an:677.481
+loss: ap:156.625 an:739.189
+loss: ap:833.594 an:447.866
+loss: ap:209.991 an:1451.37
+loss: ap:184.926 an:404.467
+loss: ap:133.864 an:1041.93
+loss: ap:343.55 an:3217.92
+loss: ap:269.693 an:967.273
+loss: ap:349.527 an:982.079
+loss: ap:79.6172 an:1661.8
+loss: ap:122.269 an:438.331
+loss: ap:404.279 an:1110.01
+loss: ap:185.073 an:1291.93
+loss: ap:249.871 an:3010.96
+loss: ap:164.172 an:1041.29
+loss: ap:824.037 an:1562.69
+loss: ap:342.343 an:2710.98
+loss: ap:330.232 an:659.246
+loss: ap:185.944 an:475.049
+loss: ap:512.536 an:2397.72
+loss: ap:262.428 an:1548.82
+loss: ap:185.51 an:1716.77
+loss: ap:168.914 an:519.798
+loss: ap:160.302 an:754.857
+loss: ap:232.1 an:1405.06
+loss: ap:60.264 an:2166.23
+loss: ap:156.552 an:676.458
+loss: ap:327.237 an:595.565
+loss: ap:102.802 an:1616.29
+loss: ap:446.246 an:1482.23
+loss: ap:390.964 an:1936.01
+loss: ap:492.285 an:1758.6
+loss: ap:230.545 an:1464.21
+loss: ap:589.149 an:1779.16
+loss: ap:478.83 an:2723.23
+loss: ap:204.402 an:993.309
+loss: ap:245.213 an:794.997
+loss: ap:708.889 an:1517.09
+loss: ap:723.188 an:2018.17
+loss: ap:294.447 an:1361.46
+loss: ap:490.57 an:501.128
+loss: ap:104.148 an:1243.63
+loss: ap:227.793 an:337.021
+loss: ap:127.558 an:947.489
+loss: ap:142.808 an:755.338
+loss: ap:180.717 an:1028.96
+loss: ap:325.543 an:1638.06
+loss: ap:168.859 an:867.467
+loss: ap:361.93 an:323.642
+loss: ap:113.707 an:489.314
+loss: ap:438.523 an:1044.5
+loss: ap:468.686 an:1722.91
+loss: ap:502.34 an:1496.6
+loss: ap:274.919 an:2863.63
+loss: ap:527.083 an:697.475
+loss: ap:160.838 an:1257.27
+loss: ap:117.461 an:623.596
+loss: ap:448.216 an:322.41
+loss: ap:155.351 an:805.515
+loss: ap:116.609 an:1275.52
+loss: ap:199.538 an:2360.97
+loss: ap:221.209 an:1033.77
+loss: ap:345.541 an:1237.26
+loss: ap:91.8011 an:990.329
+loss: ap:442.26 an:1416.71
+loss: ap:303.687 an:1622.85
+loss: ap:726.703 an:2962.79
+loss: ap:666.604 an:1644.88
+loss: ap:319.304 an:1526.9
+loss: ap:258.749 an:747.71
+loss: ap:132.96 an:1436.25
+loss: ap:479.849 an:708.952
+loss: ap:301.187 an:1801.35
+loss: ap:253.401 an:2046.3
+loss: ap:124.202 an:1574.2
+loss: ap:99.0867 an:1692.73
+loss: ap:362.388 an:228.216
+loss: ap:158.256 an:822.419
+loss: ap:118.376 an:892.388
+loss: ap:508.253 an:2518.07
+loss: ap:213.583 an:1585.17
+loss: ap:130.175 an:2090.33
+loss: ap:1311.7 an:3236.38
+loss: ap:213.703 an:1110.72
+loss: ap:483.862 an:466.778
+loss: ap:326.777 an:309.901
+loss: ap:263.199 an:2605.32
+loss: ap:137.4 an:759.377
+loss: ap:370.922 an:2977.75
+loss: ap:141.203 an:1755.77
+loss: ap:252.674 an:884.775
+loss: ap:193.972 an:864.407
+loss: ap:280.549 an:878.754
+loss: ap:294.751 an:1272.97
+loss: ap:239.289 an:2410.43
+loss: ap:390.089 an:546.841
+loss: ap:441.25 an:870.839
+loss: ap:76.1837 an:1842.48
+loss: ap:322.458 an:1142.28
+loss: ap:266.228 an:1789.35
+loss: ap:329.368 an:552.135
+loss: ap:170.501 an:711.699
+loss: ap:260.001 an:1966.42
+loss: ap:360.733 an:620.708
+loss: ap:174.276 an:1178.03
+loss: ap:245.879 an:1310.28
+loss: ap:75.6975 an:324.874
+loss: ap:40.3879 an:1717.9
+loss: ap:413.588 an:463.268
+loss: ap:382.615 an:532.42
+loss: ap:253.359 an:1052.41
+loss: ap:186.291 an:107.078
+loss: ap:151.178 an:256.309
+loss: ap:185.651 an:471.801
+loss: ap:311.296 an:2749.29
+loss: ap:231.857 an:2500.1
+loss: ap:201.483 an:645.831
+loss: ap:310.015 an:314.748
+loss: ap:113.556 an:1676.37
+loss: ap:225.298 an:1394.22
+loss: ap:232.631 an:2639.64
+loss: ap:115.442 an:1895.87
+loss: ap:211.054 an:2041.08
+loss: ap:393.426 an:507.151
+loss: ap:222.166 an:1079.18
+loss: ap:593.066 an:784.18
+loss: ap:830.308 an:1226.42
+loss: ap:217.236 an:1247.44
+loss: ap:412.176 an:1329.71
+loss: ap:82.6203 an:3239.04
+loss: ap:275.036 an:1339.73
+loss: ap:160.399 an:776.787
+loss: ap:204.514 an:1662.24
+loss: ap:186.544 an:2435.31
+loss: ap:196.604 an:493.893
+loss: ap:119.036 an:790.329
+loss: ap:297.544 an:214.495
+loss: ap:142.119 an:886.026
+loss: ap:237.664 an:430.568
+loss: ap:109.979 an:604.639
+loss: ap:231.01 an:1625.4
+loss: ap:261.676 an:1345.31
+loss: ap:306.225 an:594.554
+loss: ap:278.896 an:523.218
+loss: ap:267.356 an:988.735
+loss: ap:379.145 an:381.777
+loss: ap:498.7 an:2336.93
+loss: ap:299.619 an:1583.66
+loss: ap:99.7746 an:909.151
+loss: ap:206.12 an:1518.29
+loss: ap:145.071 an:2359.65
+loss: ap:218.999 an:266.904
+loss: ap:207.108 an:1956.59
+loss: ap:545.902 an:1991.75
+loss: ap:224.905 an:2123.08
+loss: ap:100.944 an:1165.18
+loss: ap:445.486 an:1500.18
+loss: ap:216.767 an:1188.25
+loss: ap:237.182 an:767.806
+loss: ap:327.792 an:1153.25
+loss: ap:650.787 an:2117.29
+loss: ap:126.834 an:2326.92
+loss: ap:224.348 an:991.945
+loss: ap:238.477 an:3226.66
+loss: ap:222.176 an:867.558
+loss: ap:114.667 an:610.476
+loss: ap:474.212 an:1049.61
+loss: ap:219.185 an:804.335
+loss: ap:172.088 an:363.721
+loss: ap:231.075 an:968.112
+loss: ap:280.026 an:1183.14
+loss: ap:197.417 an:609.581
+loss: ap:257.199 an:1379.2
+loss: ap:272.484 an:763.398
+loss: ap:145.347 an:832.53
+loss: ap:325.099 an:1831.69
+loss: ap:134.873 an:475.309
+loss: ap:192.558 an:279.859
+loss: ap:270.287 an:681.085
+loss: ap:214.516 an:1222.95
+loss: ap:304.602 an:3924.06
+loss: ap:202.894 an:407.21
+loss: ap:278.337 an:1146.25
+loss: ap:81.3083 an:1373.63
+loss: ap:165.445 an:745.762
+loss: ap:391.697 an:1907.92
+loss: ap:342.429 an:1207.84
+loss: ap:113.858 an:1384.4
+loss: ap:583.503 an:1431.4
+loss: ap:225.539 an:358.753
+loss: ap:161.72 an:1168.61
+loss: ap:192.084 an:1219.67
+loss: ap:150.686 an:1015.09
+loss: ap:130.536 an:1981.33
+loss: ap:234.818 an:1194.84
+loss: ap:137.186 an:499.711
+loss: ap:250.24 an:1214.03
+loss: ap:339.242 an:1612.41
+loss: ap:123.975 an:1413.93
+loss: ap:129.286 an:1310.2
+loss: ap:275.29 an:755.03
+loss: ap:407.754 an:1153.97
+loss: ap:402.262 an:2444.43
+loss: ap:119.262 an:1840.87
+loss: ap:246.132 an:724.688
+loss: ap:224.85 an:495.831
+loss: ap:190.552 an:1284.33
+loss: ap:647.481 an:2363.04
+loss: ap:259.352 an:649.763
+loss: ap:571.805 an:2320.05
+loss: ap:429.933 an:1033.95
+loss: ap:236.661 an:1769.0
+loss: ap:444.651 an:1215.36
+loss: ap:142.578 an:2348.78
+loss: ap:186.483 an:748.638
+loss: ap:256.558 an:2671.88
+loss: ap:268.983 an:2609.31
+loss: ap:174.284 an:624.12
+loss: ap:397.432 an:1515.49
+loss: ap:620.17 an:1796.77
+loss: ap:108.639 an:1161.41
+loss: ap:232.333 an:1721.32
+loss: ap:330.428 an:686.977
+loss: ap:269.736 an:1463.19
+loss: ap:378.363 an:1364.2
+loss: ap:475.58 an:2958.68
+loss: ap:169.431 an:242.831
+loss: ap:521.819 an:2071.56
+loss: ap:263.116 an:847.395
+loss: ap:368.455 an:2443.29
+loss: ap:145.48 an:2051.07
+loss: ap:431.258 an:1979.34
+loss: ap:150.075 an:251.161
+loss: ap:440.4 an:1552.7
+loss: ap:863.288 an:1842.98
+loss: ap:309.876 an:1214.79
+loss: ap:417.984 an:1251.72
+loss: ap:304.287 an:693.515
+loss: ap:201.305 an:1012.13
+loss: ap:134.24 an:1165.15
+loss: ap:347.6 an:970.009
+loss: ap:619.683 an:1283.41
+loss: ap:392.712 an:920.873
+loss: ap:290.622 an:1707.52
+loss: ap:452.848 an:1245.88
+loss: ap:459.901 an:996.241
+loss: ap:461.785 an:1180.79
+loss: ap:311.141 an:1509.93
+loss: ap:325.764 an:1212.99
+loss: ap:259.945 an:1726.54
+loss: ap:279.586 an:437.529
+loss: ap:425.437 an:1848.55
+loss: ap:140.023 an:1141.37
+loss: ap:173.572 an:1133.99
+loss: ap:175.555 an:1243.61
+loss: ap:848.107 an:1140.46
+loss: ap:196.354 an:1811.07
+loss: ap:139.027 an:2531.21
+loss: ap:240.316 an:1077.09
+loss: ap:206.328 an:1825.7
+loss: ap:237.277 an:923.592
+loss: ap:294.597 an:1128.5
+loss: ap:255.005 an:2738.3
+loss: ap:349.47 an:601.919
+loss: ap:116.359 an:1306.77
+loss: ap:106.453 an:777.512
+loss: ap:341.859 an:981.627
+loss: ap:352.995 an:815.022
+loss: ap:160.48 an:1861.34
+loss: ap:163.159 an:1434.75
+loss: ap:349.813 an:1401.93
+loss: ap:314.972 an:897.134
+loss: ap:427.882 an:1040.7
+loss: ap:257.025 an:1091.84
+loss: ap:167.816 an:1044.2
+loss: ap:254.53 an:1468.74
+loss: ap:384.539 an:1971.01
+loss: ap:138.831 an:1212.7
+loss: ap:306.237 an:2662.67
+loss: ap:291.813 an:975.667
+loss: ap:237.177 an:555.117
+loss: ap:362.547 an:1573.51
+loss: ap:158.523 an:1189.33
+loss: ap:328.893 an:854.702
+loss: ap:294.468 an:1529.92
+loss: ap:234.745 an:1504.27
+loss: ap:349.494 an:1143.24
+loss: ap:233.031 an:117.144
+loss: ap:340.251 an:1090.75
+loss: ap:194.257 an:1237.93
+loss: ap:129.585 an:895.435
+loss: ap:166.827 an:2213.2
+loss: ap:326.377 an:471.029
+loss: ap:351.692 an:1044.53
+loss: ap:211.228 an:1795.19
+loss: ap:123.019 an:964.955
+loss: ap:197.833 an:612.987
+loss: ap:178.166 an:1641.13
+loss: ap:113.671 an:1131.86
+loss: ap:137.04 an:1178.28
+loss: ap:238.963 an:304.737
+loss: ap:141.04 an:1145.17
+loss: ap:334.982 an:2369.13
+loss: ap:172.273 an:3083.76
+loss: ap:398.658 an:261.658
+loss: ap:102.842 an:856.705
+loss: ap:150.041 an:2000.45
+loss: ap:362.272 an:2029.94
+loss: ap:574.867 an:447.023
+loss: ap:255.187 an:3333.75
+loss: ap:708.173 an:3161.78
+loss: ap:430.854 an:1347.56
+loss: ap:79.2885 an:1289.76
+loss: ap:269.101 an:1902.89
+loss: ap:130.232 an:1395.17
+loss: ap:315.927 an:331.99
+loss: ap:132.416 an:1918.57
+loss: ap:105.858 an:1205.77
+loss: ap:120.51 an:601.651
+loss: ap:502.014 an:3348.86
+loss: ap:455.251 an:2622.83
+loss: ap:466.124 an:2952.09
+loss: ap:205.082 an:1266.04
+loss: ap:314.523 an:640.789
+loss: ap:214.363 an:866.016
+loss: ap:358.312 an:1818.18
+loss: ap:163.343 an:2705.28
+loss: ap:531.425 an:2891.24
+loss: ap:121.672 an:751.48
+loss: ap:143.735 an:775.017
+loss: ap:241.622 an:1557.14
+loss: ap:458.569 an:513.672
+loss: ap:670.696 an:2124.27
+loss: ap:538.657 an:1623.49
+loss: ap:277.682 an:1319.36
+loss: ap:471.085 an:1276.28
+loss: ap:184.689 an:1233.36
+loss: ap:398.322 an:831.939
+loss: ap:166.568 an:1698.81
+loss: ap:321.873 an:1689.89
+loss: ap:169.702 an:2242.17
+loss: ap:146.786 an:831.292
+loss: ap:178.89 an:1302.13
+loss: ap:223.434 an:2736.34
+loss: ap:314.414 an:2745.63
+loss: ap:590.748 an:1928.48
+loss: ap:135.095 an:1065.78
+loss: ap:251.968 an:1975.85
+loss: ap:293.046 an:1756.42
+loss: ap:289.365 an:2021.27
+loss: ap:511.073 an:2878.61
+loss: ap:330.535 an:906.065
+loss: ap:325.027 an:1497.02
+loss: ap:551.037 an:837.205
+loss: ap:110.538 an:896.264
+loss: ap:294.981 an:1989.32
+loss: ap:269.663 an:1599.11
+loss: ap:274.321 an:1492.16
+loss: ap:251.278 an:520.311
+loss: ap:340.128 an:822.09
+loss: ap:229.086 an:38.258
+loss: ap:288.033 an:660.476
+loss: ap:75.5326 an:1180.26
+loss: ap:178.424 an:637.07
+loss: ap:147.127 an:643.972
+loss: ap:266.438 an:2253.07
+loss: ap:144.366 an:616.012
+loss: ap:236.073 an:804.725
+loss: ap:404.75 an:781.566
+loss: ap:379.369 an:932.902
+loss: ap:307.423 an:1764.02
+loss: ap:303.528 an:2542.68
+loss: ap:324.548 an:1205.3
+loss: ap:247.225 an:1028.35
+loss: ap:240.268 an:1420.4
+loss: ap:339.624 an:2780.86
+loss: ap:224.983 an:1328.72
+loss: ap:246.294 an:1592.03
+loss: ap:246.33 an:742.594
+loss: ap:113.309 an:2084.11
+loss: ap:125.994 an:217.581
+loss: ap:130.879 an:1324.03
+loss: ap:717.04 an:1174.9
+loss: ap:370.858 an:1360.7
+loss: ap:142.985 an:1012.2
+loss: ap:178.52 an:2129.07
+loss: ap:234.499 an:963.853
+loss: ap:311.845 an:1354.02
+loss: ap:70.9764 an:1433.54
+loss: ap:366.071 an:697.134
+loss: ap:266.761 an:1972.66
+loss: ap:480.605 an:645.179
+loss: ap:225.188 an:1069.91
+loss: ap:239.413 an:1567.14
+loss: ap:88.3487 an:2281.61
+loss: ap:506.608 an:1708.84
+loss: ap:289.467 an:1184.86
+loss: ap:428.221 an:2128.99
+loss: ap:440.844 an:330.223
+loss: ap:80.4578 an:1571.82
+loss: ap:446.905 an:140.082
+loss: ap:64.686 an:277.195
+loss: ap:193.783 an:1406.05
+loss: ap:185.262 an:691.309
+loss: ap:428.573 an:487.216
+loss: ap:147.175 an:673.019
+loss: ap:146.184 an:1505.45
+loss: ap:612.785 an:2559.18
+loss: ap:355.736 an:1428.46
+loss: ap:527.01 an:2161.14
+loss: ap:204.621 an:1434.87
+loss: ap:391.848 an:1994.7
+loss: ap:792.262 an:2994.43
+loss: ap:326.565 an:2470.35
+loss: ap:111.835 an:1397.7
+loss: ap:102.257 an:979.344
+loss: ap:399.702 an:1184.03
+loss: ap:118.803 an:525.388
+loss: ap:268.085 an:1192.09
+loss: ap:724.23 an:1528.7
+loss: ap:182.684 an:1523.9
+loss: ap:122.005 an:1241.83
+loss: ap:527.093 an:2422.89
+loss: ap:95.2591 an:808.618
+loss: ap:426.488 an:1105.48
+loss: ap:212.388 an:1773.24
+loss: ap:539.234 an:713.453
+loss: ap:233.795 an:1421.21
+loss: ap:531.164 an:4163.71
+loss: ap:153.504 an:1233.04
+loss: ap:265.282 an:199.59
+loss: ap:224.553 an:842.698
+loss: ap:306.819 an:912.568
+loss: ap:333.465 an:591.218
+loss: ap:132.158 an:355.906
+loss: ap:230.501 an:650.688
+loss: ap:596.605 an:1815.33
+loss: ap:294.908 an:1242.13
+loss: ap:396.118 an:610.842
+loss: ap:313.351 an:398.264
+loss: ap:130.823 an:1228.04
+loss: ap:159.486 an:511.211
+loss: ap:338.871 an:1592.3
+loss: ap:469.775 an:1709.6
+loss: ap:603.686 an:2162.08
+loss: ap:136.99 an:850.073
+loss: ap:65.1495 an:944.13
+loss: ap:401.878 an:674.839
+loss: ap:191.827 an:405.192
+loss: ap:755.219 an:2488.32
+loss: ap:167.485 an:601.129
+loss: ap:302.924 an:1098.53
+loss: ap:440.459 an:562.456
+loss: ap:324.999 an:744.64
+loss: ap:1311.29 an:2354.72
+loss: ap:504.311 an:273.708
+loss: ap:694.744 an:1750.36
+loss: ap:203.879 an:2133.55
+loss: ap:251.978 an:1080.77
+loss: ap:145.037 an:506.028
+loss: ap:333.781 an:992.958
+loss: ap:442.178 an:274.083
+loss: ap:200.273 an:1052.14
+loss: ap:161.541 an:1732.44
+loss: ap:320.752 an:1100.58
+loss: ap:383.295 an:211.501
+loss: ap:377.041 an:1461.97
+loss: ap:123.189 an:363.313
+loss: ap:665.392 an:1189.96
+loss: ap:268.215 an:1089.71
+loss: ap:360.393 an:2585.73
+loss: ap:618.565 an:1686.76
+loss: ap:295.6 an:2270.54
+loss: ap:298.611 an:1104.89
+loss: ap:231.8 an:765.549
+loss: ap:498.612 an:911.779
+loss: ap:130.998 an:808.704
+loss: ap:146.173 an:3045.59
+loss: ap:239.718 an:376.004
+loss: ap:257.831 an:760.717
+loss: ap:541.858 an:1620.28
+loss: ap:586.88 an:2449.94
+loss: ap:399.82 an:1244.77
+loss: ap:405.352 an:1058.1
+loss: ap:125.679 an:1894.69
+loss: ap:194.995 an:875.182
+loss: ap:514.025 an:988.702
+loss: ap:262.634 an:518.489
+loss: ap:244.331 an:1851.9
+loss: ap:418.93 an:772.737
+loss: ap:296.885 an:1123.41
+loss: ap:269.225 an:643.383
+loss: ap:503.873 an:1418.83
+loss: ap:423.165 an:1066.46
+loss: ap:57.514 an:420.703
+loss: ap:182.522 an:944.781
+loss: ap:361.927 an:1087.72
+loss: ap:388.561 an:1460.32
+loss: ap:1339.36 an:2760.51
+loss: ap:155.075 an:1364.05
+loss: ap:481.266 an:983.085
+loss: ap:204.793 an:606.091
+loss: ap:171.33 an:735.856
+loss: ap:139.58 an:2046.08
+loss: ap:93.0857 an:963.416
+loss: ap:250.965 an:420.463
+loss: ap:514.399 an:1600.56
+loss: ap:297.213 an:844.165
+loss: ap:470.366 an:2728.34
+loss: ap:209.42 an:793.162
+loss: ap:410.604 an:1145.08
+loss: ap:89.8046 an:395.139
+loss: ap:271.23 an:1686.13
+loss: ap:216.823 an:422.06
+loss: ap:225.028 an:905.753
+loss: ap:184.198 an:920.827
+loss: ap:49.1951 an:2055.76
+loss: ap:1027.93 an:2089.88
+loss: ap:170.3 an:1121.65
+loss: ap:105.999 an:194.992
+loss: ap:245.522 an:601.665
+loss: ap:235.322 an:360.57
+loss: ap:230.852 an:1273.16
+loss: ap:206.188 an:1683.02
+loss: ap:214.938 an:803.276
+loss: ap:214.524 an:1249.43
+loss: ap:584.12 an:1674.46
+loss: ap:331.216 an:1034.57
+loss: ap:387.333 an:1113.78
+loss: ap:162.711 an:1138.2
+loss: ap:511.796 an:2441.31
+loss: ap:305.75 an:3181.51
+loss: ap:167.869 an:780.556
+loss: ap:211.004 an:789.788
+loss: ap:226.109 an:1086.5
+loss: ap:198.725 an:642.019
+loss: ap:126.515 an:901.853
+loss: ap:265.963 an:2644.86
+loss: ap:255.836 an:1109.5
+loss: ap:1135.61 an:2746.42
+loss: ap:140.336 an:917.521
+loss: ap:310.613 an:1558.25
+loss: ap:420.887 an:2047.33
+loss: ap:279.277 an:2261.42
+loss: ap:341.23 an:633.306
+loss: ap:282.358 an:684.352
+loss: ap:229.16 an:409.458
+loss: ap:253.733 an:1687.04
+loss: ap:607.344 an:1929.15
+loss: ap:183.475 an:1103.43
+loss: ap:455.09 an:948.356
+loss: ap:235.6 an:1100.85
+loss: ap:218.744 an:564.909
+loss: ap:103.531 an:3000.07
+loss: ap:531.47 an:681.851
+loss: ap:35.6659 an:1717.88
+loss: ap:374.616 an:1446.59
+loss: ap:271.391 an:1469.27
+loss: ap:159.814 an:1036.79
+loss: ap:145.2 an:782.626
+loss: ap:387.304 an:1366.67
+loss: ap:321.005 an:1550.38
+loss: ap:340.481 an:1142.81
+loss: ap:171.362 an:245.108
+loss: ap:231.711 an:1130.2
+loss: ap:363.424 an:1222.39
+loss: ap:224.065 an:1966.06
+loss: ap:128.624 an:1527.88
+loss: ap:220.911 an:816.92
+loss: ap:120.689 an:1198.28
+loss: ap:105.241 an:751.908
+loss: ap:297.017 an:812.402
+loss: ap:425.258 an:2130.94
+loss: ap:206.645 an:1501.7
+loss: ap:364.247 an:1131.33
+loss: ap:495.953 an:1649.99
+loss: ap:128.284 an:284.134
+loss: ap:444.178 an:1291.41
+loss: ap:85.6381 an:1389.21
+loss: ap:265.487 an:696.834
+loss: ap:119.69 an:658.689
+loss: ap:871.327 an:1838.73
+loss: ap:79.4695 an:1281.2
+loss: ap:187.009 an:805.074
+loss: ap:987.291 an:1033.83
+loss: ap:269.871 an:1003.5
+loss: ap:310.778 an:190.935
+loss: ap:1137.5 an:1431.07
+loss: ap:162.265 an:1039.83
+loss: ap:209.839 an:1367.28
+loss: ap:485.806 an:1606.81
+loss: ap:99.323 an:1741.77
+loss: ap:255.601 an:1400.78
+loss: ap:98.3922 an:806.218
+loss: ap:398.936 an:1679.57
+loss: ap:374.649 an:3010.33
+loss: ap:335.65 an:394.158
+loss: ap:418.085 an:1793.24
+loss: ap:214.001 an:1369.68
+loss: ap:284.068 an:1654.42
+loss: ap:305.136 an:1006.36
+loss: ap:141.361 an:614.945
+loss: ap:84.4764 an:553.205
+loss: ap:158.791 an:904.937
+loss: ap:147.281 an:1580.03
+loss: ap:367.097 an:1212.01
+loss: ap:117.606 an:740.444
+loss: ap:272.513 an:1742.55
+loss: ap:376.689 an:1637.24
+loss: ap:237.554 an:1625.07
+loss: ap:175.406 an:1975.32
+loss: ap:513.611 an:1195.08
+loss: ap:332.278 an:415.224
+loss: ap:204.14 an:780.459
+loss: ap:132.113 an:1409.76
+loss: ap:282.496 an:1631.49
+loss: ap:179.213 an:1515.7
+loss: ap:625.719 an:839.15
+loss: ap:361.699 an:1339.54
+loss: ap:95.6501 an:1251.31
+loss: ap:494.07 an:1420.14
+loss: ap:188.74 an:1739.03
+loss: ap:211.757 an:1597.54
+loss: ap:234.181 an:1231.62
+loss: ap:165.222 an:2629.03
+loss: ap:462.485 an:2656.59
+loss: ap:145.017 an:955.034
+loss: ap:176.785 an:647.339
+loss: ap:705.167 an:1249.82
+loss: ap:78.2261 an:866.118
+loss: ap:545.314 an:822.201
+loss: ap:387.948 an:2513.21
+loss: ap:665.552 an:1797.1
+loss: ap:394.134 an:125.005
+loss: ap:380.841 an:1880.38
+loss: ap:161.686 an:725.3
+loss: ap:154.587 an:1076.93
+loss: ap:306.253 an:3267.42
+loss: ap:128.689 an:1046.26
+loss: ap:285.481 an:1291.52
+loss: ap:288.602 an:947.328
+loss: ap:349.888 an:2201.28
+loss: ap:266.313 an:735.466
+loss: ap:310.998 an:1632.42
+loss: ap:149.247 an:767.797
+loss: ap:221.87 an:2433.27
+loss: ap:345.355 an:926.976
+loss: ap:422.111 an:590.275
+loss: ap:101.547 an:723.012
+loss: ap:367.38 an:696.723
+loss: ap:247.382 an:614.733
+loss: ap:646.977 an:1049.78
+loss: ap:461.173 an:1592.42
+loss: ap:128.461 an:1433.04
+loss: ap:172.776 an:1591.66
+loss: ap:110.803 an:2036.85
+loss: ap:326.648 an:1451.22
+loss: ap:268.885 an:721.13
+loss: ap:132.538 an:1285.81
+loss: ap:192.748 an:1476.28
+loss: ap:72.4209 an:424.519
+loss: ap:451.073 an:670.31
+loss: ap:367.121 an:2928.74
+loss: ap:398.694 an:342.507
+loss: ap:114.607 an:1911.15
+loss: ap:136.404 an:703.106
+loss: ap:400.232 an:1752.12
+loss: ap:350.085 an:373.479
+loss: ap:180.7 an:633.262
+loss: ap:416.92 an:1063.29
+loss: ap:393.433 an:1610.04
+loss: ap:128.583 an:3117.6
+loss: ap:291.564 an:843.839
+loss: ap:786.324 an:3587.46
+loss: ap:298.297 an:983.834
+loss: ap:391.039 an:588.088
+loss: ap:390.009 an:1926.89
+loss: ap:579.59 an:197.993
+loss: ap:653.663 an:3447.66
+loss: ap:341.485 an:84.9093
+loss: ap:315.901 an:908.973
+loss: ap:98.5102 an:1601.07
+loss: ap:58.9016 an:680.386
+loss: ap:83.5653 an:2205.55
+loss: ap:454.65 an:1106.01
+loss: ap:238.012 an:958.747
+loss: ap:201.695 an:810.546
+loss: ap:808.693 an:1424.06
+loss: ap:287.818 an:2048.79
+loss: ap:486.665 an:404.298
+loss: ap:163.433 an:696.97
+loss: ap:555.454 an:805.4
+loss: ap:323.115 an:871.756
+loss: ap:283.852 an:1628.74
+loss: ap:116.346 an:1641.5
+loss: ap:324.121 an:3397.56
+loss: ap:210.387 an:523.39
+loss: ap:368.099 an:1578.42
+loss: ap:83.4107 an:1529.64
+loss: ap:87.3942 an:1448.57
+loss: ap:234.581 an:888.866
+loss: ap:356.181 an:2703.82
+loss: ap:236.107 an:1538.09
+loss: ap:434.17 an:1903.16
+loss: ap:343.652 an:2362.76
+loss: ap:160.974 an:1442.57
+loss: ap:520.881 an:829.317
+loss: ap:497.243 an:1320.92
+loss: ap:312.683 an:1389.78
+loss: ap:294.6 an:1540.45
+loss: ap:442.413 an:1009.94
+loss: ap:169.663 an:1262.87
+loss: ap:124.357 an:552.619
+loss: ap:139.933 an:1675.01
+loss: ap:178.653 an:2288.13
+loss: ap:204.291 an:788.615
+loss: ap:181.326 an:706.925
+loss: ap:292.281 an:941.828
+loss: ap:253.102 an:864.148
+loss: ap:324.074 an:310.161
+loss: ap:159.449 an:1243.06
+loss: ap:176.85 an:258.558
+loss: ap:139.627 an:878.053
+loss: ap:147.863 an:2177.05
+loss: ap:260.344 an:2036.45
+loss: ap:559.6 an:1288.07
+loss: ap:178.541 an:244.008
+loss: ap:326.565 an:1652.33
+loss: ap:138.821 an:1190.47
+loss: ap:395.954 an:1255.58
+loss: ap:220.828 an:1264.92
+loss: ap:99.6573 an:1734.42
+loss: ap:392.719 an:703.317
+loss: ap:491.783 an:958.892
+loss: ap:163.365 an:802.638
+loss: ap:636.727 an:601.132
+loss: ap:167.69 an:417.753
+loss: ap:421.568 an:2508.29
+loss: ap:459.154 an:1640.08
+loss: ap:165.028 an:676.667
+loss: ap:143.022 an:866.452
+loss: ap:202.006 an:870.899
+loss: ap:295.006 an:1373.85
+loss: ap:432.194 an:362.731
+loss: ap:45.3364 an:212.832
+loss: ap:352.826 an:641.976
+loss: ap:302.387 an:1351.44
+loss: ap:138.854 an:639.805
+loss: ap:161.229 an:493.59
+loss: ap:262.116 an:939.193
+loss: ap:324.556 an:2111.3
+loss: ap:529.036 an:1102.04
+loss: ap:298.847 an:1776.95
+loss: ap:625.452 an:3187.55
+loss: ap:422.328 an:1436.6
+loss: ap:124.311 an:1380.18
+loss: ap:95.7747 an:1227.07
+loss: ap:181.446 an:850.276
+loss: ap:734.897 an:120.86
+loss: ap:233.091 an:821.219
+loss: ap:91.4098 an:936.166
+loss: ap:590.034 an:1060.09
+loss: ap:288.162 an:423.522
+loss: ap:181.386 an:3145.58
+loss: ap:261.785 an:1208.76
+loss: ap:253.641 an:719.517
+loss: ap:206.414 an:1310.19
+loss: ap:111.639 an:1438.78
+loss: ap:120.466 an:402.853
+loss: ap:451.265 an:956.122
+loss: ap:136.688 an:702.22
+loss: ap:208.492 an:622.188
+loss: ap:473.734 an:784.828
+loss: ap:323.166 an:1806.75
+loss: ap:290.73 an:444.049
+loss: ap:88.4492 an:1384.68
+loss: ap:338.559 an:1660.74
+loss: ap:447.467 an:1264.18
+loss: ap:377.92 an:451.853
+loss: ap:212.063 an:1351.81
+loss: ap:177.649 an:1443.94
+loss: ap:210.403 an:688.161
+loss: ap:268.979 an:2721.99
+loss: ap:139.374 an:2274.79
+loss: ap:34.544 an:1444.24
+loss: ap:292.987 an:613.939
+loss: ap:137.945 an:2484.04
+loss: ap:193.666 an:1330.34
+loss: ap:123.888 an:1664.03
+loss: ap:606.529 an:2730.61
+loss: ap:104.617 an:789.028
+loss: ap:507.037 an:1439.06
+loss: ap:286.997 an:2019.4
+loss: ap:285.288 an:1840.68
+loss: ap:676.819 an:1654.34
+loss: ap:483.925 an:1771.15
+loss: ap:322.722 an:1109.7
+loss: ap:109.219 an:1247.36
+loss: ap:84.7032 an:1594.23
+loss: ap:101.151 an:1032.41
+loss: ap:468.648 an:1438.49
+loss: ap:48.5474 an:1889.43
+loss: ap:143.651 an:2013.96
+loss: ap:360.89 an:1473.27
+loss: ap:764.293 an:1338.86
+loss: ap:195.271 an:671.723
+loss: ap:156.562 an:1462.89
+loss: ap:467.139 an:1054.61
+loss: ap:586.394 an:729.423
+loss: ap:245.725 an:5
